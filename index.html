@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AI 스마트 조달 어드바이저 - 네거티브 조달로 여는 공공부문 혁신">
+    <meta name="keywords" content="AI, 조달, 공공조달, 네거티브 조달, 조달청">
+    <title>AI 스마트 조달 어드바이저 | 2025 공공조달 AI 활용 아이디어</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
+    
+    <!-- External Libraries -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <link rel="stylesheet" href="assets/css/animations.css">
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <p>AI 시스템 초기화 중...</p>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header" role="banner">
+        <nav class="navbar" aria-label="메인 네비게이션">
+            <div class="nav-container">
+                <div class="nav-brand">
+                    <img src="assets/images/logo.png" alt="AI 스마트 조달 어드바이저" class="logo">
+                    <h1 class="brand-text">AI 스마트 조달 어드바이저</h1>
+                </div>
+                
+                <div class="nav-menu">
+                    <a href="#home" class="nav-link active" data-section="home">
+                        <i class="fas fa-home"></i>
+                        <span>홈</span>
+                    </a>
+                    <a href="#modules" class="nav-link" data-section="modules">
+                        <i class="fas fa-brain"></i>
+                        <span>AI 모듈</span>
+                    </a>
+                    <a href="#demo" class="nav-link" data-section="demo">
+                        <i class="fas fa-play-circle"></i>
+                        <span>데모</span>
+                    </a>
+                    <a href="#about" class="nav-link" data-section="about">
+                        <i class="fas fa-info-circle"></i>
+                        <span>소개</span>
+                    </a>
+                </div>
+                
+                <div class="nav-actions">
+                    <button class="btn btn-primary" id="startDemoBtn">
+                        <i class="fas fa-rocket"></i>
+                        체험하기
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section id="home" class="hero-section" data-aos="fade-up">
+            <div class="hero-container">
+                <div class="hero-content">
+                    <div class="hero-badge">
+                        <span class="badge-icon">🏆</span>
+                        <span class="badge-text">2025 공공조달 AI 활용 아이디어 공모전</span>
+                    </div>
+                    
+                    <h1 class="hero-title">
+                        <span class="title-main">AI 스마트 조달 어드바이저</span>
+                        <span class="title-sub">네거티브 조달로 여는 공공부문 혁신</span>
+                    </h1>
+                    
+                    <p class="hero-description">
+                        조달청의 검증된 네거티브 방식을 전체 조달 과정으로 확장하여<br>
+                        <strong>불필요한 조달 30% 방지</strong>, <strong>연간 2조원 절약</strong> 효과 창출
+                    </p>
+                    
+                    <!-- 실시간 절약 효과 카운터 -->
+                    <div class="savings-counter" data-aos="zoom-in" data-aos-delay="300">
+                        <div class="counter-container">
+                            <div class="counter-label">실시간 예상 절약 효과</div>
+                            <div class="counter-value">
+                                <span id="savingsAmount" class="amount">0</span>
+                                <span class="currency">조원</span>
+                            </div>
+                            <div class="counter-details">
+                                <div class="detail-item">
+                                    <span class="detail-label">절약률</span>
+                                    <span class="detail-value" id="savingsRate">0%</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">처리된 요청</span>
+                                    <span class="detail-value" id="processedRequests">0건</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">참여 기관</span>
+                                    <span class="detail-value" id="participatingAgencies">0개</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="hero-actions">
+                        <button class="btn btn-primary btn-large" id="heroStartBtn">
+                            <i class="fas fa-play"></i>
+                            지금 체험하기
+                        </button>
+                        <button class="btn btn-outline btn-large" id="heroLearnBtn">
+                            <i class="fas fa-book"></i>
+                            더 알아보기
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="hero-visual">
+                    <div class="visual-container">
+                        <!-- AI 네트워크 시각화 -->
+                        <div class="ai-network" id="aiNetwork">
+                            <div class="network-node central" data-tooltip="중앙 AI 허브">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <div class="network-node module" data-module="necessity" data-tooltip="필요성 검증 AI">
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <div class="network-node module" data-module="sharing" data-tooltip="시스템 연결 AI">
+                                <i class="fas fa-share-alt"></i>
+                            </div>
+                            <div class="network-node module" data-module="timing" data-tooltip="타이밍 최적화 AI">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="network-node module" data-module="esg" data-tooltip="ESG 평가 AI">
+                                <i class="fas fa-leaf"></i>
+                            </div>
+                            <div class="network-node module" data-module="expert" data-tooltip="전문가 역량 AI">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI Modules Grid Section -->
+        <section id="modules" class="modules-section" data-aos="fade-up">
+            <div class="section-container">
+                <div class="section-header">
+                    <h2 class="section-title">5대 AI 모듈</h2>
+                    <p class="section-subtitle">업계 요구사항을 완벽하게 반영한 통합 AI 시스템</p>
+                </div>
+                
+                <div class="modules-grid">
+                    <!-- Module 1: 필요성 검증 AI -->
+                    <div class="module-card" data-module="necessity" data-aos="zoom-in" data-aos-delay="100">
+                        <div class="module-header">
+                            <div class="module-icon">
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <div class="module-info">
+                                <h3 class="module-title">필요성 검증 AI</h3>
+                                <div class="module-budget">예산: 1.5억원</div>
+                            </div>
+                            <div class="module-status active" data-status="active">
+                                <span class="status-dot"></span>
+                                <span class="status-text">활성</span>
+                            </div>
+                        </div>
+                        
+                        <div class="module-description">
+                            <p><strong>업계 요구:</strong> "조달 업무에 맞춤화된 디지털 기술의 선별 기준 정립"</p>
+                            <p><strong>우리 솔루션:</strong> 조달 요청서 분석으로 진짜 필요성 vs 관행적 구매 구분</p>
+                        </div>
+                        
+                        <div class="module-metrics">
+                            <div class="metric-item">
+                                <span class="metric-label">절약 효과</span>
+                                <span class="metric-value">30%</span>
+                            </div>
+                            <div class="metric-item">
+                                <span class="metric-label">신뢰도</span>
+                                <span class="metric-value">85%</span>
+                            </div>
+                        </div>
+                        
+                        <div class="module-actions">
+                            <button class="btn btn-primary btn-small" data-action="demo" data-module="necessity">
+                                <i class="fas fa-play"></i>
+                                체험하기
+                            </button>
+                            <button class="btn btn-outline btn-small" data-action="learn" data-module="necessity">
+                                <i class="fas fa-info"></i>
+                                상세보기
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Module 2: 통합 시스템 연결 AI -->
+                    <div class="module-card" data-module="sharing" data-aos="zoom-in" data-aos-delay="200">
+                        <div class="module-header">
+                            <div class="module-icon">
+                                <i class="fas fa-share-alt"></i>
+                            </div>
+                            <div class="module-info">
+                                <h3 class="module-title">통합 시스템 연결 AI</h3>
+                                <div class="module-budget">예산: 1.5억원</div>
+                            </div>
+                            <div class="module-status active" data-status="active">
+                                <span class="status-dot"></span>
+                                <span class="status-text">활성</span>
+                            </div>
+                        </div>
+                        
+                        <div class="module-description">
+                            <p><strong>업계 요구:</strong> "여러 기관에 흩어진 조달 시스템을 연결"</p>
+                            <p><strong>우리 솔루션:</strong> "정부판 카셰어링" - 7만 기관 간 장비/서비스 실시간 공유 매칭</p>
+                        </div>
+                        
+                        <div class="module-metrics">
+                            <div class="metric-item">
+                                <span class="metric-label">중복 방지</span>
+                                <span class="metric-value">90%</span>
+                            </div>
+                            <div class="metric-item">
+                                <span class="metric-label">활용률 향상</span>
+                                <span class="metric-value">200%</span>
+                            </div>
+                        </div>
+                        
+                        <div class="module-actions">
+                            <button class="btn btn-primary btn-small" data-action="demo" data-module="sharing">
+                                <i class="fas fa-play"></i>
+                                체험하기
+                            </button>
+                            <button class="btn btn-outline btn-small" data-action="learn" data-module="sharing">
+                                <i class="fas fa-info"></i>
+                                상세보기
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Module 3: 스마트 타이밍 AI -->
+                    <div class="module-card" data-module="timing" data-aos="zoom-in" data-aos-delay="300">
+                        <div class="module-header">
+                            <div class="module-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="module-info">
+                                <h3 class="module-title">스마트 타이밍 AI</h3>
+                                <div class="module-budget">예산: 1억원</div>
+                            </div>
+                            <div class="module-status active" data-status="active">
+                                <span class="status-dot"></span>
+                                <span class="status-text">활성</span>
+                            </div>
+                        </div>
+                        
+                        <div class="module-description">
+                            <p><strong>업계 요구:</strong> "시장참여자에게 의미 있는 데이터 개방"</p>
+                            <p><strong>우리 솔루션:</strong> "조달계의 블랙프라이데이" - 209조원 시장 최적 구매 시점 예측</p>
+                        </div>
+                        
+                        <div class="module-metrics">
+                            <div class="metric-item">
+                                <span class="metric-label">비용 절감</span>
+                                <span class="metric-value">15%</span>
+                            </div>
+                            <div class="metric-item">
+                                <span class="metric-label">예측 정확도</span>
+                                <span class="metric-value">92%</span>
+                            </div>
+                        </div>
+                        
+                        <div class="module-actions">
+                            <button class="btn btn-primary btn-small" data-action="demo" data-module="timing">
+                                <i class="fas fa-play"></i>
+                                체험하기
+                            </button>
+                            <button class="btn btn-outline btn-small" data-action="learn" data-module="timing">
+                                <i class="fas fa-info"></i>
+                                상세보기
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Module 4: ESG 스마트 평가 AI -->
+                    <div class="module-card" data-module="esg" data-aos="zoom-in" data-aos-delay="400">
+                        <div class="module-header">
+                            <div class="module-icon">
+                                <i class="fas fa-leaf"></i>
+                            </div>
+                            <div class="module-info">
+                                <h3 class="module-title">ESG 스마트 평가 AI</h3>
+                                <div class="module-budget">예산: 0.5억원</div>
+                            </div>
+                            <div class="module-status active" data-status="active">
+                                <span class="status-dot"></span>
+                                <span class="status-text">활성</span>
+                            </div>
+                        </div>
+                        
+                        <div class="module-description">
+                            <p><strong>업계 요구:</strong> "공공조달의 적극적인 사회적 역할"</p>
+                            <p><strong>우리 솔루션:</strong> "착한 조달 AI 계산기" - 환경·사회적 가치 자동 평가</p>
+                        </div>
+                        
+                        <div class="module-metrics">
+                            <div class="metric-item">
+                                <span class="metric-label">ESG 점수</span>
+                                <span class="metric-value">+40%</span>
+                            </div>
+                            <div class="metric-item">
+                                <span class="metric-label">지속가능성</span>
+                                <span class="metric-value">98%</span>
+                            </div>
+                        </div>
+                        
+                        <div class="module-actions">
+                            <button class="btn btn-primary btn-small" data-action="demo" data-module="esg">
+                                <i class="fas fa-play"></i>
+                                체험하기
+                            </button>
+                            <button class="btn btn-outline btn-small" data-action="learn" data-module="esg">
+                                <i class="fas fa-info"></i>
+                                상세보기
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Module 5: 전문가 역량 강화 AI -->
+                    <div class="module-card" data-module="expert" data-aos="zoom-in" data-aos-delay="500">
+                        <div class="module-header">
+                            <div class="module-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div class="module-info">
+                                <h3 class="module-title">전문가 역량 강화 AI</h3>
+                                <div class="module-budget">예산: 0.5억원</div>
+                            </div>
+                            <div class="module-status active" data-status="active">
+                                <span class="status-dot"></span>
+                                <span class="status-text">활성</span>
+                            </div>
+                        </div>
+                        
+                        <div class="module-description">
+                            <p><strong>업계 요구:</strong> "AI 기술을 이해하고 해석할 수 있는 조달 전문가 확보"</p>
+                            <p><strong>우리 솔루션:</strong> 7만 기관 조달 담당자 AI 역량 자동 강화 시스템</p>
+                        </div>
+                        
+                        <div class="module-metrics">
+                            <div class="metric-item">
+                                <span class="metric-label">역량 향상</span>
+                                <span class="metric-value">300%</span>
+                            </div>
+                            <div class="metric-item">
+                                <span class="metric-label">오류 감소</span>
+                                <span class="metric-value">90%</span>
+                            </div>
+                        </div>
+                        
+                        <div class="module-actions">
+                            <button class="btn btn-primary btn-small" data-action="demo" data-module="expert">
+                                <i class="fas fa-play"></i>
+                                체험하기
+                            </button>
+                            <button class="btn btn-outline btn-small" data-action="learn" data-module="expert">
+                                <i class="fas fa-info"></i>
+                                상세보기
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Integration Report Card -->
+                    <div class="module-card report-card" data-aos="zoom-in" data-aos-delay="600">
+                        <div class="module-header">
+                            <div class="module-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="module-info">
+                                <h3 class="module-title">통합 분석 리포트</h3>
+                                <div class="module-budget">실시간 생성</div>
+                            </div>
+                            <div class="module-status generating" data-status="generating">
+                                <span class="status-dot"></span>
+                                <span class="status-text">생성중</span>
+                            </div>
+                        </div>
+                        
+                        <div class="module-description">
+                            <p><strong>기능:</strong> 5개 AI 모듈의 분석 결과를 통합하여 최종 조달 권고안 생성</p>
+                            <p><strong>포함 내용:</strong> 절약 효과, 위험 요소, 실행 계획, ROI 분석</p>
+                        </div>
+                        
+                        <div class="module-metrics">
+                            <div class="metric-item">
+                                <span class="metric-label">종합 절약률</span>
+                                <span class="metric-value" id="totalSavings">계산중...</span>
+                            </div>
+                            <div class="metric-item">
+                                <span class="metric-label">추천 신뢰도</span>
+                                <span class="metric-value" id="totalConfidence">계산중...</span>
+                            </div>
+                        </div>
+                        
+                        <div class="module-actions">
+                            <button class="btn btn-primary btn-small" id="generateReportBtn">
+                                <i class="fas fa-file-alt"></i>
+                                리포트 생성
+                            </button>
+                            <button class="btn btn-outline btn-small" id="downloadReportBtn" disabled>
+                                <i class="fas fa-download"></i>
+                                다운로드
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Real-time Statistics Section -->
+        <section id="statistics" class="statistics-section" data-aos="fade-up">
+            <div class="section-container">
+                <div class="section-header">
+                    <h2 class="section-title">실시간 통계</h2>
+                    <p class="section-subtitle">AI 시스템의 실시간 성과 지표</p>
+                </div>
+                
+                <div class="statistics-grid">
+                    <div class="stat-card large" data-aos="fade-up" data-aos-delay="100">
+                        <div class="stat-header">
+                            <h3>총 절약 효과</h3>
+                            <div class="stat-trend positive">
+                                <i class="fas fa-arrow-up"></i>
+                                <span>+23.5%</span>
+                            </div>
+                        </div>
+                        <div class="stat-value">
+                            <span class="value" id="totalSavingsAmount">1.94</span>
+                            <span class="unit">조원</span>
+                        </div>
+                        <div class="stat-chart" id="savingsChart"></div>
+                    </div>
+                    
+                    <div class="stat-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="stat-header">
+                            <h3>처리된 조달 요청</h3>
+                        </div>
+                        <div class="stat-value">
+                            <span class="value" id="processedCount">15,847</span>
+                            <span class="unit">건</span>
+                        </div>
+                        <div class="stat-detail">
+                            <span class="detail-text">오늘: +324건</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="stat-header">
+                            <h3>참여 기관</h3>
+                        </div>
+                        <div class="stat-value">
+                            <span class="value" id="agencyCount">2,156</span>
+                            <span class="unit">개</span>
+                        </div>
+                        <div class="stat-detail">
+                            <span class="detail-text">전체 대비 3.1%</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card" data-aos="fade-up" data-aos-delay="400">
+                        <div class="stat-header">
+                            <h3>AI 정확도</h3>
+                        </div>
+                        <div class="stat-value">
+                            <span class="value" id="accuracyRate">94.2</span>
+                            <span class="unit">%</span>
+                        </div>
+                        <div class="stat-detail">
+                            <span class="detail-text">지난주 대비 +2.1%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="about-section" data-aos="fade-up">
+            <div class="section-container">
+                <div class="about-content">
+                    <div class="about-text">
+                        <h2 class="section-title">네거티브 조달의 혁신</h2>
+                        <p class="section-subtitle">조달청의 검증된 성공 사례를 전체 조달 과정으로 확장</p>
+                        
+                        <div class="about-features">
+                            <div class="feature-item" data-aos="fade-right" data-aos-delay="100">
+                                <div class="feature-icon">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <div class="feature-content">
+                                    <h3>검증된 효과</h3>
+                                    <p>조달청 2024년 네거티브 방식 도입으로 8,000여 기업 부담 완화 성과 입증</p>
+                                </div>
+                            </div>
+                            
+                            <div class="feature-item" data-aos="fade-right" data-aos-delay="200">
+                                <div class="feature-icon">
+                                    <i class="fas fa-rocket"></i>
+                                </div>
+                                <div class="feature-content">
+                                    <h3>전면 확장</h3>
+                                    <p>직접생산확인에서 전체 조달 과정으로 네거티브 개념 확장 적용</p>
+                                </div>
+                            </div>
+                            
+                            <div class="feature-item" data-aos="fade-right" data-aos-delay="300">
+                                <div class="feature-icon">
+                                    <i class="fas fa-brain"></i>
+                                </div>
+                                <div class="feature-content">
+                                    <h3>AI 기반 자동화</h3>
+                                    <p>5대 AI 모듈을 통한 지능적 의사결정 지원 및 프로세스 최적화</p>
+                                </div>
+                            </div>
+                            
+                            <div class="feature-item" data-aos="fade-right" data-aos-delay="400">
+                                <div class="feature-icon">
+                                    <i class="fas fa-globe"></i>
+                                </div>
+                                <div class="feature-content">
+                                    <h3>글로벌 표준</h3>
+                                    <p>K-조달 모델로 전세계 조달 혁신을 이끄는 선진 시스템 구축</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="about-visual">
+                        <div class="visual-timeline">
+                            <div class="timeline-item" data-aos="zoom-in" data-aos-delay="100">
+                                <div class="timeline-year">2024</div>
+                                <div class="timeline-content">
+                                    <h4>네거티브 방식 도입</h4>
+                                    <p>직접생산확인 분야</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item" data-aos="zoom-in" data-aos-delay="200">
+                                <div class="timeline-year">2025</div>
+                                <div class="timeline-content">
+                                    <h4>AI 시스템 구축</h4>
+                                    <p>5대 모듈 통합 플랫폼</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item" data-aos="zoom-in" data-aos-delay="300">
+                                <div class="timeline-year">2026</div>
+                                <div class="timeline-content">
+                                    <h4>전국 확산</h4>
+                                    <p>7만 기관, 60만 기업</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item" data-aos="zoom-in" data-aos-delay="400">
+                                <div class="timeline-year">2027</div>
+                                <div class="timeline-content">
+                                    <h4>글로벌 진출</h4>
+                                    <p>K-조달 표준 수출</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>AI 스마트 조달 어드바이저</h3>
+                    <p>2025 공공조달 AI 활용 아이디어 공모전 출품작</p>
+                </div>
+                
+                <div class="footer-contact">
+                    <h4>문의처</h4>
+                    <p>제안자: 박용환 (크리에이티브 넥서스)</p>
+                    <p>이메일: sanoramyun8@gmail.com</p>
+                    <p>연락처: 010-7939-3123</p>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>관련 링크</h4>
+                    <a href="https://www.pps.go.kr" target="_blank">조달청 홈페이지</a>
+                    <a href="https://www.g2b.go.kr" target="_blank">나라장터</a>
+                    <a href="#" target="_blank">프로젝트 GitHub</a>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 크리에이티브 넥서스. 본 프로토타입은 공모전 데모용입니다.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal for Module Details -->
+    <div id="moduleModal" class="modal" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+        <div class="modal-overlay" id="modalOverlay"></div>
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2 id="modalTitle" class="modal-title"></h2>
+                <button class="modal-close" id="modalClose" aria-label="모달 닫기">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- 동적으로 생성되는 모듈 상세 내용 -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" id="modalCancelBtn">취소</button>
+                <button class="btn btn-primary" id="modalActionBtn">체험하기</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toastContainer" class="toast-container" aria-live="polite"></div>
+
+    <!-- External Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
+
+    <!-- Custom Scripts -->
+    <script src="assets/js/utils/helpers.js"></script>
+    <script src="assets/js/utils/animations.js"></script>
+    <script src="assets/js/data/mock-data.js"></script>
+    <script src="assets/js/data/ai-logic.js"></script>
+    <script src="assets/js/app.js"></script>
+
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            easing: 'ease-out-cubic',
+            once: true,
+            offset: 100
+        });
+
+        // Initialize Application
+        document.addEventListener('DOMContentLoaded', function() {
+            // Remove loading overlay
+            setTimeout(() => {
+                document.getElementById('loadingOverlay').style.display = 'none';
+            }, 1500);
+
+            // Initialize app
+            if (typeof AISmartProcurement !== 'undefined') {
+                window.app = new AISmartProcurement();
+                window.app.init();
+            }
+        });
+    </script>
+</body>
+</html>
