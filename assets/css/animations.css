@@ -1,0 +1,717 @@
+/* ========================================
+   AI Smart Procurement Advisor - Animations CSS
+   2025 공공조달 AI 활용 아이디어 공모전
+   ======================================== */
+
+/* =============================================================================
+   CUSTOM ANIMATIONS & TRANSITIONS
+   ============================================================================= */
+
+/* Counter Animation */
+@keyframes countUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.counter-animate {
+  animation: countUp 0.8s ease-out;
+}
+
+/* Number Roll Animation */
+@keyframes numberRoll {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.number-roll {
+  animation: numberRoll 0.6s ease-out;
+}
+
+/* Particle Effect Background */
+.particles-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  animation: particleFloat 8s infinite linear;
+}
+
+@keyframes particleFloat {
+  0% {
+    transform: translateY(100vh) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* AI Processing Animation */
+.ai-processing {
+  position: relative;
+  overflow: hidden;
+}
+
+.ai-processing::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(44, 90, 160, 0.2),
+    transparent
+  );
+  animation: aiScan 2s infinite;
+}
+
+@keyframes aiScan {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+/* Data Flow Animation */
+.data-flow {
+  position: relative;
+  overflow: hidden;
+}
+
+.data-flow::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--primary-color),
+    transparent
+  );
+  animation: dataFlow 3s infinite;
+}
+
+@keyframes dataFlow {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Module Activation Animation */
+.module-activate {
+  animation: moduleActivate 0.6s ease-out;
+}
+
+@keyframes moduleActivate {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) rotateY(90deg);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.1) rotateY(45deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotateY(0deg);
+  }
+}
+
+/* Success Celebration Animation */
+.celebrate {
+  animation: celebrate 0.8s ease-out;
+}
+
+@keyframes celebrate {
+  0%, 100% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.1) rotate(-5deg);
+  }
+  75% {
+    transform: scale(1.1) rotate(5deg);
+  }
+}
+
+/* Error Shake Animation */
+.shake {
+  animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-10px);
+  }
+  75% {
+    transform: translateX(10px);
+  }
+}
+
+/* Loading Dots Animation */
+.loading-dots {
+  display: inline-flex;
+  gap: 4px;
+}
+
+.loading-dots .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--primary-color);
+  animation: loadingDots 1.4s infinite both;
+}
+
+.loading-dots .dot:nth-child(1) { animation-delay: -0.32s; }
+.loading-dots .dot:nth-child(2) { animation-delay: -0.16s; }
+.loading-dots .dot:nth-child(3) { animation-delay: 0; }
+
+@keyframes loadingDots {
+  0%, 80%, 100% {
+    transform: scale(0.8);
+    opacity: 0.5;
+  }
+  40% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+}
+
+/* Typewriter Effect */
+.typewriter {
+  overflow: hidden;
+  border-right: 2px solid var(--primary-color);
+  white-space: nowrap;
+  animation: typewriter 3s steps(40, end), blink-caret 0.75s step-end infinite;
+}
+
+@keyframes typewriter {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes blink-caret {
+  from, to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: var(--primary-color);
+  }
+}
+
+/* Gradient Animation */
+.gradient-animate {
+  background-size: 400% 400%;
+  animation: gradientShift 4s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Icon Bounce Animation */
+.icon-bounce {
+  animation: iconBounce 2s ease-in-out infinite;
+}
+
+@keyframes iconBounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
+/* Card Hover Animations */
+.card-hover-lift {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-hover-lift:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.card-hover-glow {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.card-hover-glow::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--gradient-primary);
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+  filter: blur(10px);
+}
+
+.card-hover-glow:hover::before {
+  opacity: 0.3;
+}
+
+/* Text Reveal Animations */
+.text-reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: textReveal 0.8s ease-out forwards;
+}
+
+@keyframes textReveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.text-reveal-delay-1 { animation-delay: 0.1s; }
+.text-reveal-delay-2 { animation-delay: 0.2s; }
+.text-reveal-delay-3 { animation-delay: 0.3s; }
+.text-reveal-delay-4 { animation-delay: 0.4s; }
+.text-reveal-delay-5 { animation-delay: 0.5s; }
+
+/* Network Connection Animation */
+.network-connection {
+  position: absolute;
+  stroke: rgba(255, 255, 255, 0.3);
+  stroke-width: 2;
+  stroke-dasharray: 5, 5;
+  animation: networkPulse 3s ease-in-out infinite;
+}
+
+@keyframes networkPulse {
+  0%, 100% {
+    stroke-opacity: 0.3;
+    stroke-width: 2;
+  }
+  50% {
+    stroke-opacity: 0.8;
+    stroke-width: 3;
+  }
+}
+
+/* Progress Bar Animations */
+.progress-animated {
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-animated::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-image: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.2) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.2) 50%,
+    rgba(255, 255, 255, 0.2) 75%,
+    transparent 75%,
+    transparent
+  );
+  background-size: 1rem 1rem;
+  animation: progressMove 1s linear infinite;
+}
+
+@keyframes progressMove {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 1rem 1rem;
+  }
+}
+
+/* Chart Animation */
+.chart-animate {
+  animation: chartDraw 2s ease-out;
+}
+
+@keyframes chartDraw {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Status Indicator Animations */
+.status-online {
+  animation: statusOnline 2s ease-in-out infinite;
+}
+
+@keyframes statusOnline {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(39, 174, 96, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(39, 174, 96, 0);
+  }
+}
+
+.status-processing {
+  animation: statusProcessing 1.5s ease-in-out infinite;
+}
+
+@keyframes statusProcessing {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.7;
+  }
+}
+
+/* Floating Action Button Animation */
+.fab-float {
+  animation: fabFloat 3s ease-in-out infinite;
+}
+
+@keyframes fabFloat {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Modal Enter/Exit Animations */
+.modal-enter {
+  animation: modalEnter 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modal-exit {
+  animation: modalExit 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes modalEnter {
+  0% {
+    opacity: 0;
+    transform: scale(0.9) translateY(-50px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes modalExit {
+  0% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.9) translateY(-50px);
+  }
+}
+
+/* Notification Slide Animations */
+.notification-slide-in {
+  animation: notificationSlideIn 0.3s ease-out;
+}
+
+.notification-slide-out {
+  animation: notificationSlideOut 0.3s ease-in;
+}
+
+@keyframes notificationSlideIn {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes notificationSlideOut {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+/* AI Thinking Animation */
+.ai-thinking {
+  position: relative;
+}
+
+.ai-thinking::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin: -10px;
+  border: 2px solid var(--primary-color);
+  border-top: 2px solid transparent;
+  border-radius: 50%;
+  animation: aiThinking 1s linear infinite;
+}
+
+@keyframes aiThinking {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Data Visualization Animations */
+.data-viz-enter {
+  animation: dataVizEnter 1s ease-out;
+}
+
+@keyframes dataVizEnter {
+  0% {
+    opacity: 0;
+    transform: translateY(50px) rotateX(90deg);
+  }
+  50% {
+    opacity: 0.7;
+    transform: translateY(0) rotateX(45deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) rotateX(0deg);
+  }
+}
+
+/* Success Checkmark Animation */
+.checkmark-animation {
+  animation: checkmarkDraw 0.8s ease-out;
+}
+
+@keyframes checkmarkDraw {
+  0% {
+    stroke-dasharray: 0, 50;
+  }
+  50% {
+    stroke-dasharray: 25, 25;
+  }
+  100% {
+    stroke-dasharray: 50, 0;
+  }
+}
+
+/* Error Cross Animation */
+.cross-animation {
+  animation: crossDraw 0.6s ease-out;
+}
+
+@keyframes crossDraw {
+  0% {
+    stroke-dasharray: 0, 40;
+  }
+  100% {
+    stroke-dasharray: 40, 0;
+  }
+}
+
+/* Button Click Ripple Effect */
+.ripple-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple-effect::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.ripple-effect:active::before {
+  width: 300px;
+  height: 300px;
+}
+
+/* Scroll Animations */
+.scroll-fade-in {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.8s ease-out;
+}
+
+.scroll-fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.scroll-slide-left {
+  opacity: 0;
+  transform: translateX(-50px);
+  transition: all 0.8s ease-out;
+}
+
+.scroll-slide-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.scroll-slide-right {
+  opacity: 0;
+  transform: translateX(50px);
+  transition: all 0.8s ease-out;
+}
+
+.scroll-slide-right.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Stagger Animation Delays */
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.stagger-4 { animation-delay: 0.4s; }
+.stagger-5 { animation-delay: 0.5s; }
+.stagger-6 { animation-delay: 0.6s; }
+
+/* Performance Optimizations */
+.gpu-accelerated {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .typewriter {
+    border-right: none;
+    animation: none;
+  }
+  
+  .loading-dots .dot {
+    animation: none;
+  }
+  
+  .ai-processing::before,
+  .data-flow::after {
+    animation: none;
+  }
+}
+
+/* Dark Mode Animation Adjustments */
+@media (prefers-color-scheme: dark) {
+  .particle {
+    background: rgba(255, 255, 255, 0.05);
+  }
+  
+  .network-connection {
+    stroke: rgba(255, 255, 255, 0.2);
+  }
+  
+  .ai-processing::before {
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.1),
+      transparent
+    );
+  }
+}
