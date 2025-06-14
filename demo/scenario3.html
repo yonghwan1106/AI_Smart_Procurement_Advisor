@@ -45,29 +45,34 @@
             border-radius: 12px;
             padding: 25px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            position: relative;
+        }
+        
+        .step-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
         }
         
         .step-number {
-            position: absolute;
-            top: -15px;
-            left: 25px;
             background: #f39c12;
             color: white;
-            width: 30px;
-            height: 30px;
+            width: 35px;
+            height: 35px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
+            font-size: 1.1rem;
+            flex-shrink: 0;
         }
         
         .step-title {
             font-size: 1.3rem;
             color: #f39c12;
-            margin-bottom: 15px;
-            margin-top: 10px;
+            margin: 0;
+            flex: 1;
         }
         
         .step-content {
@@ -287,10 +292,62 @@
             font-size: 1.2rem;
             font-weight: bold;
         }
+        
+        /* 홈 버튼 스타일 추가 */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding: 15px 0;
+        }
+        
+        .home-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #2c5aa0 0%, #667eea 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(44, 90, 160, 0.2);
+        }
+        
+        .home-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(44, 90, 160, 0.3);
+            color: white;
+        }
+        
+        .breadcrumb-separator {
+            font-size: 0.9rem;
+            color: #6c757d;
+            font-weight: 500;
+        }
+        
+        .breadcrumb-current {
+            font-size: 0.9rem;
+            color: #6c757d;
+            font-weight: 500;
+        }
     </style>
 </head>
 <body>
     <div class="scenario-container">
+        <!-- 홈 버튼 -->
+        <div class="breadcrumb">
+            <a href="../index.html" class="home-btn">
+                <span>🏠</span>
+                홈으로 돌아가기
+            </a>
+            <span class="breadcrumb-separator">></span>
+            <span class="breadcrumb-current">시나리오 3: 전기차 구매 타이밍 최적화</span>
+        </div>
+        
         <!-- 시나리오 헤더 -->
         <header class="scenario-header">
             <h1 class="scenario-title">⚡ 시나리오 3: 전기차 구매 타이밍 최적화</h1>
@@ -304,8 +361,10 @@
         <main class="demo-flow">
             <!-- Step 1: 구매 계획 검토 -->
             <section class="demo-step">
-                <div class="step-number">1</div>
-                <h2 class="step-title">📋 전기차 구매 계획 검토</h2>
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <h2 class="step-title">📋 전기차 구매 계획 검토</h2>
+                </div>
                 <div class="step-content">
                     <p>충청남도청 총무팀에서 친환경 정책의 일환으로 전기차 도입을 계획했습니다:</p>
                     
@@ -332,8 +391,10 @@
 
             <!-- Step 2: AI 시장 동향 분석 -->
             <section class="demo-step">
-                <div class="step-number">2</div>
-                <h2 class="step-title">📈 AI 시장 동향 분석</h2>
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <h2 class="step-title">📈 AI 시장 동향 분석</h2>
+                </div>
                 <div class="step-content">
                     <p>AI가 전기차 시장의 다양한 데이터를 종합 분석합니다:</p>
                     
@@ -387,8 +448,10 @@
 
             <!-- Step 3: 타이밍 타임라인 -->
             <section class="demo-step">
-                <div class="step-number">3</div>
-                <h2 class="step-title">📅 구매 타이밍 타임라인</h2>
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <h2 class="step-title">📅 구매 타이밍 타임라인</h2>
+                </div>
                 <div class="step-content">
                     <p>AI가 월별 구매 시점의 위험도와 절약 효과를 분석했습니다:</p>
                     
@@ -434,8 +497,10 @@
 
             <!-- Step 4: 월별 절약 효과 -->
             <section class="demo-step">
-                <div class="step-number">4</div>
-                <h2 class="step-title">💰 월별 절약 효과 시뮬레이션</h2>
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <h2 class="step-title">💰 월별 절약 효과 시뮬레이션</h2>
+                </div>
                 <div class="step-content">
                     <div class="savings-projection">
                         <div class="savings-item current">
@@ -501,8 +566,10 @@
 
             <!-- Step 5: 종합 권고안 -->
             <section class="demo-step">
-                <div class="step-number">5</div>
-                <h2 class="step-title">💡 AI 종합 권고안</h2>
+                <div class="step-header">
+                    <div class="step-number">5</div>
+                    <h2 class="step-title">💡 AI 종합 권고안</h2>
+                </div>
                 <div class="step-content">
                     <div class="alert-box">
                         <h4>🚨 현재 시점 구매의 위험성</h4>
@@ -557,8 +624,10 @@
 
             <!-- Step 6: 리스크 관리 -->
             <section class="demo-step">
-                <div class="step-number">6</div>
-                <h2 class="step-title">🛡️ 리스크 관리 및 대안</h2>
+                <div class="step-header">
+                    <div class="step-number">6</div>
+                    <h2 class="step-title">🛡️ 리스크 관리 및 대안</h2>
+                </div>
                 <div class="step-content">
                     <h4>⚠️ 만약 예상과 다르게 진행된다면?</h4>
                     
@@ -601,8 +670,10 @@
 
             <!-- Step 7: 결과 요약 -->
             <section class="demo-step">
-                <div class="step-number">7</div>
-                <h2 class="step-title">🎯 시나리오 결과 요약</h2>
+                <div class="step-header">
+                    <div class="step-number">7</div>
+                    <h2 class="step-title">🎯 시나리오 결과 요약</h2>
+                </div>
                 <div class="step-content">
                     <h4>🏆 달성 성과</h4>
                     <div class="success-box">

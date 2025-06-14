@@ -15,7 +15,7 @@
         }
         
         .scenario-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
             color: white;
             padding: 30px;
             border-radius: 12px;
@@ -45,29 +45,34 @@
             border-radius: 12px;
             padding: 25px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            position: relative;
+        }
+        
+        .step-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
         }
         
         .step-number {
-            position: absolute;
-            top: -15px;
-            left: 25px;
-            background: #667eea;
+            background: #f39c12;
             color: white;
-            width: 30px;
-            height: 30px;
+            width: 35px;
+            height: 35px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
+            font-size: 1.1rem;
+            flex-shrink: 0;
         }
         
         .step-title {
             font-size: 1.3rem;
-            color: #667eea;
-            margin-bottom: 15px;
-            margin-top: 10px;
+            color: #f39c12;
+            margin: 0;
+            flex: 1;
         }
         
         .step-content {
@@ -191,7 +196,7 @@
         .demo-btn {
             display: inline-block;
             padding: 12px 30px;
-            background: #667eea;
+            background: #f39c12;
             color: white;
             text-decoration: none;
             border-radius: 8px;
@@ -200,7 +205,7 @@
         }
         
         .demo-btn:hover {
-            background: #5a67d8;
+            background: #e67e22;
         }
         
         .demo-btn.secondary {
@@ -217,7 +222,7 @@
         }
         
         .highlight-box {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
             color: white;
             padding: 20px;
             border-radius: 8px;
@@ -226,10 +231,62 @@
             font-size: 1.2rem;
             font-weight: bold;
         }
+        
+        /* 홈 버튼 스타일 추가 */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding: 15px 0;
+        }
+        
+        .home-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #2c5aa0 0%, #667eea 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(44, 90, 160, 0.2);
+        }
+        
+        .home-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(44, 90, 160, 0.3);
+            color: white;
+        }
+        
+        .breadcrumb-separator {
+            font-size: 0.9rem;
+            color: #6c757d;
+            font-weight: 500;
+        }
+        
+        .breadcrumb-current {
+            font-size: 0.9rem;
+            color: #6c757d;
+            font-weight: 500;
+        }
     </style>
 </head>
 <body>
     <div class="scenario-container">
+        <!-- 홈 버튼 -->
+        <div class="breadcrumb">
+            <a href="../index.html" class="home-btn">
+                <span>🏠</span>
+                홈으로 돌아가기
+            </a>
+            <span class="breadcrumb-separator">></span>
+            <span class="breadcrumb-current">시나리오 2: 회의실 장비 공유 매칭</span>
+        </div>
+        
         <!-- 시나리오 헤더 -->
         <header class="scenario-header">
             <h1 class="scenario-title">🤝 시나리오 2: 회의실 장비 공유 매칭</h1>
@@ -243,8 +300,10 @@
         <main class="demo-flow">
             <!-- Step 1: 공유 요청 -->
             <section class="demo-step">
-                <div class="step-number">1</div>
-                <h2 class="step-title">📋 장비 공유 요청</h2>
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <h2 class="step-title">📋 장비 공유 요청</h2>
+                </div>
                 <div class="step-content">
                     <p>인천시청 기획팀에서 대규모 회의를 위한 장비 공유를 요청했습니다:</p>
                     
@@ -265,8 +324,10 @@
 
             <!-- Step 2: AI 네트워크 스캔 -->
             <section class="demo-step">
-                <div class="step-number">2</div>
-                <h2 class="step-title">🌐 AI 기관 네트워크 스캔</h2>
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <h2 class="step-title">🌐 AI 기관 네트워크 스캔</h2>
+                </div>
                 <div class="step-content">
                     <p>AI가 50km 반경 내 공공기관을 실시간으로 스캔합니다:</p>
                     
@@ -314,8 +375,10 @@
 
             <!-- Step 3: 스마트 매칭 -->
             <section class="demo-step">
-                <div class="step-number">3</div>
-                <h2 class="step-title">🎯 AI 스마트 매칭 알고리즘</h2>
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <h2 class="step-title">🎯 AI 스마트 매칭 알고리즘</h2>
+                </div>
                 <div class="step-content">
                     <p>AI가 거리, 가용성, 비용, 신뢰도를 종합 평가하여 최적 매칭을 제안합니다:</p>
                     
@@ -370,8 +433,10 @@
 
             <!-- Step 4: 비용 분석 -->
             <section class="demo-step">
-                <div class="step-number">4</div>
-                <h2 class="step-title">💰 비용 분석 및 절약 효과</h2>
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <h2 class="step-title">💰 비용 분석 및 절약 효과</h2>
+                </div>
                 <div class="step-content">
                     <div class="cost-comparison">
                         <div class="cost-item purchase">
@@ -429,8 +494,10 @@
 
             <!-- Step 5: 자동 계약 생성 -->
             <section class="demo-step">
-                <div class="step-number">5</div>
-                <h2 class="step-title">📄 AI 자동 계약서 생성</h2>
+                <div class="step-header">
+                    <div class="step-number">5</div>
+                    <h2 class="step-title">📄 AI 자동 계약서 생성</h2>
+                </div>
                 <div class="step-content">
                     <p>AI가 법무팀 검토를 거친 표준 양식으로 계약서를 자동 생성합니다:</p>
                     
@@ -480,8 +547,10 @@
 
             <!-- Step 6: 네트워크 효과 -->
             <section class="demo-step">
-                <div class="step-number">6</div>
-                <h2 class="step-title">🌐 공공 자원 공유 네트워크 효과</h2>
+                <div class="step-header">
+                    <div class="step-number">6</div>
+                    <h2 class="step-title">🌐 공공 자원 공유 네트워크 효과</h2>
+                </div>
                 <div class="step-content">
                     <h4>🔄 선순환 구조</h4>
                     <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
@@ -526,8 +595,10 @@
 
             <!-- Step 7: 결과 요약 -->
             <section class="demo-step">
-                <div class="step-number">7</div>
-                <h2 class="step-title">🎯 시나리오 결과 요약</h2>
+                <div class="step-header">
+                    <div class="step-number">7</div>
+                    <h2 class="step-title">🎯 시나리오 결과 요약</h2>
+                </div>
                 <div class="step-content">
                     <h4>🏆 달성 성과</h4>
                     <div class="agency-card" style="background: #e8f5e8;">
