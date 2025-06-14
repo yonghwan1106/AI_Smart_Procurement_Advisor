@@ -4,11 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>필요성 검증 AI - AI 스마트 조달 어드바이저</title>
-    <link rel="stylesheet" href="../assets/css/main.css">
-    <link rel="stylesheet" href="../assets/css/components.css">
-    <link rel="stylesheet" href="../assets/css/animations.css">
     
-    <!-- 임시 CSS 스타일 -->
+    <!-- 완전한 인라인 CSS 스타일 -->
     <style>
         :root {
             --primary-color: #2c5aa0;
@@ -22,6 +19,7 @@
             --gray-800: #212529;
             --success-color: #27ae60;
             --warning-color: #f39c12;
+            --danger-color: #e74c3c;
             --spacing-xs: 0.25rem;
             --spacing-sm: 0.5rem;
             --spacing-md: 1rem;
@@ -74,14 +72,42 @@
         }
         
         .breadcrumb {
-            font-size: 0.875rem;
-            color: var(--gray-600);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
             margin-bottom: var(--spacing-lg);
         }
         
-        .breadcrumb a {
-            color: var(--primary-color);
+        .home-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            padding: var(--spacing-sm) var(--spacing-lg);
+            background: linear-gradient(135deg, var(--primary-color) 0%, #667eea 100%);
+            color: var(--white);
             text-decoration: none;
+            border-radius: var(--radius-lg);
+            font-size: 0.875rem;
+            font-weight: var(--font-weight-semibold);
+            transition: all var(--transition-base);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .home-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-lg);
+            color: var(--white);
+        }
+        
+        .breadcrumb-separator {
+            font-size: 0.875rem;
+            color: var(--gray-600);
+        }
+        
+        .breadcrumb-current {
+            font-size: 0.875rem;
+            color: var(--gray-600);
+            font-weight: var(--font-weight-medium);
         }
         
         .module-title {
@@ -132,14 +158,20 @@
             box-shadow: var(--shadow-sm);
         }
         
-        .input-section h2,
-        .result-section h3 {
+        .input-section h2 {
             font-size: var(--font-size-xl);
             font-weight: var(--font-weight-bold);
             color: var(--primary-color);
             margin-bottom: var(--spacing-lg);
             padding-bottom: var(--spacing-md);
             border-bottom: 2px solid var(--gray-100);
+        }
+        
+        .result-section h3 {
+            font-size: var(--font-size-xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--primary-color);
+            margin-bottom: var(--spacing-lg);
         }
         
         .form-group {
@@ -211,6 +243,20 @@
         .btn-icon {
             font-size: var(--font-size-xl);
         }
+        
+        @media (max-width: 768px) {
+            .module-container {
+                padding: var(--spacing-md);
+            }
+            
+            .module-header {
+                padding: var(--spacing-lg);
+            }
+            
+            .module-title {
+                font-size: var(--font-size-2xl);
+            }
+        }
     </style>
 </head>
 <body>
@@ -218,8 +264,12 @@
         <!-- 헤더 -->
         <header class="module-header">
             <div class="breadcrumb">
-                <a href="../index.html">홈</a> > 
-                <span>필요성 검증 AI</span>
+                <a href="../index.html" class="home-btn">
+                    <span>🏠</span>
+                    홈으로 돌아가기
+                </a>
+                <span class="breadcrumb-separator">></span>
+                <span class="breadcrumb-current">필요성 검증 AI</span>
             </div>
             <h1 class="module-title">
                 <div class="module-icon">🔍</div>

@@ -72,14 +72,42 @@
         }
         
         .breadcrumb {
-            font-size: 0.875rem;
-            color: var(--gray-600);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
             margin-bottom: var(--spacing-lg);
         }
         
-        .breadcrumb a {
-            color: var(--primary-color);
+        .home-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            padding: var(--spacing-sm) var(--spacing-lg);
+            background: linear-gradient(135deg, var(--primary-color) 0%, #667eea 100%);
+            color: var(--white);
             text-decoration: none;
+            border-radius: var(--radius-lg);
+            font-size: 0.875rem;
+            font-weight: var(--font-weight-semibold);
+            transition: all var(--transition-base);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .home-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-lg);
+            color: var(--white);
+        }
+        
+        .breadcrumb-separator {
+            font-size: 0.875rem;
+            color: var(--gray-600);
+        }
+        
+        .breadcrumb-current {
+            font-size: 0.875rem;
+            color: var(--gray-600);
+            font-weight: var(--font-weight-medium);
         }
         
         .module-title {
@@ -395,8 +423,12 @@
         <!-- 헤더 -->
         <header class="module-header">
             <div class="breadcrumb">
-                <a href="../index.html">홈</a> > 
-                <span>ESG 스마트 평가 AI</span>
+                <a href="../index.html" class="home-btn">
+                    <span>🏠</span>
+                    홈으로 돌아가기
+                </a>
+                <span class="breadcrumb-separator">></span>
+                <span class="breadcrumb-current">ESG 스마트 평가 AI</span>
             </div>
             <h1 class="module-title">
                 <div class="module-icon">🌱</div>
