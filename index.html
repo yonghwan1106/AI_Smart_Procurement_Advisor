@@ -1210,11 +1210,11 @@
         <nav class="navbar" aria-label="메인 네비게이션">
             <div class="nav-container">
                 <div class="nav-brand">
-                    <img src="assets/images/logos/main-logo.svg" alt="AI 스마트 조달 어드바이저" class="logo">
+                    <img src="assets/images/logos/main-logo.svg" alt="AI 스마트 조달 어드바이저" class="logo" onerror="this.style.display='none';">
                     <h1 class="brand-text">AI 스마트 조달 어드바이저</h1>
                 </div>
                 
-                <div class="nav-menu">
+                <div class="nav-menu" id="nav-menu">
                     <a href="#home" class="nav-link active" data-section="home">
                         <i class="fas fa-home"></i>
                         <span>홈</span>
@@ -1236,6 +1236,13 @@
                         <span>소개</span>
                     </a>
                 </div>
+                
+                <!-- Mobile Menu Toggle Button -->
+                <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="메뉴 열기" aria-expanded="false" aria-controls="nav-menu">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
                 
                 <div class="nav-actions">
                     <button class="btn btn-primary" onclick="window.location.href='#demo'">
@@ -2069,79 +2076,7 @@
                         </div>
                     </div>
                 </div>
-                
-                <!-- 심사기준 대응 섹션 -->
-                <div class="evaluation-criteria" data-aos="fade-up" data-aos-delay="400">
-                    <h3 class="criteria-title">공모전 심사기준 완벽 대응</h3>
-                    <div class="criteria-grid">
-                        <div class="criteria-card creativity" data-aos="flip-left" data-aos-delay="100">
-                            <div class="criteria-icon">
-                                💡
-                            </div>
-                            <h4>창의성 (20점)</h4>
-                            <p>세계 최초 "사지 않는" 조달을 위한 AI 시스템</p>
-                            <div class="criteria-score">
-                                <span class="score-value">20</span>
-                                <span class="score-label">점 만점</span>
-                            </div>
-                        </div>
-                        
-                        <div class="criteria-card specificity" data-aos="flip-left" data-aos-delay="200">
-                            <div class="criteria-icon">
-                                ⚙️
-                            </div>
-                            <h4>구체성 (20점)</h4>
-                            <p>5대 모듈 기반 체계적 구현 방안 제시</p>
-                            <div class="criteria-score">
-                                <span class="score-value">20</span>
-                                <span class="score-label">점 만점</span>
-                            </div>
-                        </div>
-                        
-                        <div class="criteria-card effectiveness" data-aos="flip-left" data-aos-delay="300">
-                            <div class="criteria-icon">
-                                📊
-                            </div>
-                            <h4>효과성 (20점)</h4>
-                            <p>연간 6.5조원 절약 및 31% 비용 절감</p>
-                            <div class="criteria-score">
-                                <span class="score-value">20</span>
-                                <span class="score-label">점 만점</span>
-                            </div>
-                        </div>
-                        
-                        <div class="criteria-card feasibility" data-aos="flip-left" data-aos-delay="400">
-                            <div class="criteria-icon">
-                                ✅
-                            </div>
-                            <h4>실현가능성 (20점)</h4>
-                            <p>기존 조달청 시스템과 100% 호환</p>
-                            <div class="criteria-score">
-                                <span class="score-value">20</span>
-                                <span class="score-label">점 만점</span>
-                            </div>
-                        </div>
-                        
-                        <div class="criteria-card scalability" data-aos="flip-left" data-aos-delay="500">
-                            <div class="criteria-icon">
-                                🚀
-                            </div>
-                            <h4>확장성 (20점)</h4>
-                            <p>전 공공기관 및 해외수출 확장 계획</p>
-                            <div class="criteria-score">
-                                <span class="score-value">20</span>
-                                <span class="score-label">점 만점</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="total-score" data-aos="zoom-in" data-aos-delay="600">
-                        <div class="total-display">
-                            <span class="total-value">100</span>
-                            <span class="total-label">점 만점</span>
-                        </div>
-                        <p class="total-description">모든 심사기준을 완벽하게 충족하는 혁신적 솔루션</p>
-                    </div>
-                </div>
+ 
                 
                 <!-- 로드맵 타임라인 (기존 스타일 유지하되 개선) -->
                 <div class="timeline-section" data-aos="fade-up" data-aos-delay="500">
@@ -2478,12 +2413,237 @@
             }
         });
 
+        // Mobile Menu Functionality
+        class MobileMenu {
+            constructor() {
+                this.menuToggle = document.getElementById('mobileMenuToggle');
+                this.navMenu = document.querySelector('.nav-menu');
+                this.navLinks = document.querySelectorAll('.nav-link');
+                this.overlay = null;
+                
+                this.init();
+                this.ensureBrandVisibility();
+            }
+            
+            init() {
+                if (!this.menuToggle || !this.navMenu) return;
+                
+                // Create overlay
+                this.createOverlay();
+                
+                // Toggle menu on button click
+                this.menuToggle.addEventListener('click', () => this.toggleMenu());
+                
+                // Close menu when clicking on overlay
+                this.overlay.addEventListener('click', () => this.closeMenu());
+                
+                // Close menu when clicking on nav links
+                this.navLinks.forEach(link => {
+                    link.addEventListener('click', () => this.closeMenu());
+                });
+                
+                // Close menu on escape key
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && this.isMenuOpen()) {
+                        this.closeMenu();
+                    }
+                });
+                
+                // Close menu on window resize to desktop size
+                window.addEventListener('resize', () => {
+                    if (window.innerWidth > 768 && this.isMenuOpen()) {
+                        this.closeMenu();
+                    }
+                    this.ensureBrandVisibility();
+                });
+            }
+            
+            ensureBrandVisibility() {
+                // 모바일에서 브랜드 요소가 확실히 보이도록 강제 설정
+                if (window.innerWidth <= 768) {
+                    const navBrand = document.querySelector('.nav-brand');
+                    const brandText = document.querySelector('.brand-text');
+                    const logo = document.querySelector('.logo');
+                    const hamburgerMenu = document.querySelector('.mobile-menu-toggle');
+                    
+                    if (navBrand) {
+                        navBrand.style.display = 'flex';
+                        navBrand.style.visibility = 'visible';
+                        navBrand.style.opacity = '1';
+                        navBrand.style.zIndex = '1002';
+                        navBrand.style.flex = '1';
+                        navBrand.style.maxWidth = '70%';
+                    }
+                    
+                    if (brandText) {
+                        brandText.style.display = 'block';
+                        brandText.style.visibility = 'visible';
+                        brandText.style.opacity = '1';
+                        brandText.style.color = '#2c5aa0';
+                        brandText.style.maxWidth = '150px';
+                    }
+                    
+                    if (logo) {
+                        logo.style.display = 'block';
+                        logo.style.visibility = 'visible';
+                        logo.style.opacity = '1';
+                    }
+                    
+                    if (hamburgerMenu) {
+                        hamburgerMenu.style.display = 'flex';
+                        hamburgerMenu.style.visibility = 'visible';
+                        hamburgerMenu.style.opacity = '1';
+                        hamburgerMenu.style.zIndex = '1001';
+                    }
+                }
+            }
+            
+            createOverlay() {
+                this.overlay = document.createElement('div');
+                this.overlay.className = 'mobile-menu-overlay';
+                document.body.appendChild(this.overlay);
+            }
+            
+            toggleMenu() {
+                if (this.isMenuOpen()) {
+                    this.closeMenu();
+                } else {
+                    this.openMenu();
+                }
+            }
+            
+            openMenu() {
+                this.menuToggle.classList.add('active');
+                this.navMenu.classList.add('active');
+                this.overlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                
+                // Update aria attributes for accessibility
+                this.menuToggle.setAttribute('aria-label', '메뉴 닫기');
+                this.menuToggle.setAttribute('aria-expanded', 'true');
+            }
+            
+            closeMenu() {
+                this.menuToggle.classList.remove('active');
+                this.navMenu.classList.remove('active');
+                this.overlay.classList.remove('active');
+                document.body.style.overflow = '';
+                
+                // Update aria attributes for accessibility
+                this.menuToggle.setAttribute('aria-label', '메뉴 열기');
+                this.menuToggle.setAttribute('aria-expanded', 'false');
+            }
+            
+            isMenuOpen() {
+                return this.navMenu.classList.contains('active');
+            }
+        }
+
         // Initialize Application
         document.addEventListener('DOMContentLoaded', function() {
+            // 모바일에서 브랜드 요소 즉시 강제 표시
+            function forceShowBrandElements() {
+                if (window.innerWidth <= 768) {
+                    const navContainer = document.querySelector('.nav-container');
+                    const navBrand = document.querySelector('.nav-brand');
+                    const brandText = document.querySelector('.brand-text');
+                    const logo = document.querySelector('.logo');
+                    const hamburgerMenu = document.querySelector('.mobile-menu-toggle');
+                    
+                    if (navContainer) {
+                        navContainer.style.cssText = `
+                            display: flex !important;
+                            justify-content: space-between !important;
+                            align-items: center !important;
+                            padding: 0 16px !important;
+                        `;
+                    }
+                    
+                    if (navBrand) {
+                        navBrand.style.cssText = `
+                            display: flex !important;
+                            visibility: visible !important;
+                            opacity: 1 !important;
+                            z-index: 1002 !important;
+                            background: rgba(44, 90, 160, 0.05) !important;
+                            padding: 4px 8px !important;
+                            border-radius: 8px !important;
+                            border: 1px solid rgba(44, 90, 160, 0.1) !important;
+                            min-height: 45px !important;
+                            align-items: center !important;
+                            gap: 8px !important;
+                            flex: 1 !important;
+                            max-width: 70% !important;
+                        `;
+                    }
+                    
+                    if (brandText) {
+                        brandText.style.cssText = `
+                            display: block !important;
+                            visibility: visible !important;
+                            opacity: 1 !important;
+                            color: #2c5aa0 !important;
+                            font-size: 14px !important;
+                            font-weight: bold !important;
+                            margin: 0 !important;
+                            white-space: nowrap !important;
+                            overflow: hidden !important;
+                            text-overflow: ellipsis !important;
+                            max-width: 150px !important;
+                        `;
+                    }
+                    
+                    if (logo) {
+                        logo.style.cssText = `
+                            display: block !important;
+                            visibility: visible !important;
+                            opacity: 1 !important;
+                            height: 32px !important;
+                            width: auto !important;
+                            flex-shrink: 0 !important;
+                        `;
+                    }
+                    
+                    if (hamburgerMenu) {
+                        hamburgerMenu.style.cssText = `
+                            display: flex !important;
+                            visibility: visible !important;
+                            opacity: 1 !important;
+                            flex-direction: column !important;
+                            justify-content: center !important;
+                            align-items: center !important;
+                            width: 40px !important;
+                            height: 40px !important;
+                            background: #f8f9fa !important;
+                            border: 1px solid #dee2e6 !important;
+                            border-radius: 8px !important;
+                            cursor: pointer !important;
+                            padding: 0 !important;
+                            z-index: 1001 !important;
+                            margin-left: 8px !important;
+                            flex-shrink: 0 !important;
+                        `;
+                    }
+                }
+            }
+            
+            // 즉시 실행
+            forceShowBrandElements();
+            
             // Remove loading overlay
             setTimeout(() => {
                 document.getElementById('loadingOverlay').style.display = 'none';
+                forceShowBrandElements(); // 로딩 후에도 다시 한번
             }, 1500);
+
+            // Initialize mobile menu
+            const mobileMenu = new MobileMenu();
+            
+            // 윈도우 리사이즈시에도 브랜드 요소 확인
+            window.addEventListener('resize', forceShowBrandElements);
+            
+            // 2초 후에도 한번 더 확인 (다른 스크립트들이 로드된 후)
+            setTimeout(forceShowBrandElements, 2000);
 
             // Initialize hero slider
             setTimeout(() => {
