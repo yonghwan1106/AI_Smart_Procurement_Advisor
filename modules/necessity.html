@@ -287,12 +287,37 @@
                 <!-- 입력 섹션 -->
                 <section class="input-section">
                     <h2>조달 요청 정보 입력</h2>
+                    
+                    <!-- 샘플 시나리오 버튼들 -->
+                    <div style="margin-bottom: 2rem; padding: 1.5rem; background: #f8f9fa; border-radius: 12px; border-left: 4px solid #27ae60;">
+                        <h4 style="color: #27ae60; margin-bottom: 1rem;">
+                            <span style="font-size: 1.2rem;">⚡</span> 빠른 체험
+                        </h4>
+                        <p style="margin-bottom: 1rem; color: #666; font-size: 0.9rem;">
+                            다양한 샘플 시나리오로 AI 분석을 즉시 체험해보세요!
+                        </p>
+                        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                            <button type="button" onclick="loadSample('office')" style="padding: 0.5rem 1rem; background: #27ae60; color: white; border: none; border-radius: 6px; font-size: 0.8rem; cursor: pointer;">
+                                📄 사무용품
+                            </button>
+                            <button type="button" onclick="loadSample('vehicle')" style="padding: 0.5rem 1rem; background: #3498db; color: white; border: none; border-radius: 6px; font-size: 0.8rem; cursor: pointer;">
+                                🚗 차량구매
+                            </button>
+                            <button type="button" onclick="loadSample('it')" style="padding: 0.5rem 1rem; background: #9b59b6; color: white; border: none; border-radius: 6px; font-size: 0.8rem; cursor: pointer;">
+                                💻 IT장비
+                            </button>
+                            <button type="button" onclick="loadSample('facility')" style="padding: 0.5rem 1rem; background: #e67e22; color: white; border: none; border-radius: 6px; font-size: 0.8rem; cursor: pointer;">
+                                🏢 시설개선
+                            </button>
+                        </div>
+                    </div>
+                    
                     <form class="procurement-form" id="necessityForm">
                         <div class="form-group">
                             <label for="agency">요청 기관</label>
                             <select id="agency" required>
                                 <option value="">기관을 선택하세요</option>
-                                <option value="seoul">서울시청</option>
+                                <option value="seoul" selected>서울시청</option>
                                 <option value="busan">부산시청</option>
                                 <option value="incheon">인천시청</option>
                                 <option value="gyeonggi">경기도청</option>
@@ -303,19 +328,19 @@
                         
                         <div class="form-group">
                             <label for="item">구매 품목</label>
-                            <input type="text" id="item" placeholder="예: 복사기 50대" required>
+                            <input type="text" id="item" placeholder="예: 복사기 50대" value="고성능 복사기 15대" required>
                             <div class="form-hint">구체적인 품목명과 수량을 입력하세요</div>
                         </div>
                         
                         <div class="form-group">
                             <label for="budget">예산 (억원)</label>
-                            <input type="number" id="budget" placeholder="5" min="0.1" step="0.1" required>
+                            <input type="number" id="budget" placeholder="5" min="0.1" step="0.1" value="4.5" required>
                             <div class="form-hint">소수점 첫째 자리까지 입력 가능</div>
                         </div>
                         
                         <div class="form-group">
                             <label for="reason">구매 사유</label>
-                            <textarea id="reason" placeholder="기존 장비 노후화로 인한 교체 필요" rows="4" required></textarea>
+                            <textarea id="reason" placeholder="기존 장비 노후화로 인한 교체 필요" rows="4" required>신규 부서 설치로 인한 복사기 부족 문제 해결 필요. 현재 직원 200명 대비 복사기 3대로 업무 지연 발생. 월 평균 복사량 15,000매 예상으로 고성능 장비 도입을 통한 업무 효율성 향상 필요.</textarea>
                             <div class="form-hint">구매가 필요한 상세한 사유를 설명해주세요</div>
                         </div>
                         
@@ -324,7 +349,7 @@
                             <select id="urgency" required>
                                 <option value="">긴급도를 선택하세요</option>
                                 <option value="urgent">긴급 (1개월 내)</option>
-                                <option value="normal">보통 (3개월 내)</option>
+                                <option value="normal" selected>보통 (3개월 내)</option>
                                 <option value="low">여유 (6개월 내)</option>
                             </select>
                         </div>
@@ -340,8 +365,22 @@
                 <section class="result-section">
                     <h3>분석 결과</h3>
                     <div id="analysisResults">
-                        <p>왼쪽 폼을 채우고 "AI 분석 시작" 버튼을 클릭하면 필요성 검증이 시작됩니다.</p>
+                        <div style="text-align: center; padding: 2rem; background: #f8f9fa; border-radius: 12px; border: 2px dashed #2c5aa0;">
+                            <div style="font-size: 3rem; margin-bottom: 1rem;">🚀</div>
+                            <h4 style="color: #2c5aa0; margin-bottom: 1rem;">데모 준비 완료!</h4>
+                            <p style="margin-bottom: 1.5rem; color: #666;">
+                                실제적인 샘플 데이터가 미리 입력되어 있습니다.<br>
+                                <strong>"AI 분석 시작"</strong> 버튼을 바로 클릭해보세요!
+                            </p>
+                            <div style="background: #e3f2fd; padding: 1rem; border-radius: 8px; margin-top: 1rem;">
+                                <small style="color: #1976d2;">
+                                    💡 물론 입력값을 수정한 후 분석하셔도 됩니다.
+                                </small>
+                            </div>
+                        </div>
+                        
                         <br>
+                        
                         <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px; border-left: 4px solid #2c5aa0;">
                             <h4 style="color: #2c5aa0; margin-bottom: 0.5rem;">🔍 AI 분석 기능</h4>
                             <ul style="margin: 0; padding-left: 1.2rem;">
@@ -359,6 +398,112 @@
 
     <!-- 스크립트 -->
     <script>
+        // 샘플 시나리오 데이터
+        const sampleScenarios = {
+            office: {
+                agency: 'seoul',
+                item: '고성능 복사기 15대',
+                budget: '4.5',
+                reason: '신규 부서 설치로 인한 복사기 부족 문제 해결 필요. 현재 직원 200명 대비 복사기 3대로 업무 지연 발생. 월 평균 복사량 15,000매 예상으로 고성능 장비 도입을 통한 업무 효율성 향상 필요.',
+                urgency: 'normal'
+            },
+            vehicle: {
+                agency: 'busan',
+                item: '공용 전기차 25대',
+                budget: '12.5',
+                reason: '탄소중립 정책 추진에 따른 기존 내연기관 차량 교체 필요. 연간 유지비 절감 및 친환경 이미지 제고 목적. 현재 노후 차량 20대의 연료비 및 정비비가 과다하여 전기차 도입을 통한 운영비 절감 기대.',
+                urgency: 'low'
+            },
+            it: {
+                agency: 'gyeonggi',
+                item: '업무용 노트북 100대',
+                budget: '8.0',
+                reason: '재택근무 확산에 따른 직원 개인 노트북 지급 필요. 현재 데스크톱 환경에서 원격업무 시 보안 및 효율성 문제 발생. 최신 보안 솔루션이 탑재된 업무 전용 노트북을 통해 업무 연속성 확보 및 정보보안 강화 필요.',
+                urgency: 'urgent'
+            },
+            facility: {
+                agency: 'incheon',
+                item: '회의실 리모델링 공사',
+                budget: '15.0',
+                reason: '노후화된 회의실 시설로 인한 대외 업무 및 시민 접견 시 이미지 저하 문제. 에어컨 고장 빈발, 음향 시설 노후, 의자 및 테이블 파손 등으로 회의 진행에 차질. 스마트 회의 시설 구축을 통한 업무 효율성 및 대외 이미지 개선 필요.',
+                urgency: 'normal'
+            }
+        };
+
+        // 샘플 시나리오 로드 함수
+        function loadSample(type) {
+            const scenario = sampleScenarios[type];
+            if (!scenario) return;
+
+            // 폼 필드에 데이터 설정
+            document.getElementById('agency').value = scenario.agency;
+            document.getElementById('item').value = scenario.item;
+            document.getElementById('budget').value = scenario.budget;
+            document.getElementById('reason').value = scenario.reason;
+            document.getElementById('urgency').value = scenario.urgency;
+
+            // 시각적 피드백
+            const form = document.getElementById('necessityForm');
+            form.style.background = '#f0f8ff';
+            form.style.transition = 'background 0.3s ease';
+            
+            setTimeout(() => {
+                form.style.background = '';
+            }, 1000);
+
+            // 알림 메시지
+            showNotification(`${getScenarioName(type)} 시나리오가 로드되었습니다!`, 'success');
+        }
+
+        // 시나리오 이름 반환
+        function getScenarioName(type) {
+            const names = {
+                office: '사무용품 구매',
+                vehicle: '친환경 차량',
+                it: 'IT 장비',
+                facility: '시설 개선'
+            };
+            return names[type] || '샘플';
+        }
+
+        // 알림 메시지 표시
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 2rem;
+                right: 2rem;
+                background: ${type === 'success' ? '#d4edda' : '#d1ecf1'};
+                color: ${type === 'success' ? '#155724' : '#0c5460'};
+                padding: 1rem 1.5rem;
+                border-radius: 8px;
+                border: 1px solid ${type === 'success' ? '#c3e6cb' : '#bee5eb'};
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                z-index: 10000;
+                font-weight: 500;
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+            `;
+            notification.textContent = message;
+
+            document.body.appendChild(notification);
+
+            // 애니메이션으로 표시
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+
+            // 3초 후 제거
+            setTimeout(() => {
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
+                }, 300);
+            }, 3000);
+        }
+
         // 페이지 초기화
         document.addEventListener('DOMContentLoaded', function() {
             console.log('필요성 검증 AI 모듈 로드됨');
@@ -380,32 +525,61 @@
                     </div>
                 `;
                 
+                // 결과 섹션으로 스크롤
+                resultsDiv.scrollIntoView({ behavior: 'smooth' });
+                
                 // 3초 후 결과 표시 시뮬레이션
                 setTimeout(() => {
                     const item = document.getElementById('item').value || '요청한 품목';
                     const budget = document.getElementById('budget').value || '0';
                     const reason = document.getElementById('reason').value || '입력된 사유';
+                    const agency = document.getElementById('agency').options[document.getElementById('agency').selectedIndex].text;
                     
-                    // 네거티브 결과 시뮬레이션
-                    const isNecessary = Math.random() > 0.6; // 40% 확률로 불필요 판정
+                    // 키워드 기반 필요성 판정 로직
+                    const unnecessaryKeywords = ['신규', '추가', '확장', '증설'];
+                    const necessaryKeywords = ['노후', '고장', '파손', '교체', '보안'];
+                    const reasonLower = reason.toLowerCase();
+                    
+                    let necessityScore = 50; // 기본 점수
+                    
+                    // 키워드 분석으로 점수 조정
+                    unnecessaryKeywords.forEach(keyword => {
+                        if (reasonLower.includes(keyword)) necessityScore -= 15;
+                    });
+                    
+                    necessaryKeywords.forEach(keyword => {
+                        if (reasonLower.includes(keyword)) necessityScore += 20;
+                    });
+                    
+                    // 예산 규모에 따른 조정
+                    const budgetNum = parseFloat(budget);
+                    if (budgetNum > 10) necessityScore -= 10; // 큰 예산은 더 신중하게
+                    if (budgetNum < 5) necessityScore += 10;   // 작은 예산은 필요성 높일 가능성
+                    
+                    const isNecessary = necessityScore >= 60;
+                    const savingsAmount = isNecessary ? (budgetNum * 0.15).toFixed(1) : budgetNum;
                     
                     if (isNecessary) {
                         resultsDiv.innerHTML = `
                             <div style="border: 2px solid #27ae60; border-radius: 12px; padding: 1.5rem; background: #f1f8e9;">
                                 <h4 style="color: #27ae60; margin-bottom: 1rem;">✅ 조달 필요성 인정</h4>
                                 <div style="margin-bottom: 1rem;">
+                                    <strong>요청 기관:</strong> ${agency}<br>
                                     <strong>품목:</strong> ${item}<br>
                                     <strong>예산:</strong> ${budget}억원
                                 </div>
                                 <div style="background: white; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
-                                    <h5 style="color: #2c5aa0;">📊 분석 결과</h5>
-                                    <p><strong>필요성 점수:</strong> 85/100점</p>
+                                    <h5 style="color: #2c5aa0;">📊 AI 분석 결과</h5>
+                                    <p><strong>필요성 점수:</strong> ${necessityScore}/100점</p>
                                     <p><strong>권고사항:</strong> 조달 진행 권장</p>
-                                    <p><strong>절약 가능성:</strong> 타이밍 최적화로 ${(budget * 0.15).toFixed(1)}억원 절약 가능</p>
+                                    <p><strong>절약 가능성:</strong> 타이밍 최적화로 ${savingsAmount}억원 절약 가능</p>
+                                    <p><strong>분석 근거:</strong> 요청 사유가 합리적이며 실제 업무 필요성이 인정됨</p>
                                 </div>
                                 <div style="background: #d1ecf1; padding: 1rem; border-radius: 8px; border-left: 4px solid #17a2b8;">
-                                    <strong>💡 다음 단계:</strong><br>
-                                    시스템 연결 AI에서 공유 가능한 장비를 먼저 확인해보세요.
+                                    <strong>💡 다음 단계 권고:</strong><br>
+                                    • 통합 시스템 연결 AI에서 타 기관 공유 가능성 확인<br>
+                                    • 스마트 타이밍 AI에서 최적 구매 시점 분석<br>
+                                    • ESG 스마트 평가로 친환경 대안 검토
                                 </div>
                             </div>
                         `;
@@ -414,22 +588,31 @@
                             <div style="border: 2px solid #f39c12; border-radius: 12px; padding: 1.5rem; background: #fef5e7;">
                                 <h4 style="color: #f39c12; margin-bottom: 1rem;">⚠️ 조달 재검토 필요</h4>
                                 <div style="margin-bottom: 1rem;">
+                                    <strong>요청 기관:</strong> ${agency}<br>
                                     <strong>품목:</strong> ${item}<br>
                                     <strong>예산:</strong> ${budget}억원
                                 </div>
                                 <div style="background: white; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
-                                    <h5 style="color: #2c5aa0;">📊 분석 결과</h5>
-                                    <p><strong>필요성 점수:</strong> 45/100점</p>
+                                    <h5 style="color: #2c5aa0;">📊 AI 분석 결과</h5>
+                                    <p><strong>필요성 점수:</strong> ${necessityScore}/100점</p>
                                     <p><strong>권고사항:</strong> 조달 연기 또는 대안 검토</p>
-                                    <p><strong>절약 효과:</strong> ${budget}억원 전액 절약 가능</p>
+                                    <p><strong>절약 효과:</strong> ${savingsAmount}억원 전액 절약 가능</p>
+                                    <p><strong>분석 근거:</strong> 관행적 구매 패턴 또는 대안 솔루션 존재 가능성</p>
                                 </div>
                                 <div style="background: #f8d7da; padding: 1rem; border-radius: 8px; border-left: 4px solid #dc3545;">
                                     <strong>🚫 네거티브 조달 권고:</strong><br>
-                                    유사 기관에서 해당 품목의 실제 활용률이 30% 미만입니다. 기존 장비 활용 또는 공유 방안을 우선 검토하세요.
+                                    • 유사 기관에서 해당 품목의 평균 활용률: 35%<br>
+                                    • 기존 장비 점검 및 수리를 통한 수명 연장 검토<br>
+                                    • 타 기관과의 공유 방안 또는 임대 옵션 고려<br>
+                                    • 6개월 후 재검토 권장
                                 </div>
                             </div>
                         `;
                     }
+                    
+                    // 성공 알림
+                    showNotification('AI 분석이 완료되었습니다!', 'success');
+                    
                 }, 3000);
             });
         });

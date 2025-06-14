@@ -296,12 +296,37 @@
                 <!-- 입력 섹션 -->
                 <section class="input-section">
                     <h2>공유 장비 검색</h2>
+                    
+                    <!-- 샘플 시나리오 버튼들 -->
+                    <div style="margin-bottom: 2rem; padding: 1.5rem; background: #f8f9fa; border-radius: 12px; border-left: 4px solid #27ae60;">
+                        <h4 style="color: #27ae60; margin-bottom: 1rem;">
+                            <span style="font-size: 1.2rem;">⚡</span> 빠른 체험
+                        </h4>
+                        <p style="margin-bottom: 1rem; color: #666; font-size: 0.9rem;">
+                            다양한 공유 시나리오로 AI 매칭을 즉시 체험해보세요!
+                        </p>
+                        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                            <button type="button" onclick="loadSample('meeting')" style="padding: 0.5rem 1rem; background: #3498db; color: white; border: none; border-radius: 6px; font-size: 0.8rem; cursor: pointer;">
+                                📽️ 회의실장비
+                            </button>
+                            <button type="button" onclick="loadSample('vehicle')" style="padding: 0.5rem 1rem; background: #e74c3c; color: white; border: none; border-radius: 6px; font-size: 0.8rem; cursor: pointer;">
+                                🚗 차량공유
+                            </button>
+                            <button type="button" onclick="loadSample('event')" style="padding: 0.5rem 1rem; background: #9b59b6; color: white; border: none; border-radius: 6px; font-size: 0.8rem; cursor: pointer;">
+                                🎪 행사장비
+                            </button>
+                            <button type="button" onclick="loadSample('special')" style="padding: 0.5rem 1rem; background: #f39c12; color: white; border: none; border-radius: 6px; font-size: 0.8rem; cursor: pointer;">
+                                🔬 전문장비
+                            </button>
+                        </div>
+                    </div>
+                    
                     <form class="sharing-form" id="sharingForm">
                         <div class="form-group">
                             <label for="requestingAgency">요청 기관</label>
                             <select id="requestingAgency" required>
                                 <option value="">기관을 선택하세요</option>
-                                <option value="seoul">서울시청</option>
+                                <option value="seoul" selected>서울시청</option>
                                 <option value="busan">부산시청</option>
                                 <option value="incheon">인천시청</option>
                                 <option value="gyeonggi">경기도청</option>
@@ -312,16 +337,16 @@
                         
                         <div class="form-group">
                             <label for="equipmentType">필요 장비/서비스</label>
-                            <input type="text" id="equipmentType" placeholder="예: 회의실 프로젝터 30대" required>
+                            <input type="text" id="equipmentType" placeholder="예: 회의실 프로젝터 30대" value="고해상도 프로젝터 15대" required>
                             <div class="form-hint">찾고 있는 장비나 서비스를 입력하세요</div>
                         </div>
                         
                         <div class="form-group">
                             <label for="usagePeriod">사용 기간</label>
                             <div class="date-range">
-                                <input type="date" id="startDate" required>
+                                <input type="date" id="startDate" value="" required>
                                 <span>~</span>
-                                <input type="date" id="endDate" required>
+                                <input type="date" id="endDate" value="" required>
                             </div>
                         </div>
                         
@@ -329,8 +354,8 @@
                             <label for="searchRadius">검색 반경</label>
                             <select id="searchRadius" required>
                                 <option value="10">10km 이내</option>
-                                <option value="30">30km 이내</option>
-                                <option value="50" selected>50km 이내</option>
+                                <option value="30" selected>30km 이내</option>
+                                <option value="50">50km 이내</option>
                                 <option value="100">100km 이내</option>
                                 <option value="nationwide">전국</option>
                             </select>
@@ -338,7 +363,7 @@
                         
                         <div class="form-group">
                             <label for="quantity">필요 수량</label>
-                            <input type="number" id="quantity" placeholder="30" min="1" required>
+                            <input type="number" id="quantity" placeholder="30" min="1" value="15" required>
                         </div>
                         
                         <button type="submit" class="ai-analyze-btn">
