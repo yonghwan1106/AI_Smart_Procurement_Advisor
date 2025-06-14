@@ -1,0 +1,571 @@
+// ========================================
+// AI Smart Procurement Advisor - Extended App Logic
+// 2025 공공조달 AI 활용 아이디어 공모전
+// ========================================
+
+// 기존 AISmartProcurement 클래스 확장
+Object.assign(AISmartProcurement.prototype, {
+  
+  // ========================================
+  // 확장된 초기화 메서드
+  // ========================================
+  
+  async extendedInit() {
+    try {
+      console.log('🚀 AI Smart Procurement 확장 초기화 시작');
+      
+      // 필수 의존성 체크
+      await this.checkDependencies();
+      
+      // 이벤트 리스너 등록
+      this.setupEventListeners();
+      
+      // 실시간 카운터 시작
+      this.startRealTimeCounters();
+      
+      // 네트워크 시각화 초기화
+      this.initializeNetworkVisualization();
+      
+      // 모듈 상태 초기화
+      this.initializeModules();
+      
+      // 초기화 완료
+      this.isInitialized = true;
+      console.log('✅ AI Smart Procurement 확장 초기화 완료');
+      
+      // 웰컴 메시지 표시
+      this.showWelcomeMessage();
+      
+    } catch (error) {
+      console.error('❌ 확장 초기화 실패:', error);
+      this.handleInitializationError(error);
+      throw error;
+    }
+  },
+  
+  // ========================================
+  // 의존성 체크
+  // ========================================
+  
+  async checkDependencies() {
+    const required = ['Utils', 'MockData', 'NecessityAIModule', 'ExpertAI'];
+    const missing = [];
+    
+    required.forEach(dep => {
+      if (typeof window[dep] === 'undefined') {
+        missing.push(dep);
+      }
+    });
+    
+    if (missing.length > 0) {
+      throw new Error(`필수 의존성 누락: ${missing.join(', ')}`);
+    }
+    
+    console.log('✅ 모든 의존성 확인 완료');
+  },
+  
+  // ========================================
+  // 이벤트 리스너 설정
+  // ========================================
+  
+  setupEventListeners() {
+    console.log('🔧 이벤트 리스너 설정 중...');
+    
+    // 네비게이션 이벤트
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', this.handleNavigation);
+    });
+    
+    // 모듈 액션 버튼들
+    document.querySelectorAll('[data-action="demo"]').forEach(button => {
+      button.addEventListener('click', this.handleModuleAction);
+    });
+    
+    document.querySelectorAll('[data-action="learn"]').forEach(button => {
+      button.addEventListener('click', this.handleModuleAction);
+    });
+    
+    // 히어로 섹션 버튼들
+    const heroStartBtn = document.getElementById('heroStartBtn');
+    const heroLearnBtn = document.getElementById('heroLearnBtn');
+    const startDemoBtn = document.getElementById('startDemoBtn');
+    
+    if (heroStartBtn) {
+      heroStartBtn.addEventListener('click', () => this.startDemo());
+    }
+    
+    if (heroLearnBtn) {
+      heroLearnBtn.addEventListener('click', () => this.scrollToSection('about'));
+    }
+    
+    if (startDemoBtn) {
+      startDemoBtn.addEventListener('click', () => this.startDemo());
+    }
+    
+    // 리포트 생성 버튼
+    const generateReportBtn = document.getElementById('generateReportBtn');
+    if (generateReportBtn) {
+      generateReportBtn.addEventListener('click', () => this.generateIntegratedReport());
+    }
+    
+    // 모달 이벤트
+    this.setupModalListeners();
+    
+    // 키보드 이벤트
+    document.addEventListener('keydown', this.handleKeyboardEvents.bind(this));
+    
+    console.log('✅ 이벤트 리스너 설정 완료');
+  },
+  
+  setupModalListeners() {
+    const modal = document.getElementById('moduleModal');
+    const modalOverlay = document.getElementById('modalOverlay');
+    const modalClose = document.getElementById('modalClose');
+    const modalCancel = document.getElementById('modalCancelBtn');
+    
+    if (modalOverlay) {
+      modalOverlay.addEventListener('click', () => this.closeModal());
+    }
+    
+    if (modalClose) {
+      modalClose.addEventListener('click', () => this.closeModal());
+    }
+    
+    if (modalCancel) {
+      modalCancel.addEventListener('click', () => this.closeModal());
+    }
+    
+    // ESC 키로 모달 닫기
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && this.state.modals.currentModal) {
+        this.closeModal();
+      }
+    });
+  },
+  
+  handleKeyboardEvents(event) {
+    // 접근성을 위한 키보드 네비게이션
+    if (event.ctrlKey || event.metaKey) {
+      switch (event.key) {
+        case '1':
+          event.preventDefault();
+          this.openModuleDemo('necessity');
+          break;
+        case '2':
+          event.preventDefault();
+          this.openModuleDemo('sharing');
+          break;
+        case '3':
+          event.preventDefault();
+          this.openModuleDemo('timing');
+          break;
+        case '4':
+          event.preventDefault();
+          this.openModuleDemo('esg');
+          break;
+        case '5':
+          event.preventDefault();
+          this.openModuleDemo('expert');
+          break;
+      }
+    }
+  },
+  
+  // ========================================
+  // 네비게이션 처리
+  // ========================================
+  
+  handleNavigation(event) {
+    event.preventDefault();
+    
+    const link = event.currentTarget;
+    const section = link.getAttribute('data-section');
+    
+    if (section) {
+      this.navigateToSection(section);
+    }
+  },
+  
+  navigateToSection(sectionId) {
+    // 현재 활성 링크 제거
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.classList.remove('active');
+    });
+    
+    // 새 활성 링크 설정
+    const targetLink = document.querySelector(`[data-section="${sectionId}"]`);
+    if (targetLink) {
+      targetLink.classList.add('active');
+    }
+    
+    // 섹션으로 스크롤
+    this.scrollToSection(sectionId);
+    
+    // 상태 업데이트
+    this.state.navigation.previousSection = this.state.navigation.currentSection;
+    this.state.navigation.currentSection = sectionId;
+  },
+  
+  scrollToSection(sectionId) {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  },
+  
+  // ========================================
+  // 모듈 액션 처리
+  // ========================================
+  
+  handleModuleAction(event) {
+    event.preventDefault();
+    
+    const button = event.currentTarget;
+    const action = button.getAttribute('data-action');
+    const module = button.getAttribute('data-module');
+    
+    if (action === 'demo') {
+      this.openModuleDemo(module);
+    } else if (action === 'learn') {
+      this.openModuleInfo(module);
+    }
+  },
+  
+  async openModuleDemo(moduleId) {
+    console.log(`🎮 모듈 데모 시작: ${moduleId}`);
+    
+    try {
+      // 모달 열기
+      await this.openModal(moduleId, 'demo');
+      
+      // 모듈별 데모 실행
+      switch (moduleId) {
+        case 'necessity':
+          await this.runNecessityDemo();
+          break;
+        case 'sharing':
+          await this.runSharingDemo();
+          break;
+        case 'timing':
+          await this.runTimingDemo();
+          break;
+        case 'esg':
+          await this.runESGDemo();
+          break;
+        case 'expert':
+          await this.runExpertDemo();
+          break;
+        default:
+          throw new Error(`알 수 없는 모듈: ${moduleId}`);
+      }
+      
+    } catch (error) {
+      console.error(`모듈 데모 오류 (${moduleId}):`, error);
+      this.showErrorMessage(`${moduleId} 모듈 데모를 실행할 수 없습니다.`);
+    }
+  },
+  
+  async openModuleInfo(moduleId) {
+    console.log(`📖 모듈 정보 표시: ${moduleId}`);
+    
+    try {
+      await this.openModal(moduleId, 'info');
+      
+      const content = this.getModuleInfoContent(moduleId);
+      const modalBody = document.getElementById('modalBody');
+      
+      if (modalBody) {
+        modalBody.innerHTML = content;
+      }
+      
+    } catch (error) {
+      console.error(`모듈 정보 오류 (${moduleId}):`, error);
+      this.showErrorMessage(`${moduleId} 모듈 정보를 불러올 수 없습니다.`);
+    }
+  },
+  
+  // ========================================
+  // 모달 관리
+  // ========================================
+  
+  async openModal(moduleId, type = 'demo') {
+    const modal = document.getElementById('moduleModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalActionBtn = document.getElementById('modalActionBtn');
+    
+    if (!modal) {
+      throw new Error('모달 요소를 찾을 수 없습니다.');
+    }
+    
+    // 모달 제목 설정
+    const moduleInfo = this.getModuleInfo(moduleId);
+    if (modalTitle) {
+      modalTitle.textContent = type === 'demo' ? 
+        `${moduleInfo.title} - 체험하기` : 
+        `${moduleInfo.title} - 상세정보`;
+    }
+    
+    // 액션 버튼 설정
+    if (modalActionBtn) {
+      modalActionBtn.textContent = type === 'demo' ? '분석 시작' : '닫기';
+      modalActionBtn.onclick = type === 'demo' ? 
+        () => this.startModuleAnalysis(moduleId) : 
+        () => this.closeModal();
+    }
+    
+    // 모달 표시
+    modal.classList.add('active');
+    modal.setAttribute('aria-hidden', 'false');
+    
+    // 상태 업데이트
+    this.state.modals.currentModal = {
+      moduleId: moduleId,
+      type: type,
+      openedAt: new Date()
+    };
+    
+    // 애니메이션
+    await this.animateModalOpen(modal);
+    
+    // 포커스 관리
+    const firstFocusable = modal.querySelector('button, input, select, textarea, [tabindex]:not([tabindex="-1"])');
+    if (firstFocusable) {
+      firstFocusable.focus();
+    }
+  },
+  
+  async closeModal() {
+    const modal = document.getElementById('moduleModal');
+    if (!modal || !modal.classList.contains('active')) return;
+    
+    // 애니메이션
+    await this.animateModalClose(modal);
+    
+    // 모달 숨기기
+    modal.classList.remove('active');
+    modal.setAttribute('aria-hidden', 'true');
+    
+    // 내용 초기화
+    const modalBody = document.getElementById('modalBody');
+    if (modalBody) {
+      modalBody.innerHTML = '';
+    }
+    
+    // 상태 초기화
+    this.state.modals.history.push(this.state.modals.currentModal);
+    this.state.modals.currentModal = null;
+    
+    // 포커스 복원
+    const triggerButton = document.querySelector('[data-action="demo"].last-clicked') ||
+                         document.querySelector('[data-action="demo"]');
+    if (triggerButton) {
+      triggerButton.focus();
+    }
+  },
+  
+  async animateModalOpen(modal) {
+    modal.style.opacity = '0';
+    modal.style.transform = 'scale(0.9)';
+    
+    return new Promise(resolve => {
+      requestAnimationFrame(() => {
+        modal.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+        modal.style.opacity = '1';
+        modal.style.transform = 'scale(1)';
+        
+        setTimeout(resolve, 300);
+      });
+    });
+  },
+  
+  async animateModalClose(modal) {
+    return new Promise(resolve => {
+      modal.style.transition = 'opacity 0.2s ease, transform 0.2s ease';
+      modal.style.opacity = '0';
+      modal.style.transform = 'scale(0.9)';
+      
+      setTimeout(resolve, 200);
+    });
+  },
+  
+  // ========================================
+  // 데모 실행 함수들
+  // ========================================
+  
+  async runNecessityDemo() {
+    console.log('🔍 필요성 검증 AI 데모 시작');
+    
+    // 샘플 데이터 생성
+    const sampleData = {
+      agency: '서울특별시청',
+      item: '복사기',
+      quantity: 50,
+      budget: 500000000, // 5억원
+      reason: '기존 장비 노후화로 인한 교체 필요성 검토'
+    };
+    
+    // 필요성 검증 AI 분석 실행
+    if (typeof window.NecessityAIModule !== 'undefined') {
+      await window.NecessityAIModule.analyze(sampleData);
+    } else {
+      console.error('NecessityAIModule을 찾을 수 없습니다.');
+      this.showErrorMessage('필요성 검증 AI 모듈이 로드되지 않았습니다.');
+    }
+  },
+  
+  async runSharingDemo() {
+    console.log('🔗 시스템 연결 AI 데모 시작');
+    
+    const modalBody = document.getElementById('modalBody');
+    if (modalBody) {
+      modalBody.innerHTML = `
+        <div class="sharing-demo">
+          <h4>🔗 통합 시스템 연결 AI - 데모</h4>
+          <div class="demo-scenario">
+            <p><strong>시나리오:</strong> 인천시청에서 회의실 프로젝터 30대 구매 요청</p>
+          </div>
+          <div class="sharing-analysis">
+            <div class="analysis-step active">
+              <h5>1단계: 반경 50km 기관 검색</h5>
+              <div class="search-results">
+                <div class="agency-item">
+                  📍 경기도청: 프로젝터 15대 보유 (이용률 30%)
+                </div>
+                <div class="agency-item">
+                  📍 부천시청: 프로젝터 12대 보유 (이용률 25%)
+                </div>
+                <div class="agency-item">
+                  📍 서울시청: 프로젝터 25대 보유 (이용률 45%)
+                </div>
+              </div>
+            </div>
+            <div class="cost-comparison">
+              <h5>2단계: 비용 비교</h5>
+              <div class="comparison-table">
+                <div class="comparison-row">
+                  <span>신규 구매:</span>
+                  <span class="cost">3억원</span>
+                </div>
+                <div class="comparison-row">
+                  <span>공유 + 배송:</span>
+                  <span class="cost savings">50만원</span>
+                </div>
+                <div class="comparison-row highlight">
+                  <span>절약 효과:</span>
+                  <span class="cost savings">2억 9,950만원 (99.8%)</span>
+                </div>
+              </div>
+            </div>
+            <div class="recommendation">
+              <h5>3단계: AI 권고안</h5>
+              <div class="recommendation-card positive">
+                <div class="recommendation-icon">✅</div>
+                <div class="recommendation-text">
+                  <strong>공유 경제 매칭 권고</strong>
+                  <p>경기도청과의 장비 공유를 통해 99.8% 비용 절감 가능</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+  },
+  
+  async runTimingDemo() {
+    console.log('⏰ 타이밍 AI 데모 시작');
+    
+    const modalBody = document.getElementById('modalBody');
+    if (modalBody) {
+      modalBody.innerHTML = `
+        <div class="timing-demo">
+          <h4>⏰ 스마트 타이밍 AI - 데모</h4>
+          <div class="demo-scenario">
+            <p><strong>시나리오:</strong> 부산시청에서 전기차 10대 구매 타이밍 검토</p>
+          </div>
+          <div class="timing-analysis">
+            <div class="market-trend">
+              <h5>시장 동향 분석</h5>
+              <div class="trend-chart">
+                <div class="trend-item">
+                  <span class="trend-month">현재 (6월)</span>
+                  <span class="trend-status danger">위험</span>
+                  <span class="trend-price">5,500만원/대</span>
+                </div>
+                <div class="trend-item">
+                  <span class="trend-month">7월</span>
+                  <span class="trend-status warning">주의</span>
+                  <span class="trend-price">5,200만원/대</span>
+                </div>
+                <div class="trend-item">
+                  <span class="trend-month">8월</span>
+                  <span class="trend-status warning">대기</span>
+                  <span class="trend-price">4,900만원/대</span>
+                </div>
+                <div class="trend-item recommended">
+                  <span class="trend-month">9월</span>
+                  <span class="trend-status success">최적</span>
+                  <span class="trend-price">4,700만원/대</span>
+                </div>
+              </div>
+            </div>
+            <div class="timing-recommendation">
+              <h5>AI 권고안</h5>
+              <div class="recommendation-card timing">
+                <div class="recommendation-icon">⏰</div>
+                <div class="recommendation-text">
+                  <strong>3개월 연기 권고</strong>
+                  <p>9월 구매시 8,000만원 절감 예상 (14.5% 절약)</p>
+                  <p>신모델 출시로 성능 향상도 기대</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+  },
+  
+  async runESGDemo() {
+    console.log('🌱 ESG AI 데모 시작');
+    
+    const modalBody = document.getElementById('modalBody');
+    if (modalBody) {
+      modalBody.innerHTML = `
+        <div class="esg-demo">
+          <h4>🌱 ESG 스마트 평가 AI - 데모</h4>
+          <div class="demo-scenario">
+            <p><strong>시나리오:</strong> 대구시청에서 사무용 책상 200개 ESG 평가</p>
+          </div>
+          <div class="esg-analysis">
+            <div class="vendor-comparison">
+              <h5>업체별 ESG 평가</h5>
+              <div class="vendor-list">
+                <div class="vendor-item">
+                  <div class="vendor-info">
+                    <span class="vendor-name">A업체 (일반 목재)</span>
+                    <span class="vendor-price">1억 2천만원</span>
+                  </div>
+                  <div class="esg-score low">40점</div>
+                </div>
+                <div class="vendor-item">
+                  <div class="vendor-info">
+                    <span class="vendor-name">B업체 (재생 목재)</span>
+                    <span class="vendor-price">1억 3천만원</span>
+                  </div>
+                  <div class="esg-score medium">85점</div>
+                </div>
+                <div class="vendor-item recommended">
+                  <div class="vendor-info">
+                    <span class="vendor-name">C업체 (친환경 인증)</span>
+                    <span class="vendor-price">1억 2,600만원</span>
+                  </div>
+                  <div class="esg-score high">92점</div>
+                </div>
+              </div>
+            </div>
+            <div class="esg-breakdown">
+              <h5>C업체 상세 평가</h5>

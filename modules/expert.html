@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>전문가 역량 강화 AI - AI 스마트 조달 어드바이저</title>
+    
+    <!-- 완전한 인라인 CSS 스타일 -->
+    <style>
+        :root {
+            --primary-color: #2c5aa0;
+            --white: #ffffff;
+            --light-gray: #f8f9fa;
+            --gray-100: #e9ecef;
+            --gray-200: #dee2e6;
+            --gray-300: #ced4da;
+            --gray-600: #495057;
+            --gray-700: #343a40;
+            --gray-800: #212529;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --danger-color: #e74c3c;
+            --expert-color: #8e44ad;
+            --spacing-xs: 0.25rem;
+            --spacing-sm: 0.5rem;
+            --spacing-md: 1rem;
+            --spacing-lg: 1.5rem;
+            --spacing-xl: 2rem;
+            --spacing-2xl: 3rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+            --font-family-primary: 'Malgun Gothic', '맑은 고딕', sans-serif;
+            --font-size-base: 1rem;
+            --font-size-lg: 1.125rem;
+            --font-size-xl: 1.25rem;
+            --font-size-2xl: 1.5rem;
+            --font-size-3xl: 1.875rem;
+            --font-weight-medium: 500;
+            --font-weight-semibold: 600;
+            --font-weight-bold: 700;
+            --transition-fast: 0.15s ease-out;
+            --transition-base: 0.3s ease-out;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: var(--font-family-primary);
+            background-color: var(--light-gray);
+            color: var(--gray-800);
+            line-height: 1.6;
+        }
+        
+        .module-container {
+            min-height: 100vh;
+            padding: var(--spacing-xl);
+        }
+        
+        .module-header {
+            background: var(--white);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-2xl);
+            margin-bottom: var(--spacing-xl);
+            box-shadow: var(--shadow-sm);
+            border-left: 5px solid var(--expert-color);
+        }
+        
+        .breadcrumb {
+            font-size: 0.875rem;
+            color: var(--gray-600);
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .breadcrumb a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        .module-title {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            font-size: var(--font-size-3xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--expert-color);
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .module-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--expert-color) 0%, #9b59b6 100%);
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: var(--font-size-2xl);
+        }
+        
+        .module-description {
+            font-size: var(--font-size-lg);
+            line-height: 1.6;
+            color: var(--gray-600);
+        }
+        
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-xl);
+        }
+        
+        @media (max-width: 1024px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .input-section,
+        .result-section {
+            background: var(--white);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-xl);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .input-section h2 {
+            font-size: var(--font-size-xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--expert-color);
+            margin-bottom: var(--spacing-lg);
+            padding-bottom: var(--spacing-md);
+            border-bottom: 2px solid var(--gray-100);
+        }
+        
+        .result-section h3 {
+            font-size: var(--font-size-xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--expert-color);
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .form-group {
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .form-group label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: var(--font-weight-semibold);
+            color: var(--gray-700);
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: var(--spacing-md);
+            font-size: var(--font-size-base);
+            border: 2px solid var(--gray-300);
+            border-radius: var(--radius-md);
+            transition: all var(--transition-fast);
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--expert-color);
+            box-shadow: 0 0 0 3px rgba(142, 68, 173, 0.1);
+        }
+        
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-sm);
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            cursor: pointer;
+            padding: var(--spacing-sm);
+            border-radius: var(--radius-md);
+            transition: all var(--transition-fast);
+        }
+        
+        .checkbox-item:hover {
+            background-color: var(--gray-100);
+        }
+        
+        .checkbox-item input[type="checkbox"] {
+            width: auto;
+            margin: 0;
+        }
+        
+        .ai-analyze-btn {
+            width: 100%;
+            background: linear-gradient(135deg, var(--expert-color) 0%, #9b59b6 100%);
+            color: var(--white);
+            border: none;
+            padding: var(--spacing-lg) var(--spacing-xl);
+            border-radius: var(--radius-lg);
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-semibold);
+            cursor: pointer;
+            transition: all var(--transition-base);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-xl);
+        }
+        
+        .ai-analyze-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .btn-icon {
+            font-size: var(--font-size-xl);
+        }
+        
+        .progress-steps {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-lg);
+        }
+        
+        .progress-step {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            padding: var(--spacing-lg);
+            background: var(--gray-100);
+            border-radius: var(--radius-lg);
+            opacity: 0.5;
+            transition: all var(--transition-base);
+        }
+        
+        .progress-step.active {
+            opacity: 1;
+            background: linear-gradient(135deg, var(--expert-color) 0%, #9b59b6 100%);
+            color: var(--white);
+        }
+        
+        .step-icon {
+            font-size: var(--font-size-2xl);
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+        }
+        
+        .step-content {
+            flex: 1;
+        }
+        
+        .step-title {
+            font-weight: var(--font-weight-semibold);
+            margin-bottom: var(--spacing-xs);
+        }
+        
+        .step-description {
+            font-size: 0.875rem;
+            opacity: 0.8;
+        }
+        
+        .competency-dashboard,
+        .detailed-competencies,
+        .learning-plan,
+        .mentor-matching,
+        .progress-tracking,
+        .recommended-content {
+            margin-top: var(--spacing-xl);
+            padding-top: var(--spacing-xl);
+            border-top: 1px solid var(--gray-200);
+        }
+        
+        .competency-dashboard h3,
+        .detailed-competencies h4,
+        .learning-plan h4,
+        .mentor-matching h4,
+        .progress-tracking h4,
+        .recommended-content h4 {
+            color: var(--expert-color);
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .overall-score {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xl);
+            background: var(--gray-100);
+            padding: var(--spacing-xl);
+            border-radius: var(--radius-lg);
+        }
+        
+        .score-circle {
+            position: relative;
+            width: 120px;
+            height: 120px;
+        }
+        
+        .score-circle svg {
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+        }
+        
+        .score-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+        
+        .score-text span {
+            font-size: var(--font-size-2xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--expert-color);
+        }
+        
+        .score-text small {
+            font-size: 0.875rem;
+            color: var(--gray-600);
+        }
+        
+        .tracking-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-lg);
+        }
+        
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-xs);
+            padding: var(--spacing-lg);
+            background: var(--gray-100);
+            border-radius: var(--radius-lg);
+            text-align: center;
+        }
+        
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--gray-600);
+        }
+        
+        .stat-value {
+            font-size: var(--font-size-xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--expert-color);
+        }
+        
+        .result-actions {
+            margin-top: var(--spacing-2xl);
+            display: flex;
+            gap: var(--spacing-md);
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: var(--spacing-md) var(--spacing-lg);
+            border-radius: var(--radius-lg);
+            border: none;
+            cursor: pointer;
+            font-weight: var(--font-weight-semibold);
+            transition: all var(--transition-base);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #667eea 100%);
+            color: var(--white);
+        }
+        
+        .btn-secondary {
+            background: var(--gray-200);
+            color: var(--gray-700);
+        }
+        
+        .btn:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        @media (max-width: 768px) {
+            .module-container {
+                padding: var(--spacing-md);
+            }
+            
+            .module-header {
+                padding: var(--spacing-lg);
+            }
+            
+            .module-title {
+                font-size: var(--font-size-2xl);
+            }
+            
+            .overall-score {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .result-actions {
+                flex-direction: column;
+            }
+            
+            .btn {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="module-container">
+        <!-- 헤더 -->
+        <header class="module-header">
+            <div class="breadcrumb">
+                <a href="../index.html">홈</a> > 
+                <span>전문가 역량 강화 AI</span>
+            </div>
+            <h1 class="module-title">
+                <div class="module-icon">🎯</div>
+                전문가 역량 강화 AI
+            </h1>
+            <p class="module-description">
+                7만 기관 조달 담당자 AI 역량 자동 강화 시스템으로 
+                "잘못된 조달 의사결정"을 사전 차단하고 가이드를 제시합니다.
+            </p>
+        </header>
+
+        <!-- 메인 컨텐츠 -->
+        <main class="module-content">
+            <div class="content-grid">
+                <!-- 입력 섹션 -->
+                <section class="input-section">
+                    <h2>개인 프로필 설정</h2>
+                    <form class="expert-form" id="expertForm">
+                        <div class="form-group">
+                            <label for="userName">이름</label>
+                            <input type="text" id="userName" placeholder="김조달" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="userAgency">소속 기관</label>
+                            <select id="userAgency" required>
+                                <option value="">기관을 선택하세요</option>
+                                <option value="seoul">서울시청</option>
+                                <option value="busan">부산시청</option>
+                                <option value="incheon">인천시청</option>
+                                <option value="gyeonggi">경기도청</option>
+                                <option value="ministry-edu">교육부</option>
+                                <option value="ministry-health">보건복지부</option>
+                                <option value="ministry-defense">국방부</option>
+                                <option value="ministry-interior">행정안전부</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="experience">조달 업무 경력</label>
+                            <select id="experience" required>
+                                <option value="">경력을 선택하세요</option>
+                                <option value="beginner">신규 (1년 미만)</option>
+                                <option value="junior">초급 (1-3년)</option>
+                                <option value="intermediate">중급 (3-7년)</option>
+                                <option value="senior">고급 (7년 이상)</option>
+                                <option value="expert">전문가 (15년 이상)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="department">담당 부서</label>
+                            <select id="department" required>
+                                <option value="">부서를 선택하세요</option>
+                                <option value="procurement">조달팀</option>
+                                <option value="contracts">계약팀</option>
+                                <option value="budget">예산팀</option>
+                                <option value="planning">기획팀</option>
+                                <option value="administration">총무팀</option>
+                                <option value="it">정보화팀</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>주요 담당 업무 (복수 선택 가능)</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="responsibilities" value="planning">
+                                    <span>조달 계획 수립</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="responsibilities" value="bidding">
+                                    <span>입찰 관리</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="responsibilities" value="contracts">
+                                    <span>계약 체결</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="responsibilities" value="evaluation">
+                                    <span>업체 평가</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="responsibilities" value="monitoring">
+                                    <span>이행 관리</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="responsibilities" value="analysis">
+                                    <span>데이터 분석</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="learningGoal">학습 목표</label>
+                            <select id="learningGoal" required>
+                                <option value="">목표를 선택하세요</option>
+                                <option value="ai-basics">AI 기술 기초 이해</option>
+                                <option value="esg-procurement">ESG 조달 전문성</option>
+                                <option value="digital-transformation">디지털 전환 역량</option>
+                                <option value="negotiation">협상 스킬 향상</option>
+                                <option value="risk-management">리스크 관리 능력</option>
+                                <option value="leadership">조달 리더십</option>
+                            </select>
+                        </div>
+                        
+                        <button type="submit" class="ai-analyze-btn">
+                            <span class="btn-icon">🎯</span>
+                            개인화 역량 분석 시작
+                        </button>
+                    </form>
+                </section>
+
+                <!-- 결과 섹션 -->
+                <section class="result-section">
+                    <h3>분석 결과</h3>
+                    <div id="analysisResults">
+                        <p>왼쪽 폼을 채우고 "개인화 역량 분석 시작" 버튼을 클릭하면 AI 분석이 시작됩니다.</p>
+                        <br>
+                        <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px; border-left: 4px solid #8e44ad;">
+                            <h4 style="color: #8e44ad; margin-bottom: 0.5rem;">💡 AI 분석 기능</h4>
+                            <ul style="margin: 0; padding-left: 1.2rem;">
+                                <li>현재 역량 수준 진단 및 평가</li>
+                                <li>개인 맞춤형 학습 계획 수립</li>
+                                <li>전문가 멘토 매칭 및 네트워크 연결</li>
+                                <li>학습 진도 추적 및 목표 달성 가이드</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- 스크립트 -->
+    <script>
+        // 페이지 초기화
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('전문가 역량 강화 AI 모듈 로드됨');
+            
+            // 폼 제출 이벤트
+            document.getElementById('expertForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // 임시 시뮬레이션
+                const resultsDiv = document.getElementById('analysisResults');
+                resultsDiv.innerHTML = `
+                    <div style="text-align: center; padding: 2rem;">
+                        <div style="font-size: 2rem; margin-bottom: 1rem;">🔄</div>
+                        <h4 style="color: #8e44ad;">역량 분석 진행 중...</h4>
+                        <p>개인 프로필을 분석하고 맞춤형 학습 계획을 수립하고 있습니다.</p>
+                        <div style="margin-top: 1rem; padding: 1rem; background: #f4f1f8; border-radius: 8px;">
+                            <small style="color: #5a3266;">실제 프로젝트에서는 실시간 역량 분석 결과가 표시됩니다.</small>
+                        </div>
+                    </div>
+                `;
+                
+                // 3초 후 결과 표시 시뮬레이션
+                setTimeout(() => {
+                    const name = document.getElementById('userName').value || '김조달';
+                    const agency = document.getElementById('userAgency').options[document.getElementById('userAgency').selectedIndex]?.text || '선택한 기관';
+                    const experience = document.getElementById('experience').options[document.getElementById('experience').selectedIndex]?.text || '선택한 경력';
+                    const goal = document.getElementById('learningGoal').options[document.getElementById('learningGoal').selectedIndex]?.text || '선택한 목표';
+                    
+                    resultsDiv.innerHTML = `
+                        <div style="border: 2px solid #8e44ad; border-radius: 12px; padding: 1.5rem; background: #f9f6fc;">
+                            <h4 style="color: #8e44ad; margin-bottom: 1rem;">✅ 역량 분석 완료!</h4>
+                            <div style="margin-bottom: 1rem;">
+                                <strong>이름:</strong> ${name}<br>
+                                <strong>소속:</strong> ${agency}<br>
+                                <strong>경력:</strong> ${experience}<br>
+                                <strong>목표:</strong> ${goal}
+                            </div>
+                            
+                            <!-- 현재 역량 대시보드 -->
+                            <div class="competency-dashboard" style="background: white; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+                                <h5 style="color: #8e44ad;">🎯 현재 역량 진단</h5>
+                                <div class="overall-score" style="display: flex; align-items: center; gap: 1rem; margin-top: 1rem;">
+                                    <div class="score-circle" style="position: relative; width: 80px; height: 80px;">
+                                        <div style="width: 80px; height: 80px; border-radius: 50%; background: conic-gradient(#8e44ad 0% 75%, #e9ecef 75% 100%); display: flex; align-items: center; justify-content: center;">
+                                            <div style="width: 60px; height: 60px; border-radius: 50%; background: white; display: flex; align-items: center; justify-content: center; flex-direction: column;">
+                                                <span style="font-size: 1.2rem; font-weight: bold; color: #8e44ad;">75</span>
+                                                <small style="font-size: 0.7rem; color: #666;">점</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="score-info">
+                                        <h6>중급 조달 담당자</h6>
+                                        <p style="font-size: 0.9rem; color: #666;">전체 평균보다 <strong>12점</strong> 높은 수준입니다.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 맞춤 학습 계획 -->
+                            <div style="background: white; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+                                <h5 style="color: #8e44ad;">📚 맞춤 학습 계획</h5>
+                                <div style="margin-top: 1rem;">
+                                    <div style="padding: 0.5rem; background: #f9f6fc; border-radius: 6px; margin-bottom: 0.5rem;">
+                                        <strong>1단계:</strong> AI 기술 기초 과정 (2주)
+                                    </div>
+                                    <div style="padding: 0.5rem; background: #f9f6fc; border-radius: 6px; margin-bottom: 0.5rem;">
+                                        <strong>2단계:</strong> 데이터 분석 실무 과정 (3주)
+                                    </div>
+                                    <div style="padding: 0.5rem; background: #f9f6fc; border-radius: 6px;">
+                                        <strong>3단계:</strong> 고급 조달 전략 과정 (4주)
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 추천 멘토 -->
+                            <div style="background: white; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+                                <h5 style="color: #8e44ad;">👥 추천 멘토</h5>
+                                <div style="margin-top: 1rem;">
+                                    <div style="display: flex; align-items: center; gap: 1rem; padding: 0.8rem; background: #f9f6fc; border-radius: 6px;">
+                                        <div style="width: 40px; height: 40px; background: #8e44ad; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">박</div>
+                                        <div>
+                                            <strong>박전문 수석연구원</strong><br>
+                                            <small style="color: #666;">조달 AI 전문가 · 15년 경력</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 학습 진도 추적 -->
+                            <div style="background: white; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+                                <h5 style="color: #8e44ad;">📈 예상 학습 성과</h5>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem;">
+                                    <div style="text-align: center; padding: 1rem; background: #f9f6fc; border-radius: 6px;">
+                                        <div style="font-size: 1.2rem; font-weight: bold; color: #8e44ad;">9주</div>
+                                        <small>목표 달성 기간</small>
+                                    </div>
+                                    <div style="text-align: center; padding: 1rem; background: #f9f6fc; border-radius: 6px;">
+                                        <div style="font-size: 1.2rem; font-weight: bold; color: #8e44ad;">+20점</div>
+                                        <small>예상 역량 향상</small>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div style="background: #fff3cd; padding: 1rem; border-radius: 8px; border-left: 4px solid #ffc107;">
+                                <strong>💡 역량 강화 권고사항:</strong><br>
+                                AI 기술 기초 이해도를 높이시면 조달 업무 효율성이 크게 향상될 것으로 예상됩니다. 
+                                추천된 학습 계획을 통해 체계적으로 역량을 강화하시기 바랍니다.
+                            </div>
+                        </div>
+                    `;
+                }, 3000);
+            });
+        });
+    </script>
+</body>
+</html>

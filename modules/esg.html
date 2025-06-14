@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESG 스마트 평가 AI - AI 스마트 조달 어드바이저</title>
+    
+    <!-- 완전한 인라인 CSS 스타일 -->
+    <style>
+        :root {
+            --primary-color: #2c5aa0;
+            --white: #ffffff;
+            --light-gray: #f8f9fa;
+            --gray-100: #e9ecef;
+            --gray-200: #dee2e6;
+            --gray-300: #ced4da;
+            --gray-600: #495057;
+            --gray-700: #343a40;
+            --gray-800: #212529;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --danger-color: #e74c3c;
+            --spacing-xs: 0.25rem;
+            --spacing-sm: 0.5rem;
+            --spacing-md: 1rem;
+            --spacing-lg: 1.5rem;
+            --spacing-xl: 2rem;
+            --spacing-2xl: 3rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+            --font-family-primary: 'Malgun Gothic', '맑은 고딕', sans-serif;
+            --font-size-base: 1rem;
+            --font-size-lg: 1.125rem;
+            --font-size-xl: 1.25rem;
+            --font-size-2xl: 1.5rem;
+            --font-size-3xl: 1.875rem;
+            --font-weight-medium: 500;
+            --font-weight-semibold: 600;
+            --font-weight-bold: 700;
+            --transition-fast: 0.15s ease-out;
+            --transition-base: 0.3s ease-out;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: var(--font-family-primary);
+            background-color: var(--light-gray);
+            color: var(--gray-800);
+            line-height: 1.6;
+        }
+        
+        .module-container {
+            min-height: 100vh;
+            padding: var(--spacing-xl);
+        }
+        
+        .module-header {
+            background: var(--white);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-2xl);
+            margin-bottom: var(--spacing-xl);
+            box-shadow: var(--shadow-sm);
+            border-left: 5px solid var(--success-color);
+        }
+        
+        .breadcrumb {
+            font-size: 0.875rem;
+            color: var(--gray-600);
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .breadcrumb a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        .module-title {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            font-size: var(--font-size-3xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--success-color);
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .module-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--success-color) 0%, #2ecc71 100%);
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: var(--font-size-2xl);
+        }
+        
+        .module-description {
+            font-size: var(--font-size-lg);
+            line-height: 1.6;
+            color: var(--gray-600);
+        }
+        
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-xl);
+        }
+        
+        @media (max-width: 1024px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .input-section,
+        .result-section {
+            background: var(--white);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-xl);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .input-section h2 {
+            font-size: var(--font-size-xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--success-color);
+            margin-bottom: var(--spacing-lg);
+            padding-bottom: var(--spacing-md);
+            border-bottom: 2px solid var(--gray-100);
+        }
+        
+        .result-section h3 {
+            font-size: var(--font-size-xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--success-color);
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .form-group {
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .form-group label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: var(--font-weight-semibold);
+            color: var(--gray-700);
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: var(--spacing-md);
+            font-size: var(--font-size-base);
+            border: 2px solid var(--gray-300);
+            border-radius: var(--radius-md);
+            transition: all var(--transition-fast);
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--success-color);
+            box-shadow: 0 0 0 3px rgba(39, 174, 96, 0.1);
+        }
+        
+        .form-hint {
+            font-size: 0.75rem;
+            color: var(--gray-600);
+            margin-top: var(--spacing-xs);
+            font-style: italic;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-sm);
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            cursor: pointer;
+            padding: var(--spacing-sm);
+            border-radius: var(--radius-md);
+            transition: all var(--transition-fast);
+        }
+        
+        .checkbox-item:hover {
+            background-color: var(--gray-100);
+        }
+        
+        .checkbox-item input[type="checkbox"] {
+            width: auto;
+            margin: 0;
+        }
+        
+        .ai-analyze-btn {
+            width: 100%;
+            background: linear-gradient(135deg, var(--success-color) 0%, #2ecc71 100%);
+            color: var(--white);
+            border: none;
+            padding: var(--spacing-lg) var(--spacing-xl);
+            border-radius: var(--radius-lg);
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-semibold);
+            cursor: pointer;
+            transition: all var(--transition-base);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-xl);
+        }
+        
+        .ai-analyze-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .btn-icon {
+            font-size: var(--font-size-xl);
+        }
+        
+        .progress-steps {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-lg);
+        }
+        
+        .progress-step {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            padding: var(--spacing-lg);
+            background: var(--gray-100);
+            border-radius: var(--radius-lg);
+            opacity: 0.5;
+            transition: all var(--transition-base);
+        }
+        
+        .progress-step.active {
+            opacity: 1;
+            background: linear-gradient(135deg, var(--success-color) 0%, #2ecc71 100%);
+            color: var(--white);
+        }
+        
+        .step-icon {
+            font-size: var(--font-size-2xl);
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+        }
+        
+        .step-content {
+            flex: 1;
+        }
+        
+        .step-title {
+            font-weight: var(--font-weight-semibold);
+            margin-bottom: var(--spacing-xs);
+        }
+        
+        .step-description {
+            font-size: 0.875rem;
+            opacity: 0.8;
+        }
+        
+        .vendor-comparison,
+        .esg-breakdown,
+        .impact-projection,
+        .recommendations {
+            margin-top: var(--spacing-xl);
+            padding-top: var(--spacing-xl);
+            border-top: 1px solid var(--gray-200);
+        }
+        
+        .vendor-comparison h4,
+        .esg-breakdown h4,
+        .impact-projection h4,
+        .recommendations h4 {
+            color: var(--success-color);
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-lg);
+        }
+        
+        .impact-item {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            padding: var(--spacing-lg);
+            background: var(--gray-100);
+            border-radius: var(--radius-lg);
+        }
+        
+        .impact-icon {
+            font-size: var(--font-size-2xl);
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--success-color);
+            color: var(--white);
+            border-radius: 50%;
+        }
+        
+        .impact-content h5 {
+            font-weight: var(--font-weight-semibold);
+            margin-bottom: var(--spacing-xs);
+        }
+        
+        .result-actions {
+            margin-top: var(--spacing-2xl);
+            display: flex;
+            gap: var(--spacing-md);
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: var(--spacing-md) var(--spacing-lg);
+            border-radius: var(--radius-lg);
+            border: none;
+            cursor: pointer;
+            font-weight: var(--font-weight-semibold);
+            transition: all var(--transition-base);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #667eea 100%);
+            color: var(--white);
+        }
+        
+        .btn-secondary {
+            background: var(--gray-200);
+            color: var(--gray-700);
+        }
+        
+        .btn:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        @media (max-width: 768px) {
+            .module-container {
+                padding: var(--spacing-md);
+            }
+            
+            .module-header {
+                padding: var(--spacing-lg);
+            }
+            
+            .module-title {
+                font-size: var(--font-size-2xl);
+            }
+            
+            .result-actions {
+                flex-direction: column;
+            }
+            
+            .btn {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="module-container">
+        <!-- 헤더 -->
+        <header class="module-header">
+            <div class="breadcrumb">
+                <a href="../index.html">홈</a> > 
+                <span>ESG 스마트 평가 AI</span>
+            </div>
+            <h1 class="module-title">
+                <div class="module-icon">🌱</div>
+                ESG 스마트 평가 AI
+            </h1>
+            <p class="module-description">
+                "착한 조달 AI 계산기" - 환경·사회적 가치를 자동 평가하여 
+                "ESG에 부정적인 조달"을 사전 차단하고 대안을 제시합니다.
+            </p>
+        </header>
+
+        <!-- 메인 컨텐츠 -->
+        <main class="module-content">
+            <div class="content-grid">
+                <!-- 입력 섹션 -->
+                <section class="input-section">
+                    <h2>ESG 평가 요청</h2>
+                    <form class="esg-form" id="esgForm">
+                        <div class="form-group">
+                            <label for="procurementItem">조달 품목</label>
+                            <input type="text" id="procurementItem" placeholder="예: 사무용 책상 200개" required>
+                            <div class="form-hint">ESG 평가할 조달 품목을 입력하세요</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="estimatedBudget">예상 예산 (억원)</label>
+                            <input type="number" id="estimatedBudget" placeholder="2" min="0.1" step="0.1" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="vendorCount">비교할 업체 수</label>
+                            <select id="vendorCount" required>
+                                <option value="3">3개 업체</option>
+                                <option value="5" selected>5개 업체</option>
+                                <option value="10">10개 업체</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>우선 고려 사항 (복수 선택 가능)</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="esgPriority" value="environment">
+                                    <span>환경 친화성 (탄소발자국, 재활용률)</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="esgPriority" value="social">
+                                    <span>사회적 가치 (사회적기업, 지역고용)</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="esgPriority" value="governance">
+                                    <span>투명경영 (윤리경영, 컴플라이언스)</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" name="esgPriority" value="local">
+                                    <span>지역경제 기여도</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="region">조달 지역</label>
+                            <select id="region" required>
+                                <option value="">지역을 선택하세요</option>
+                                <option value="seoul">서울특별시</option>
+                                <option value="busan">부산광역시</option>
+                                <option value="incheon">인천광역시</option>
+                                <option value="gyeonggi">경기도</option>
+                                <option value="gangwon">강원도</option>
+                                <option value="chungbuk">충청북도</option>
+                                <option value="chungnam">충청남도</option>
+                                <option value="jeonbuk">전라북도</option>
+                                <option value="jeonnam">전라남도</option>
+                                <option value="gyeongbuk">경상북도</option>
+                                <option value="gyeongnam">경상남도</option>
+                                <option value="jeju">제주특별자치도</option>
+                            </select>
+                        </div>
+                        
+                        <button type="submit" class="ai-analyze-btn">
+                            <span class="btn-icon">🌱</span>
+                            ESG 평가 시작
+                        </button>
+                    </form>
+                </section>
+
+                <!-- 결과 섹션 -->
+                <section class="result-section">
+                    <h3>분석 결과</h3>
+                    <div id="analysisResults">
+                        <p>왼쪽 폼을 채우고 "ESG 평가 시작" 버튼을 클릭하면 AI 분석이 시작됩니다.</p>
+                        <br>
+                        <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px; border-left: 4px solid #27ae60;">
+                            <h4 style="color: #27ae60; margin-bottom: 0.5rem;">💡 AI 분석 기능</h4>
+                            <ul style="margin: 0; padding-left: 1.2rem;">
+                                <li>업체별 ESG 인증 및 평가 정보 수집</li>
+                                <li>환경·사회·거버넌스 지표 종합 분석</li>
+                                <li>사회적 임팩트 및 가치 창출 효과 계산</li>
+                                <li>ESG 기반 최적 업체 순위 제공</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- 스크립트 -->
+    <script>
+        // 페이지 초기화
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('ESG 스마트 평가 AI 모듈 로드됨');
+            
+            // 폼 제출 이벤트
+            document.getElementById('esgForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // 임시 시뮬레이션
+                const resultsDiv = document.getElementById('analysisResults');
+                resultsDiv.innerHTML = `
+                    <div style="text-align: center; padding: 2rem;">
+                        <div style="font-size: 2rem; margin-bottom: 1rem;">🔄</div>
+                        <h4 style="color: #27ae60;">ESG 평가 진행 중...</h4>
+                        <p>업체 정보를 수집하고 ESG 지표를 분석하고 있습니다.</p>
+                        <div style="margin-top: 1rem; padding: 1rem; background: #e8f5e8; border-radius: 8px;">
+                            <small style="color: #2d5016;">실제 프로젝트에서는 실시간 ESG 분석 결과가 표시됩니다.</small>
+                        </div>
+                    </div>
+                `;
+                
+                // 3초 후 결과 표시 시뮬레이션
+                setTimeout(() => {
+                    const item = document.getElementById('procurementItem').value || '선택한 품목';
+                    const budget = document.getElementById('estimatedBudget').value || '0';
+                    const vendorCount = document.getElementById('vendorCount').value || '5';
+                    
+                    resultsDiv.innerHTML = `
+                        <div style="border: 2px solid #27ae60; border-radius: 12px; padding: 1.5rem; background: #f1f8e9;">
+                            <h4 style="color: #27ae60; margin-bottom: 1rem;">✅ ESG 평가 완료!</h4>
+                            <div style="margin-bottom: 1rem;">
+                                <strong>품목:</strong> ${item}<br>
+                                <strong>예산:</strong> ${budget}억원<br>
+                                <strong>평가 업체:</strong> ${vendorCount}개
+                            </div>
+                            
+                            <div style="background: white; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+                                <h5 style="color: #27ae60;">🏆 추천 업체</h5>
+                                <p><strong>1위:</strong> 그린퍼니처(주) - ESG 점수 92점</p>
+                                <p><strong>특징:</strong> 100% 재활용 소재, 탄소중립 인증, 지역 사회적기업</p>
+                                <p><strong>예상 사회적 임팩트:</strong> 탄소 15톤 절감, 지역 일자리 8개 창출</p>
+                            </div>
+                            
+                            <div class="impact-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin: 1rem 0;">
+                                <div class="impact-item" style="display: flex; align-items: center; gap: 0.5rem; padding: 1rem; background: #e8f5e8; border-radius: 8px;">
+                                    <div style="font-size: 1.5rem;">🌱</div>
+                                    <div>
+                                        <h6>탄소 저감</h6>
+                                        <span>15톤 CO2</span>
+                                    </div>
+                                </div>
+                                <div class="impact-item" style="display: flex; align-items: center; gap: 0.5rem; padding: 1rem; background: #e8f5e8; border-radius: 8px;">
+                                    <div style="font-size: 1.5rem;">👥</div>
+                                    <div>
+                                        <h6>일자리 창출</h6>
+                                        <span>8개 직무</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div style="background: #fff3cd; padding: 1rem; border-radius: 8px; border-left: 4px solid #ffc107;">
+                                <strong>💡 ESG 조달 권고사항:</strong><br>
+                                선택된 업체는 환경·사회·거버넌스 모든 영역에서 우수한 평가를 받았습니다. 
+                                이 조달을 통해 기관의 ESG 점수가 향상될 것으로 예상됩니다.
+                            </div>
+                        </div>
+                    `;
+                }, 3000);
+            });
+        });
+    </script>
+</body>
+</html>

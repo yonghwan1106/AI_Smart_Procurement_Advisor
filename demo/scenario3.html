@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>시나리오 3: 전기차 구매 타이밍 최적화 - AI 스마트 조달 어드바이저</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/animations.css">
+    <style>
+        .scenario-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .scenario-header {
+            background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .scenario-title {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        .scenario-description {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .demo-flow {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        
+        .demo-step {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        
+        .step-number {
+            position: absolute;
+            top: -15px;
+            left: 25px;
+            background: #f39c12;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .step-title {
+            font-size: 1.3rem;
+            color: #f39c12;
+            margin-bottom: 15px;
+            margin-top: 10px;
+        }
+        
+        .step-content {
+            line-height: 1.6;
+        }
+        
+        .timing-timeline {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #dee2e6;
+        }
+        
+        .timeline-month {
+            text-align: center;
+            flex: 1;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 0 5px;
+            position: relative;
+        }
+        
+        .timeline-month.current {
+            background: #ffc107;
+            color: #212529;
+        }
+        
+        .timeline-month.warning {
+            background: #fd7e14;
+            color: white;
+        }
+        
+        .timeline-month.wait {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .timeline-month.optimal {
+            background: #28a745;
+            color: white;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(40, 167, 69, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0); }
+        }
+        
+        .month-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .month-status {
+            font-size: 0.9rem;
+        }
+        
+        .savings-projection {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .savings-item {
+            text-align: center;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #dee2e6;
+        }
+        
+        .savings-item.current {
+            background: #fff3cd;
+            border-color: #ffc107;
+        }
+        
+        .savings-item.optimal {
+            background: #d4edda;
+            border-color: #28a745;
+            animation: glow 2s infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { box-shadow: 0 0 5px #28a745; }
+            to { box-shadow: 0 0 20px #28a745; }
+        }
+        
+        .market-analysis {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .analysis-card {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+        }
+        
+        .trend-chart {
+            height: 150px;
+            background: linear-gradient(to right, #e74c3c 0%, #f39c12 50%, #27ae60 100%);
+            border-radius: 8px;
+            position: relative;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+        
+        .trend-line {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: white;
+            transform: translateY(-50%) rotate(-15deg);
+            transform-origin: left center;
+        }
+        
+        .price-point {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: white;
+            border: 2px solid #333;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .price-point.current {
+            top: 60%;
+            left: 20%;
+            background: #ffc107;
+        }
+        
+        .price-point.optimal {
+            top: 30%;
+            left: 80%;
+            background: #28a745;
+            animation: bounce 1s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translate(-50%, -50%); }
+            40% { transform: translate(-50%, -60%); }
+            60% { transform: translate(-50%, -55%); }
+        }
+        
+        .recommendation-box {
+            background: linear-gradient(135deg, #17a2b8 0%, #20c997 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .alert-box {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        
+        .success-box {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        
+        .demo-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: #f39c12;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            margin: 0 10px;
+            transition: background 0.3s ease;
+        }
+        
+        .demo-btn:hover {
+            background: #e67e22;
+        }
+        
+        .demo-btn.secondary {
+            background: #6c757d;
+        }
+        
+        .demo-btn.secondary:hover {
+            background: #5a6268;
+        }
+        
+        .demo-actions {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 20px 0;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="scenario-container">
+        <!-- 시나리오 헤더 -->
+        <header class="scenario-header">
+            <h1 class="scenario-title">⚡ 시나리오 3: 전기차 구매 타이밍 최적화</h1>
+            <p class="scenario-description">
+                충청남도청에서 전기차 10대 구매를 검토할 때, 
+                "조달계의 블랙프라이데이" AI가 어떻게 최적 구매 시점을 예측하고 7,500만원을 절약하는지 살펴봅시다.
+            </p>
+        </header>
+
+        <!-- 데모 플로우 -->
+        <main class="demo-flow">
+            <!-- Step 1: 구매 계획 검토 -->
+            <section class="demo-step">
+                <div class="step-number">1</div>
+                <h2 class="step-title">📋 전기차 구매 계획 검토</h2>
+                <div class="step-content">
+                    <p>충청남도청 총무팀에서 친환경 정책의 일환으로 전기차 도입을 계획했습니다:</p>
+                    
+                    <div class="analysis-card">
+                        <strong>전기차 구매 계획서</strong><br>
+                        • 요청 기관: 충청남도청<br>
+                        • 구매 품목: 전기차 10대 (중형 세단)<br>
+                        • 계획 예산: 5억원<br>
+                        • 구매 목적: 공용차량 친환경 전환<br>
+                        • 희망 시기: 2025년 6월 (현재)<br>
+                        • 긴급도: 보통 (6개월 내 필요)
+                    </div>
+                    
+                    <div class="alert-box">
+                        <strong>⚠️ 담당자의 고민</strong><br>
+                        "전기차 시장이 빠르게 변화하고 있어서 언제 사야 할지 모르겠어요. 
+                        지금 사면 손해일까요? 기다리면 더 좋은 모델이 나올까요?"
+                    </div>
+                    
+                    <p>💡 <strong>기존 방식</strong>: 예산 편성 → 입찰 공고 → 최저가 낙찰</p>
+                    <p>🚀 <strong>AI 방식</strong>: 시장 분석 → 타이밍 예측 → 최적 시점 제안</p>
+                </div>
+            </section>
+
+            <!-- Step 2: AI 시장 동향 분석 -->
+            <section class="demo-step">
+                <div class="step-number">2</div>
+                <h2 class="step-title">📈 AI 시장 동향 분석</h2>
+                <div class="step-content">
+                    <p>AI가 전기차 시장의 다양한 데이터를 종합 분석합니다:</p>
+                    
+                    <div class="market-analysis">
+                        <div class="analysis-card">
+                            <h4>💰 가격 동향 분석</h4>
+                            <div class="trend-chart">
+                                <div class="trend-line"></div>
+                                <div class="price-point current" title="현재 시점"></div>
+                                <div class="price-point optimal" title="최적 시점"></div>
+                            </div>
+                            <p><strong>분석 결과:</strong> 전기차 가격이 하락 추세</p>
+                            <ul>
+                                <li>배터리 비용 15% 감소 예상</li>
+                                <li>생산량 증가로 규모의 경제 효과</li>
+                                <li>정부 보조금 정책 연장</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="analysis-card">
+                            <h4>🚗 신모델 출시 일정</h4>
+                            <div style="background: #e3f2fd; padding: 15px; border-radius: 8px; margin: 10px 0;">
+                                <p><strong>2025년 8월</strong></p>
+                                <ul>
+                                    <li>현대차: 아이오닉 7 출시</li>
+                                    <li>기아: EV9 페이스리프트</li>
+                                    <li>제네시스: GV60 개선형</li>
+                                </ul>
+                            </div>
+                            <p><strong>예상 효과:</strong></p>
+                            <ul>
+                                <li>주행거리 20% 증가</li>
+                                <li>충전 속도 30% 향상</li>
+                                <li>기존 모델 가격 하락</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card">
+                        <h4>📊 과거 조달 패턴 분석</h4>
+                        <p>공공기관 전기차 조달 데이터 (최근 3년):</p>
+                        <ul>
+                            <li><strong>가격 변동성:</strong> 분기별 평균 5-8% 가격 변동</li>
+                            <li><strong>최적 구매 시기:</strong> 9월~11월 (신모델 출시 후 2-3개월)</li>
+                            <li><strong>평균 절약률:</strong> 적정 타이밍 구매 시 12-18% 절약</li>
+                            <li><strong>성급한 구매 사례:</strong> 평균 20% 더 비싼 가격 지불</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Step 3: 타이밍 타임라인 -->
+            <section class="demo-step">
+                <div class="step-number">3</div>
+                <h2 class="step-title">📅 구매 타이밍 타임라인</h2>
+                <div class="step-content">
+                    <p>AI가 월별 구매 시점의 위험도와 절약 효과를 분석했습니다:</p>
+                    
+                    <div class="timing-timeline">
+                        <div class="timeline-month current">
+                            <div class="month-name">6월 (현재)</div>
+                            <div class="month-status">❌ 위험</div>
+                            <small>신모델 출시 직전</small>
+                        </div>
+                        
+                        <div class="timeline-month warning">
+                            <div class="month-name">7월</div>
+                            <div class="month-status">⚠️ 주의</div>
+                            <small>시장 변동성 높음</small>
+                        </div>
+                        
+                        <div class="timeline-month wait">
+                            <div class="month-name">8월</div>
+                            <div class="month-status">⏸️ 대기</div>
+                            <small>신모델 출시</small>
+                        </div>
+                        
+                        <div class="timeline-month optimal">
+                            <div class="month-name">9월</div>
+                            <div class="month-status">✅ 최적</div>
+                            <small>가격 안정화</small>
+                        </div>
+                        
+                        <div class="timeline-month">
+                            <div class="month-name">10월</div>
+                            <div class="month-status">👍 양호</div>
+                            <small>여전히 좋음</small>
+                        </div>
+                    </div>
+                    
+                    <div class="recommendation-box">
+                        <h4>🎯 AI 추천 결과</h4>
+                        <p><strong>최적 구매 시점: 2025년 9월</strong></p>
+                        <p>현재 구매 대비 <strong>15% 절약</strong> 예상 (7,500만원 절감)</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Step 4: 월별 절약 효과 -->
+            <section class="demo-step">
+                <div class="step-number">4</div>
+                <h2 class="step-title">💰 월별 절약 효과 시뮬레이션</h2>
+                <div class="step-content">
+                    <div class="savings-projection">
+                        <div class="savings-item current">
+                            <div style="font-size: 1.1rem; font-weight: bold;">6월 (현재)</div>
+                            <div style="font-size: 1.5rem; color: #dc3545;">5억원</div>
+                            <div style="font-size: 0.9rem;">기준점</div>
+                        </div>
+                        
+                        <div class="savings-item">
+                            <div style="font-size: 1.1rem; font-weight: bold;">7월</div>
+                            <div style="font-size: 1.5rem; color: #fd7e14;">4억 9천만원</div>
+                            <div style="font-size: 0.9rem; color: #28a745;">-2% (1천만원↓)</div>
+                        </div>
+                        
+                        <div class="savings-item">
+                            <div style="font-size: 1.1rem; font-weight: bold;">8월</div>
+                            <div style="font-size: 1.5rem; color: #ffc107;">4억 7천만원</div>
+                            <div style="font-size: 0.9rem; color: #28a745;">-6% (3천만원↓)</div>
+                        </div>
+                        
+                        <div class="savings-item optimal">
+                            <div style="font-size: 1.1rem; font-weight: bold;">9월 ⭐</div>
+                            <div style="font-size: 1.5rem; color: #28a745;">4억 2천 5백만원</div>
+                            <div style="font-size: 0.9rem; color: #28a745;"><strong>-15% (7천 5백만원↓)</strong></div>
+                        </div>
+                        
+                        <div class="savings-item">
+                            <div style="font-size: 1.1rem; font-weight: bold;">10월</div>
+                            <div style="font-size: 1.5rem; color: #6c757d;">4억 3천만원</div>
+                            <div style="font-size: 0.9rem; color: #28a745;">-14% (7천만원↓)</div>
+                        </div>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        🎉 9월 구매시 최대 절약: 7,500만원!<br>
+                        차량 10대 중 1.5대를 무료로 더 구입하는 효과
+                    </div>
+                    
+                    <h4>📊 세부 분석</h4>
+                    <div class="market-analysis">
+                        <div class="analysis-card">
+                            <h5>🏭 공급 측면</h5>
+                            <ul>
+                                <li>8월 신모델 출시로 기존 재고 정리</li>
+                                <li>제조사 할인 프로모션 예상</li>
+                                <li>배터리 원가 하락 효과 반영</li>
+                                <li>대량 주문 시 추가 할인 협상 여력</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="analysis-card">
+                            <h5>📈 수요 측면</h5>
+                            <ul>
+                                <li>개인 구매자들의 신모델 대기</li>
+                                <li>공공기관 하반기 예산 집행</li>
+                                <li>연말 보조금 소진 전 구매 러시</li>
+                                <li>탄소중립 정책 가속화</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Step 5: 종합 권고안 -->
+            <section class="demo-step">
+                <div class="step-number">5</div>
+                <h2 class="step-title">💡 AI 종합 권고안</h2>
+                <div class="step-content">
+                    <div class="alert-box">
+                        <h4>🚨 현재 시점 구매의 위험성</h4>
+                        <ul>
+                            <li>신모델 출시 2개월 전으로 가격 하락 임박</li>
+                            <li>현재 모델이 곧 구형이 될 예정</li>
+                            <li>급하게 구매할 필요성 없음 (긴급도: 보통)</li>
+                            <li>7,500만원 손실 가능성</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="success-box">
+                        <h4>✅ AI 추천 실행 계획</h4>
+                        <p><strong>1단계 (6-7월): 준비 기간</strong></p>
+                        <ul>
+                            <li>전기차 충전 인프라 구축</li>
+                            <li>운전자 교육 프로그램 준비</li>
+                            <li>입찰 서류 사전 준비</li>
+                            <li>예산 집행 시기 조정</li>
+                        </ul>
+                        
+                        <p><strong>2단계 (8월): 시장 모니터링</strong></p>
+                        <ul>
+                            <li>신모델 출시 상황 관찰</li>
+                            <li>기존 모델 가격 변동 추적</li>
+                            <li>공급업체와 사전 협의</li>
+                            <li>최종 구매 계획 확정</li>
+                        </ul>
+                        
+                        <p><strong>3단계 (9월): 최적 타이밍 구매</strong></p>
+                        <ul>
+                            <li>입찰 공고 및 업체 선정</li>
+                            <li>대량 구매 할인 협상</li>
+                            <li>계약 체결 및 납품</li>
+                            <li>성과 평가 및 확산</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="recommendation-box">
+                        <h4>🎯 AI의 약속</h4>
+                        <p>9월까지 기다리시면 다음을 보장합니다:</p>
+                        <ul>
+                            <li>💰 <strong>7,500만원 절약</strong> (15% 할인)</li>
+                            <li>🚗 <strong>더 좋은 성능</strong> (신기술 적용 모델)</li>
+                            <li>🔋 <strong>긴 주행거리</strong> (20% 개선)</li>
+                            <li>⚡ <strong>빠른 충전</strong> (30% 시간 단축)</li>
+                            <li>🛡️ <strong>긴 보증기간</strong> (신모델 혜택)</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Step 6: 리스크 관리 -->
+            <section class="demo-step">
+                <div class="step-number">6</div>
+                <h2 class="step-title">🛡️ 리스크 관리 및 대안</h2>
+                <div class="step-content">
+                    <h4>⚠️ 만약 예상과 다르게 진행된다면?</h4>
+                    
+                    <div class="market-analysis">
+                        <div class="analysis-card">
+                            <h5>📈 시나리오 1: 가격이 예상보다 덜 떨어지는 경우</h5>
+                            <p><strong>대응책:</strong></p>
+                            <ul>
+                                <li>10월까지 추가 대기 (여전히 5-8% 절약)</li>
+                                <li>다른 모델 옵션 검토</li>
+                                <li>리스 방식 전환 고려</li>
+                            </ul>
+                            <p><strong>최소 보장:</strong> 현재 대비 5% 이상 절약</p>
+                        </div>
+                        
+                        <div class="analysis-card">
+                            <h5>🚨 시나리오 2: 긴급 상황 발생</h5>
+                            <p><strong>대응책:</strong></p>
+                            <ul>
+                                <li>임시 렌트카 활용</li>
+                                <li>기존 내연기관차 연장 운행</li>
+                                <li>부분 구매 (5대 먼저 구입)</li>
+                            </ul>
+                            <p><strong>비용:</strong> 3개월 임시 운영비 1,000만원</p>
+                        </div>
+                    </div>
+                    
+                    <div class="success-box">
+                        <h4>🔒 AI 신뢰도 보장</h4>
+                        <p>이 예측의 신뢰도: <strong>87%</strong></p>
+                        <ul>
+                            <li>과거 3년간 유사 예측 정확도: 91%</li>
+                            <li>자동차 산업 전문가 의견과 85% 일치</li>
+                            <li>실시간 시장 데이터 기반 예측</li>
+                            <li>매주 예측 모델 업데이트</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Step 7: 결과 요약 -->
+            <section class="demo-step">
+                <div class="step-number">7</div>
+                <h2 class="step-title">🎯 시나리오 결과 요약</h2>
+                <div class="step-content">
+                    <h4>🏆 달성 성과</h4>
+                    <div class="success-box">
+                        <ul>
+                            <li><strong>비용 절약:</strong> 7,500만원 (15% 절감)</li>
+                            <li><strong>성능 향상:</strong> 신기술 적용으로 20% 개선</li>
+                            <li><strong>의사결정 품질:</strong> 데이터 기반 객관적 판단</li>
+                            <li><strong>리스크 감소:</strong> 87% 신뢰도의 예측</li>
+                            <li><strong>전략적 대기:</strong> 3개월 투자로 7,500만원 수익</li>
+                        </ul>
+                    </div>
+                    
+                    <h4>🔍 핵심 인사이트</h4>
+                    <p>이 시나리오는 "스마트 타이밍 AI"의 혁신성을 보여줍니다:</p>
+                    <ul>
+                        <li><strong>"지금 사면 안 되는 시점"</strong>을 정확히 경고</li>
+                        <li>빅데이터 분석으로 미래 가격 예측</li>
+                        <li>계절성, 산업 주기, 정책 변화 종합 고려</li>
+                        <li>단순한 최저가가 아닌 최적 타이밍 제시</li>
+                        <li>리스크 시나리오까지 포함한 완전한 의사결정 지원</li>
+                    </ul>
+                    
+                    <div class="highlight-box">
+                        💡 타이밍이 돈이다!<br>
+                        "가장 싼 가격이 아니라 가장 적절한 시점에 구매하라"
+                    </div>
+                    
+                    <h4>🌍 확장 효과</h4>
+                    <p>만약 전국 7만 기관이 이런 방식으로 조달한다면:</p>
+                    <ul>
+                        <li><strong>연간 31조원 절약 잠재력</strong> (209조원 × 15%)</li>
+                        <li><strong>더 나은 품질의 제품</strong> 대량 도입</li>
+                        <li><strong>제조업체 예측 가능성</strong> 향상으로 Win-Win</li>
+                        <li><strong>국가 경쟁력 강화</strong> (똑똑한 조달)</li>
+                    </ul>
+                </div>
+            </section>
+        </main>
+
+        <!-- 데모 액션 -->
+        <div class="demo-actions">
+            <a href="scenario2.html" class="demo-btn secondary">이전 시나리오</a>
+            <a href="../index.html" class="demo-btn secondary">홈으로</a>
+            <a href="../modules/timing.html" class="demo-btn">직접 체험하기</a>
+        </div>
+    </div>
+</body>
+</html>

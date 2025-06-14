@@ -375,12 +375,13 @@ window.Utils = {
       
       const start = performance.now();
       const difference = endValue - startValue;
+      const self = this; // this 바인딩 보존
       
       function animate(currentTime) {
         const elapsed = currentTime - start;
         const progress = Math.min(elapsed / duration, 1);
         
-        const currentValue = startValue + (difference * this.easeOutCubic(progress));
+        const currentValue = startValue + (difference * self.easeOutCubic(progress));
         const displayValue = formatter ? formatter(currentValue) : Math.round(currentValue);
         
         element.textContent = displayValue;
@@ -413,12 +414,13 @@ window.Utils = {
       const startPosition = window.pageYOffset;
       const distance = targetPosition - startPosition;
       const start = performance.now();
+      const self = this; // this 바인딩 보존
       
       function animate(currentTime) {
         const elapsed = currentTime - start;
         const progress = Math.min(elapsed / duration, 1);
         
-        window.scrollTo(0, startPosition + distance * this.easeInOutCubic(progress));
+        window.scrollTo(0, startPosition + distance * self.easeInOutCubic(progress));
         
         if (progress < 1) {
           requestAnimationFrame(animate);

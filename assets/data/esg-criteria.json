@@ -1,0 +1,286 @@
+{
+  "esgCriteria": {
+    "environmental": {
+      "name": "환경 (Environmental)",
+      "weight": 0.4,
+      "subcriteria": [
+        {
+          "id": "carbon-footprint",
+          "name": "탄소발자국",
+          "weight": 0.3,
+          "unit": "tCO2eq/year",
+          "thresholds": {
+            "excellent": { "max": 1.0, "score": 100 },
+            "good": { "max": 2.5, "score": 80 },
+            "fair": { "max": 5.0, "score": 60 },
+            "poor": { "min": 5.0, "score": 20 }
+          },
+          "description": "제품/서비스 생산부터 폐기까지 전 과정의 온실가스 배출량"
+        },
+        {
+          "id": "energy-efficiency",
+          "name": "에너지 효율성",
+          "weight": 0.25,
+          "unit": "등급",
+          "thresholds": {
+            "excellent": { "grade": "A++", "score": 100 },
+            "good": { "grade": "A+", "score": 85 },
+            "fair": { "grade": "A", "score": 70 },
+            "poor": { "grade": "B이하", "score": 40 }
+          },
+          "description": "에너지소비효율등급 및 대기전력 소비량"
+        },
+        {
+          "id": "recyclability",
+          "name": "재활용 가능성",
+          "weight": 0.2,
+          "unit": "percentage",
+          "thresholds": {
+            "excellent": { "min": 90, "score": 100 },
+            "good": { "min": 75, "score": 80 },
+            "fair": { "min": 50, "score": 60 },
+            "poor": { "max": 50, "score": 30 }
+          },
+          "description": "제품 구성 재료의 재활용 가능 비율"
+        },
+        {
+          "id": "hazardous-materials",
+          "name": "유해물질 사용",
+          "weight": 0.15,
+          "unit": "boolean",
+          "thresholds": {
+            "excellent": { "value": false, "certified": true, "score": 100 },
+            "good": { "value": false, "certified": false, "score": 80 },
+            "fair": { "value": true, "minimal": true, "score": 50 },
+            "poor": { "value": true, "minimal": false, "score": 10 }
+          },
+          "description": "RoHS, REACH 등 유해물질 규제 준수 여부"
+        },
+        {
+          "id": "packaging",
+          "name": "포장재 친환경성",
+          "weight": 0.1,
+          "unit": "score",
+          "thresholds": {
+            "excellent": { "min": 90, "score": 100 },
+            "good": { "min": 70, "score": 80 },
+            "fair": { "min": 50, "score": 60 },
+            "poor": { "max": 50, "score": 40 }
+          },
+          "description": "포장재의 재활용 가능성 및 최소화 정도"
+        }
+      ]
+    },
+    "social": {
+      "name": "사회 (Social)",
+      "weight": 0.35,
+      "subcriteria": [
+        {
+          "id": "social-enterprise",
+          "name": "사회적 기업 여부",
+          "weight": 0.3,
+          "unit": "certification",
+          "thresholds": {
+            "excellent": { "type": "social-enterprise", "score": 100 },
+            "good": { "type": "social-value", "score": 80 },
+            "fair": { "type": "cooperative", "score": 60 },
+            "poor": { "type": "none", "score": 0 }
+          },
+          "description": "사회적기업, 협동조합 등 사회적 가치 추구 조직 여부"
+        },
+        {
+          "id": "local-employment",
+          "name": "지역고용 기여도",
+          "weight": 0.25,
+          "unit": "percentage",
+          "thresholds": {
+            "excellent": { "min": 80, "score": 100 },
+            "good": { "min": 60, "score": 80 },
+            "fair": { "min": 40, "score": 60 },
+            "poor": { "max": 40, "score": 30 }
+          },
+          "description": "지역 내 고용 창출 및 유지 기여 비율"
+        },
+        {
+          "id": "worker-safety",
+          "name": "근로자 안전",
+          "weight": 0.2,
+          "unit": "incidents",
+          "thresholds": {
+            "excellent": { "incidents": 0, "certification": true, "score": 100 },
+            "good": { "max": 2, "certification": true, "score": 85 },
+            "fair": { "max": 5, "certification": false, "score": 60 },
+            "poor": { "min": 5, "score": 20 }
+          },
+          "description": "산업재해율 및 안전보건경영시스템 인증 여부"
+        },
+        {
+          "id": "fair-trade",
+          "name": "공정거래",
+          "weight": 0.15,
+          "unit": "compliance",
+          "thresholds": {
+            "excellent": { "violations": 0, "certification": true, "score": 100 },
+            "good": { "violations": 0, "certification": false, "score": 80 },
+            "fair": { "max_violations": 1, "score": 60 },
+            "poor": { "min_violations": 2, "score": 20 }
+          },
+          "description": "공정거래 관련 법규 준수 및 윤리경영 수준"
+        },
+        {
+          "id": "diversity-inclusion",
+          "name": "다양성 및 포용성",
+          "weight": 0.1,
+          "unit": "score",
+          "thresholds": {
+            "excellent": { "min": 90, "score": 100 },
+            "good": { "min": 70, "score": 80 },
+            "fair": { "min": 50, "score": 60 },
+            "poor": { "max": 50, "score": 40 }
+          },
+          "description": "성별, 연령, 장애인 고용 등 다양성 포용 정도"
+        }
+      ]
+    },
+    "governance": {
+      "name": "거버넌스 (Governance)",
+      "weight": 0.25,
+      "subcriteria": [
+        {
+          "id": "transparency",
+          "name": "투명성",
+          "weight": 0.3,
+          "unit": "disclosure",
+          "thresholds": {
+            "excellent": { "level": "full", "frequency": "quarterly", "score": 100 },
+            "good": { "level": "high", "frequency": "semi-annual", "score": 85 },
+            "fair": { "level": "medium", "frequency": "annual", "score": 60 },
+            "poor": { "level": "low", "score": 30 }
+          },
+          "description": "재무정보, ESG 성과 등의 공개 수준과 주기"
+        },
+        {
+          "id": "ethics-compliance",
+          "name": "윤리경영 및 컴플라이언스",
+          "weight": 0.25,
+          "unit": "violations",
+          "thresholds": {
+            "excellent": { "violations": 0, "system": "advanced", "score": 100 },
+            "good": { "violations": 0, "system": "basic", "score": 80 },
+            "fair": { "max_violations": 1, "score": 60 },
+            "poor": { "min_violations": 2, "score": 20 }
+          },
+          "description": "법규 위반 이력 및 윤리경영 시스템 구축 수준"
+        },
+        {
+          "id": "stakeholder-engagement",
+          "name": "이해관계자 참여",
+          "weight": 0.2,
+          "unit": "engagement",
+          "thresholds": {
+            "excellent": { "level": "proactive", "frequency": "regular", "score": 100 },
+            "good": { "level": "active", "frequency": "periodic", "score": 80 },
+            "fair": { "level": "reactive", "frequency": "occasional", "score": 60 },
+            "poor": { "level": "minimal", "score": 30 }
+          },
+          "description": "고객, 지역사회, 정부 등과의 소통 및 참여 수준"
+        },
+        {
+          "id": "risk-management",
+          "name": "리스크 관리",
+          "weight": 0.15,
+          "unit": "system",
+          "thresholds": {
+            "excellent": { "system": "comprehensive", "monitoring": "real-time", "score": 100 },
+            "good": { "system": "robust", "monitoring": "regular", "score": 85 },
+            "fair": { "system": "basic", "monitoring": "periodic", "score": 60 },
+            "poor": { "system": "minimal", "score": 30 }
+          },
+          "description": "ESG 관련 리스크 식별, 평가, 관리 체계"
+        },
+        {
+          "id": "innovation",
+          "name": "혁신성",
+          "weight": 0.1,
+          "unit": "score",
+          "thresholds": {
+            "excellent": { "rd_investment": "high", "patents": "many", "score": 100 },
+            "good": { "rd_investment": "medium", "patents": "some", "score": 80 },
+            "fair": { "rd_investment": "low", "patents": "few", "score": 60 },
+            "poor": { "rd_investment": "minimal", "patents": "none", "score": 30 }
+          },
+          "description": "R&D 투자, 특허, 지속가능한 혁신 활동 수준"
+        }
+      ]
+    }
+  },
+  "scoringSystem": {
+    "totalScoreRange": {
+      "min": 0,
+      "max": 100
+    },
+    "gradeClassification": {
+      "S": { "min": 90, "label": "최우수", "color": "#27ae60" },
+      "A": { "min": 80, "max": 89, "label": "우수", "color": "#2ecc71" },
+      "B": { "min": 70, "max": 79, "label": "양호", "color": "#f39c12" },
+      "C": { "min": 60, "max": 69, "label": "보통", "color": "#e67e22" },
+      "D": { "min": 50, "max": 59, "label": "미흡", "color": "#e74c3c" },
+      "F": { "max": 49, "label": "부족", "color": "#c0392b" }
+    },
+    "bonusPoints": {
+      "certifications": {
+        "iso14001": 5,
+        "iso45001": 3,
+        "sa8000": 4,
+        "b-corp": 10,
+        "carbon-neutral": 8
+      },
+      "awards": {
+        "sustainability": 3,
+        "innovation": 2,
+        "social-impact": 4
+      }
+    },
+    "penalties": {
+      "violations": {
+        "environmental": -10,
+        "labor": -8,
+        "corruption": -15,
+        "safety": -12
+      }
+    }
+  },
+  "industryBenchmarks": {
+    "it-equipment": {
+      "environmental": 72,
+      "social": 68,
+      "governance": 75,
+      "overall": 71
+    },
+    "vehicles": {
+      "environmental": 65,
+      "social": 70,
+      "governance": 73,
+      "overall": 69
+    },
+    "furniture": {
+      "environmental": 78,
+      "social": 72,
+      "governance": 70,
+      "overall": 74
+    },
+    "construction": {
+      "environmental": 62,
+      "social": 75,
+      "governance": 68,
+      "overall": 68
+    }
+  },
+  "metadata": {
+    "version": "2.1",
+    "lastUpdated": "2025-06-14T00:00:00Z",
+    "authority": "조달청 ESG 평가위원회",
+    "nextReview": "2026-01-01T00:00:00Z",
+    "applicableFrom": "2025-07-01T00:00:00Z"
+  }
+}

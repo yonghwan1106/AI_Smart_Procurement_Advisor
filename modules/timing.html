@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>스마트 타이밍 AI - AI 스마트 조달 어드바이저</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/animations.css">
+    
+    <!-- 임시 CSS 스타일 -->
+    <style>
+        :root {
+            --primary-color: #2c5aa0;
+            --white: #ffffff;
+            --light-gray: #f8f9fa;
+            --gray-100: #e9ecef;
+            --gray-200: #dee2e6;
+            --gray-300: #ced4da;
+            --gray-600: #495057;
+            --gray-700: #343a40;
+            --gray-800: #212529;
+            --success-color: #27ae60;
+            --spacing-xs: 0.25rem;
+            --spacing-sm: 0.5rem;
+            --spacing-md: 1rem;
+            --spacing-lg: 1.5rem;
+            --spacing-xl: 2rem;
+            --spacing-2xl: 3rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+            --font-family-primary: 'Malgun Gothic', '맑은 고딕', sans-serif;
+            --font-size-base: 1rem;
+            --font-size-lg: 1.125rem;
+            --font-size-xl: 1.25rem;
+            --font-size-2xl: 1.5rem;
+            --font-size-3xl: 1.875rem;
+            --font-weight-medium: 500;
+            --font-weight-semibold: 600;
+            --font-weight-bold: 700;
+            --transition-fast: 0.15s ease-out;
+            --transition-base: 0.3s ease-out;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: var(--font-family-primary);
+            background-color: var(--light-gray);
+            color: var(--gray-800);
+            line-height: 1.6;
+        }
+        
+        .module-container {
+            min-height: 100vh;
+            padding: var(--spacing-xl);
+        }
+        
+        .module-header {
+            background: var(--white);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-2xl);
+            margin-bottom: var(--spacing-xl);
+            box-shadow: var(--shadow-sm);
+            border-left: 5px solid var(--primary-color);
+        }
+        
+        .breadcrumb {
+            font-size: 0.875rem;
+            color: var(--gray-600);
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .breadcrumb a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        .module-title {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            font-size: var(--font-size-3xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--primary-color);
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .module-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, #667eea 100%);
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: var(--font-size-2xl);
+        }
+        
+        .module-description {
+            font-size: var(--font-size-lg);
+            line-height: 1.6;
+            color: var(--gray-600);
+        }
+        
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-xl);
+        }
+        
+        @media (max-width: 1024px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .input-section,
+        .result-section {
+            background: var(--white);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-xl);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .input-section h2 {
+            font-size: var(--font-size-xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--primary-color);
+            margin-bottom: var(--spacing-lg);
+            padding-bottom: var(--spacing-md);
+            border-bottom: 2px solid var(--gray-100);
+        }
+        
+        .form-group {
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .form-group label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: var(--font-weight-semibold);
+            color: var(--gray-700);
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: var(--spacing-md);
+            font-size: var(--font-size-base);
+            border: 2px solid var(--gray-300);
+            border-radius: var(--radius-md);
+            transition: all var(--transition-fast);
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(44, 90, 160, 0.1);
+        }
+        
+        .form-hint {
+            font-size: 0.75rem;
+            color: var(--gray-600);
+            margin-top: var(--spacing-xs);
+            font-style: italic;
+        }
+        
+        .ai-analyze-btn {
+            width: 100%;
+            background: linear-gradient(135deg, var(--primary-color) 0%, #667eea 100%);
+            color: var(--white);
+            border: none;
+            padding: var(--spacing-lg) var(--spacing-xl);
+            border-radius: var(--radius-lg);
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-semibold);
+            cursor: pointer;
+            transition: all var(--transition-base);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-xl);
+        }
+        
+        .ai-analyze-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .btn-icon {
+            font-size: var(--font-size-xl);
+        }
+    </style>
+</head>
+<body>
+    <div class="module-container">
+        <!-- 헤더 -->
+        <header class="module-header">
+            <div class="breadcrumb">
+                <a href="../index.html">홈</a> > 
+                <span>스마트 타이밍 AI</span>
+            </div>
+            <h1 class="module-title">
+                <div class="module-icon">⏰</div>
+                스마트 타이밍 AI
+            </h1>
+            <p class="module-description">
+                "조달계의 블랙프라이데이" - 209조원 시장 최적 구매 시점을 예측하여 
+                "지금 사면 안 되는 시점"을 경고하고 최적 시점을 제시합니다.
+            </p>
+        </header>
+
+        <!-- 메인 컨텐츠 -->
+        <main class="module-content">
+            <div class="content-grid">
+                <!-- 입력 섹션 -->
+                <section class="input-section">
+                    <h2>구매 타이밍 분석</h2>
+                    <form class="timing-form" id="timingForm">
+                        <div class="form-group">
+                            <label for="productCategory">구매 품목 카테고리</label>
+                            <select id="productCategory" required>
+                                <option value="">카테고리를 선택하세요</option>
+                                <option value="vehicles">차량 (전기차, 버스 등)</option>
+                                <option value="it-equipment">IT 장비 (컴퓨터, 서버 등)</option>
+                                <option value="office-furniture">사무용 가구</option>
+                                <option value="medical-equipment">의료 장비</option>
+                                <option value="construction">건설/공사</option>
+                                <option value="energy">에너지 설비</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="specificProduct">구체적 품목</label>
+                            <input type="text" id="specificProduct" placeholder="예: 전기차 10대" required>
+                            <div class="form-hint">구체적인 품목명과 수량을 입력하세요</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="plannedBudget">계획 예산 (억원)</label>
+                            <input type="number" id="plannedBudget" placeholder="5" min="0.1" step="0.1" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="urgencyLevel">긴급도</label>
+                            <select id="urgencyLevel" required>
+                                <option value="">긴급도를 선택하세요</option>
+                                <option value="critical">매우 긴급 (1개월 내 필요)</option>
+                                <option value="urgent">긴급 (3개월 내 필요)</option>
+                                <option value="normal">보통 (6개월 내 필요)</option>
+                                <option value="flexible">여유 (1년 내 필요)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="currentQuarter">현재 분기</label>
+                            <select id="currentQuarter" required>
+                                <option value="q2-2025">2025년 2분기 (현재)</option>
+                                <option value="q3-2025">2025년 3분기</option>
+                                <option value="q4-2025">2025년 4분기</option>
+                                <option value="q1-2026">2026년 1분기</option>
+                            </select>
+                        </div>
+                        
+                        <button type="submit" class="ai-analyze-btn">
+                            <span class="btn-icon">⏰</span>
+                            최적 타이밍 분석
+                        </button>
+                    </form>
+                </section>
+
+                <!-- 결과 섹션 -->
+                <section class="result-section">
+                    <h3>분석 결과</h3>
+                    <div id="analysisResults">
+                        <p>왼쪽 폼을 채우고 "최적 타이밍 분석" 버튼을 클릭하면 AI 분석이 시작됩니다.</p>
+                        <br>
+                        <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px; border-left: 4px solid #2c5aa0;">
+                            <h4 style="color: #2c5aa0; margin-bottom: 0.5rem;">💡 AI 분석 기능</h4>
+                            <ul style="margin: 0; padding-left: 1.2rem;">
+                                <li>시장 동향 및 가격 트렌드 분석</li>
+                                <li>계절성 패턴 및 공급 상황 검토</li>
+                                <li>최적 구매 시점 및 절약 효과 계산</li>
+                                <li>월별 타임라인 및 추천 사항 제공</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- 스크립트 -->
+    <script>
+        // 페이지 초기화
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('스마트 타이밍 AI 모듈 로드됨');
+            
+            // 폼 제출 이벤트
+            document.getElementById('timingForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // 임시 시뮬레이션
+                const resultsDiv = document.getElementById('analysisResults');
+                resultsDiv.innerHTML = `
+                    <div style="text-align: center; padding: 2rem;">
+                        <div style="font-size: 2rem; margin-bottom: 1rem;">🔄</div>
+                        <h4 style="color: #2c5aa0;">AI 분석 진행 중...</h4>
+                        <p>시장 동향을 분석하고 최적 타이밍을 계산하고 있습니다.</p>
+                        <div style="margin-top: 1rem; padding: 1rem; background: #e3f2fd; border-radius: 8px;">
+                            <small style="color: #1976d2;">실제 프로젝트에서는 실시간 AI 분석 결과가 표시됩니다.</small>
+                        </div>
+                    </div>
+                `;
+                
+                // 3초 후 결과 표시 시뮬레이션
+                setTimeout(() => {
+                    const product = document.getElementById('specificProduct').value || '선택한 품목';
+                    const budget = document.getElementById('plannedBudget').value || '0';
+                    
+                    resultsDiv.innerHTML = `
+                        <div style="border: 2px solid #27ae60; border-radius: 12px; padding: 1.5rem; background: #f1f8e9;">
+                            <h4 style="color: #27ae60; margin-bottom: 1rem;">✅ 분석 완료!</h4>
+                            <div style="margin-bottom: 1rem;">
+                                <strong>품목:</strong> ${product}<br>
+                                <strong>예산:</strong> ${budget}억원
+                            </div>
+                            <div style="background: white; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+                                <h5 style="color: #2c5aa0;">📊 추천 결과</h5>
+                                <p><strong>최적 구매 시점:</strong> 2025년 9월</p>
+                                <p><strong>예상 절약 효과:</strong> 15% (${(budget * 0.15).toFixed(1)}억원)</p>
+                                <p><strong>추천 이유:</strong> 신제품 출시 전 가격 하락기 + 3분기 예산 집행 시즌</p>
+                            </div>
+                            <div style="background: #fff3cd; padding: 1rem; border-radius: 8px; border-left: 4px solid #ffc107;">
+                                <strong>⚠️ 현재 구매 시 주의사항:</strong><br>
+                                6월은 신제품 출시 직전으로 가격이 높은 시기입니다. 9월까지 대기하시면 상당한 절약이 가능합니다.
+                            </div>
+                        </div>
+                    `;
+                }, 3000);
+            });
+        });
+    </script>
+</body>
+</html>

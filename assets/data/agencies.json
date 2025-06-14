@@ -1,0 +1,119 @@
+{
+  "agencies": [
+    {
+      "id": "seoul-city",
+      "name": "서울특별시청",
+      "type": "지방자치단체",
+      "region": "서울",
+      "budget": 35000000000000,
+      "employeeCount": 18500,
+      "address": "서울특별시 중구 세종대로 110",
+      "phone": "02-120",
+      "website": "https://www.seoul.go.kr",
+      "procurementHistory": {
+        "annual": 5600000000000,
+        "frequency": 2847,
+        "categories": ["IT장비", "사무용품", "차량", "건설", "시설관리"],
+        "averageContractSize": 195000000
+      },
+      "utilizationRate": 0.68,
+      "esgScore": 82,
+      "coordinates": { "lat": 37.5665, "lng": 126.9780 },
+      "lastUpdate": "2025-06-14T00:00:00Z"
+    },
+    {
+      "id": "busan-city",
+      "name": "부산광역시청",
+      "type": "지방자치단체",
+      "region": "부산",
+      "budget": 12500000000000,
+      "employeeCount": 12000,
+      "address": "부산광역시 연제구 중앙대로 1001",
+      "phone": "051-120",
+      "website": "https://www.busan.go.kr",
+      "procurementHistory": {
+        "annual": 2800000000000,
+        "frequency": 1456,
+        "categories": ["항만", "IT장비", "사무용품", "교통시설"],
+        "averageContractSize": 192000000
+      },
+      "utilizationRate": 0.72,
+      "esgScore": 79,
+      "coordinates": { "lat": 35.1796, "lng": 129.0756 },
+      "lastUpdate": "2025-06-14T00:00:00Z"
+    },
+    {
+      "id": "incheon-city",
+      "name": "인천광역시청",
+      "type": "지방자치단체",
+      "region": "인천",
+      "budget": 9800000000000,
+      "employeeCount": 9500,
+      "address": "인천광역시 남동구 정각로 29",
+      "phone": "032-120",
+      "website": "https://www.incheon.go.kr",
+      "procurementHistory": {
+        "annual": 2100000000000,
+        "frequency": 1287,
+        "categories": ["공항", "IT장비", "사무용품", "물류"],
+        "averageContractSize": 163000000
+      },
+      "utilizationRate": 0.64,
+      "esgScore": 85,
+      "coordinates": { "lat": 37.4563, "lng": 126.7052 },
+      "lastUpdate": "2025-06-14T00:00:00Z"
+    },
+    {
+      "id": "gyeonggi-province",
+      "name": "경기도청",
+      "type": "지방자치단체",
+      "region": "경기",
+      "budget": 45000000000000,
+      "employeeCount": 15000,
+      "address": "경기도 수원시 영통구 도청로 30",
+      "phone": "031-120",
+      "website": "https://www.gg.go.kr",
+      "procurementHistory": {
+        "annual": 8900000000000,
+        "frequency": 4521,
+        "categories": ["교통", "IT장비", "사무용품", "환경", "복지"],
+        "averageContractSize": 197000000
+      },
+      "utilizationRate": 0.75,
+      "esgScore": 88,
+      "coordinates": { "lat": 37.2636, "lng": 127.0286 },
+      "lastUpdate": "2025-06-14T00:00:00Z"
+    },
+    {
+      "id": "ministry-interior",
+      "name": "행정안전부",
+      "type": "중앙행정기관",
+      "region": "세종",
+      "budget": 78000000000000,
+      "employeeCount": 2800,
+      "address": "세종특별자치시 도움4로 11",
+      "phone": "044-205-1000",
+      "website": "https://www.mois.go.kr",
+      "procurementHistory": {
+        "annual": 15600000000000,
+        "frequency": 892,
+        "categories": ["IT시스템", "보안", "사무용품", "시설관리"],
+        "averageContractSize": 1750000000
+      },
+      "utilizationRate": 0.82,
+      "esgScore": 90,
+      "coordinates": { "lat": 36.4800, "lng": 127.2890 },
+      "lastUpdate": "2025-06-14T00:00:00Z"
+    }
+  ],
+  "metadata": {
+    "totalAgencies": 70000,
+    "lastUpdated": "2025-06-14T00:00:00Z",
+    "version": "1.0",
+    "coverage": {
+      "central": 47,
+      "local": 243,
+      "public": 69710
+    }
+  }
+}

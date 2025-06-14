@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>통합 시스템 연결 AI - AI 스마트 조달 어드바이저</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/animations.css">
+    
+    <!-- 임시 CSS 스타일 -->
+    <style>
+        :root {
+            --primary-color: #2c5aa0;
+            --white: #ffffff;
+            --light-gray: #f8f9fa;
+            --gray-100: #e9ecef;
+            --gray-200: #dee2e6;
+            --gray-300: #ced4da;
+            --gray-600: #495057;
+            --gray-700: #343a40;
+            --gray-800: #212529;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --spacing-xs: 0.25rem;
+            --spacing-sm: 0.5rem;
+            --spacing-md: 1rem;
+            --spacing-lg: 1.5rem;
+            --spacing-xl: 2rem;
+            --spacing-2xl: 3rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+            --font-family-primary: 'Malgun Gothic', '맑은 고딕', sans-serif;
+            --font-size-base: 1rem;
+            --font-size-lg: 1.125rem;
+            --font-size-xl: 1.25rem;
+            --font-size-2xl: 1.5rem;
+            --font-size-3xl: 1.875rem;
+            --font-weight-medium: 500;
+            --font-weight-semibold: 600;
+            --font-weight-bold: 700;
+            --transition-fast: 0.15s ease-out;
+            --transition-base: 0.3s ease-out;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: var(--font-family-primary);
+            background-color: var(--light-gray);
+            color: var(--gray-800);
+            line-height: 1.6;
+        }
+        
+        .module-container {
+            min-height: 100vh;
+            padding: var(--spacing-xl);
+        }
+        
+        .module-header {
+            background: var(--white);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-2xl);
+            margin-bottom: var(--spacing-xl);
+            box-shadow: var(--shadow-sm);
+            border-left: 5px solid var(--primary-color);
+        }
+        
+        .breadcrumb {
+            font-size: 0.875rem;
+            color: var(--gray-600);
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .breadcrumb a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        .module-title {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            font-size: var(--font-size-3xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--primary-color);
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .module-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, #667eea 100%);
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: var(--font-size-2xl);
+        }
+        
+        .module-description {
+            font-size: var(--font-size-lg);
+            line-height: 1.6;
+            color: var(--gray-600);
+        }
+        
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-xl);
+        }
+        
+        @media (max-width: 1024px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .input-section,
+        .result-section {
+            background: var(--white);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-xl);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .input-section h2,
+        .result-section h3 {
+            font-size: var(--font-size-xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--primary-color);
+            margin-bottom: var(--spacing-lg);
+            padding-bottom: var(--spacing-md);
+            border-bottom: 2px solid var(--gray-100);
+        }
+        
+        .form-group {
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .form-group label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: var(--font-weight-semibold);
+            color: var(--gray-700);
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: var(--spacing-md);
+            font-size: var(--font-size-base);
+            border: 2px solid var(--gray-300);
+            border-radius: var(--radius-md);
+            transition: all var(--transition-fast);
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(44, 90, 160, 0.1);
+        }
+        
+        .form-hint {
+            font-size: 0.75rem;
+            color: var(--gray-600);
+            margin-top: var(--spacing-xs);
+            font-style: italic;
+        }
+        
+        .date-range {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+        }
+        
+        .date-range span {
+            color: var(--gray-600);
+            font-weight: var(--font-weight-medium);
+        }
+        
+        .ai-analyze-btn {
+            width: 100%;
+            background: linear-gradient(135deg, var(--primary-color) 0%, #667eea 100%);
+            color: var(--white);
+            border: none;
+            padding: var(--spacing-lg) var(--spacing-xl);
+            border-radius: var(--radius-lg);
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-semibold);
+            cursor: pointer;
+            transition: all var(--transition-base);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-xl);
+        }
+        
+        .ai-analyze-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .btn-icon {
+            font-size: var(--font-size-xl);
+        }
+        
+        @media (max-width: 768px) {
+            .date-range {
+                flex-direction: column;
+                align-items: stretch;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="module-container">
+        <!-- 헤더 -->
+        <header class="module-header">
+            <div class="breadcrumb">
+                <a href="../index.html">홈</a> > 
+                <span>통합 시스템 연결 AI</span>
+            </div>
+            <h1 class="module-title">
+                <div class="module-icon">🔗</div>
+                통합 시스템 연결 AI
+            </h1>
+            <p class="module-description">
+                "정부판 카셰어링" - 7만 기관 간 장비/서비스 실시간 공유 매칭으로 
+                "새로 사지 않고 공유할 수 있는 것"을 우선 제시하는 시스템입니다.
+            </p>
+        </header>
+
+        <!-- 메인 컨텐츠 -->
+        <main class="module-content">
+            <div class="content-grid">
+                <!-- 입력 섹션 -->
+                <section class="input-section">
+                    <h2>공유 장비 검색</h2>
+                    <form class="sharing-form" id="sharingForm">
+                        <div class="form-group">
+                            <label for="requestingAgency">요청 기관</label>
+                            <select id="requestingAgency" required>
+                                <option value="">기관을 선택하세요</option>
+                                <option value="seoul">서울시청</option>
+                                <option value="busan">부산시청</option>
+                                <option value="incheon">인천시청</option>
+                                <option value="gyeonggi">경기도청</option>
+                                <option value="ministry-edu">교육부</option>
+                                <option value="ministry-health">보건복지부</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="equipmentType">필요 장비/서비스</label>
+                            <input type="text" id="equipmentType" placeholder="예: 회의실 프로젝터 30대" required>
+                            <div class="form-hint">찾고 있는 장비나 서비스를 입력하세요</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="usagePeriod">사용 기간</label>
+                            <div class="date-range">
+                                <input type="date" id="startDate" required>
+                                <span>~</span>
+                                <input type="date" id="endDate" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="searchRadius">검색 반경</label>
+                            <select id="searchRadius" required>
+                                <option value="10">10km 이내</option>
+                                <option value="30">30km 이내</option>
+                                <option value="50" selected>50km 이내</option>
+                                <option value="100">100km 이내</option>
+                                <option value="nationwide">전국</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="quantity">필요 수량</label>
+                            <input type="number" id="quantity" placeholder="30" min="1" required>
+                        </div>
+                        
+                        <button type="submit" class="ai-analyze-btn">
+                            <span class="btn-icon">🔍</span>
+                            공유 가능 장비 검색
+                        </button>
+                    </form>
+                </section>
+
+                <!-- 결과 섹션 -->
+                <section class="result-section">
+                    <h3>매칭 결과</h3>
+                    <div id="searchResults">
+                        <p>왼쪽 폼을 채우고 "공유 가능 장비 검색" 버튼을 클릭하면 매칭이 시작됩니다.</p>
+                        <br>
+                        <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px; border-left: 4px solid #2c5aa0;">
+                            <h4 style="color: #2c5aa0; margin-bottom: 0.5rem;">🔗 AI 매칭 기능</h4>
+                            <ul style="margin: 0; padding-left: 1.2rem;">
+                                <li>전국 7만 공공기관 네트워크 스캔</li>
+                                <li>유휴 장비 이용률 실시간 분석</li>
+                                <li>최적 매칭 및 비용 계산</li>
+                                <li>자동 계약서 생성 및 연락 지원</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- 스크립트 -->
+    <script>
+        // 페이지 초기화
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('통합 시스템 연결 AI 모듈 로드됨');
+            
+            // 오늘 날짜를 최소값으로 설정
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('startDate').min = today;
+            document.getElementById('endDate').min = today;
+            
+            // 시작일 변경시 종료일 최소값 업데이트
+            document.getElementById('startDate').addEventListener('change', function() {
+                document.getElementById('endDate').min = this.value;
+            });
+            
+            // 폼 제출 이벤트
+            document.getElementById('sharingForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // 임시 시뮬레이션
+                const resultsDiv = document.getElementById('searchResults');
+                resultsDiv.innerHTML = `
+                    <div style="text-align: center; padding: 2rem;">
+                        <div style="font-size: 2rem; margin-bottom: 1rem;">🔄</div>
+                        <h4 style="color: #2c5aa0;">장비 매칭 진행 중...</h4>
+                        <p>7만 기관 네트워크에서 공유 가능한 장비를 찾고 있습니다.</p>
+                        <div style="margin-top: 1rem; padding: 1rem; background: #e3f2fd; border-radius: 8px;">
+                            <small style="color: #1976d2;">실제 프로젝트에서는 실시간 AI 매칭 결과가 표시됩니다.</small>
+                        </div>
+                    </div>
+                `;
+                
+                // 3초 후 결과 표시 시뮬레이션
+                setTimeout(() => {
+                    const equipment = document.getElementById('equipmentType').value || '요청한 장비';
+                    const quantity = document.getElementById('quantity').value || '0';
+                    const radius = document.getElementById('searchRadius').value;
+                    
+                    // 매칭 성공 시뮬레이션 (80% 확률)
+                    const matchFound = Math.random() > 0.2;
+                    
+                    if (matchFound) {
+                        const savings = Math.floor(Math.random() * 80) + 90; // 90-99% 절약
+                        resultsDiv.innerHTML = `
+                            <div style="border: 2px solid #27ae60; border-radius: 12px; padding: 1.5rem; background: #f1f8e9;">
+                                <h4 style="color: #27ae60; margin-bottom: 1rem;">✅ 매칭 성공!</h4>
+                                <div style="margin-bottom: 1rem;">
+                                    <strong>요청 장비:</strong> ${equipment}<br>
+                                    <strong>필요 수량:</strong> ${quantity}개
+                                </div>
+                                <div style="background: white; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+                                    <h5 style="color: #2c5aa0;">🏢 매칭된 기관</h5>
+                                    <p><strong>인천시청:</strong> ${quantity}개 보유 (이용률 25%)</p>
+                                    <p><strong>거리:</strong> ${radius === 'nationwide' ? '전국' : radius + 'km'} 내</p>
+                                    <p><strong>이용 가능 기간:</strong> 즉시 사용 가능</p>
+                                    <p><strong>절약 효과:</strong> ${savings}% (신규 구매 대비)</p>
+                                </div>
+                                <div style="background: #d4edda; padding: 1rem; border-radius: 8px; border-left: 4px solid #28a745;">
+                                    <strong>🎉 공유경제 효과:</strong><br>
+                                    신규 구매 없이 기존 자원 활용으로 ${savings}% 비용 절약 + 환경 보호 효과!
+                                </div>
+                            </div>
+                        `;
+                    } else {
+                        resultsDiv.innerHTML = `
+                            <div style="border: 2px solid #6c757d; border-radius: 12px; padding: 1.5rem; background: #f8f9fa;">
+                                <h4 style="color: #6c757d; margin-bottom: 1rem;">📭 매칭 결과 없음</h4>
+                                <div style="margin-bottom: 1rem;">
+                                    <strong>요청 장비:</strong> ${equipment}<br>
+                                    <strong>검색 범위:</strong> ${radius === 'nationwide' ? '전국' : radius + 'km 이내'}
+                                </div>
+                                <div style="background: white; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+                                    <h5 style="color: #2c5aa0;">💡 대안 제안</h5>
+                                    <p>현재 범위에서는 공유 가능한 장비가 없습니다.</p>
+                                    <p>다음 옵션을 고려해보세요:</p>
+                                    <ul style="padding-left: 1.2rem; margin-top: 0.5rem;">
+                                        <li>검색 범위를 전국으로 확대</li>
+                                        <li>사용 기간을 조정하여 재검색</li>
+                                        <li>필요성 검증 AI로 대안 검토</li>
+                                    </ul>
+                                </div>
+                                <button onclick="expandSearch()" style="width: 100%; padding: 0.8rem; background: #6c757d; color: white; border: none; border-radius: 8px; font-size: 1rem; cursor: pointer;">
+                                    전국으로 검색 범위 확장
+                                </button>
+                            </div>
+                        `;
+                    }
+                }, 3000);
+            });
+        });
+        
+        function expandSearch() {
+            document.getElementById('searchRadius').value = 'nationwide';
+            document.getElementById('sharingForm').dispatchEvent(new Event('submit'));
+        }
+    </script>
+</body>
+</html>

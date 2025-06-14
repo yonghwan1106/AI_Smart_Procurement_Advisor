@@ -564,7 +564,7 @@ window.MockData.utils = {
 
   // 실시간 카운터 업데이트
   updateRealTimeStats: function() {
-    const stats = this.realTimeStats;
+    const stats = window.MockData.realTimeStats;
     
     // 소량씩 증가
     stats.totalSavings += Math.random() * 0.001;

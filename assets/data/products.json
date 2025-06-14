@@ -1,0 +1,293 @@
+{
+  "products": [
+    {
+      "id": "copier-multifunctional",
+      "name": "복합기",
+      "category": "IT장비",
+      "subcategory": "사무기기",
+      "basePrice": 10000000,
+      "specifications": {
+        "printSpeed": "50페이지/분",
+        "functions": ["인쇄", "복사", "스캔", "팩스"],
+        "paperSize": "A3까지",
+        "connectivity": ["USB", "네트워크", "WiFi"],
+        "powerConsumption": "1.5kW"
+      },
+      "lifecycle": {
+        "expectedLifespan": 7,
+        "maintenanceCycle": 6,
+        "warrantyPeriod": 3
+      },
+      "pricing": {
+        "purchase": 10000000,
+        "lease": 250000,
+        "maintenance": 50000
+      },
+      "alternatives": [
+        "클라우드 프린팅 서비스",
+        "장비 공유",
+        "리스/렌탈",
+        "중고 장비"
+      ],
+      "esgMetrics": {
+        "energyEfficiency": "A+",
+        "recyclability": 85,
+        "carbonFootprint": 2.5,
+        "socialImpact": 7
+      },
+      "marketTrends": {
+        "priceVolatility": "low",
+        "demandPattern": "stable",
+        "seasonality": "none",
+        "replacementCycle": "medium"
+      },
+      "suppliers": [
+        {
+          "name": "삼성전자",
+          "marketShare": 35,
+          "reliability": 9.2,
+          "esgScore": 88
+        },
+        {
+          "name": "LG전자",
+          "marketShare": 28,
+          "reliability": 8.9,
+          "esgScore": 85
+        },
+        {
+          "name": "캐논코리아",
+          "marketShare": 22,
+          "reliability": 9.0,
+          "esgScore": 82
+        }
+      ]
+    },
+    {
+      "id": "projector-business",
+      "name": "회의실 프로젝터",
+      "category": "IT장비",
+      "subcategory": "영상장비",
+      "basePrice": 3000000,
+      "specifications": {
+        "brightness": "4000루멘",
+        "resolution": "WUXGA(1920x1200)",
+        "connectivity": ["HDMI", "USB", "VGA", "무선"],
+        "lampLife": "20000시간",
+        "weight": "3.2kg"
+      },
+      "lifecycle": {
+        "expectedLifespan": 8,
+        "maintenanceCycle": 12,
+        "warrantyPeriod": 3
+      },
+      "pricing": {
+        "purchase": 3000000,
+        "lease": 90000,
+        "maintenance": 15000
+      },
+      "alternatives": [
+        "대형 모니터",
+        "디지털 화이트보드",
+        "장비 공유",
+        "클라우드 스크린 미러링"
+      ],
+      "esgMetrics": {
+        "energyEfficiency": "A",
+        "recyclability": 78,
+        "carbonFootprint": 1.8,
+        "socialImpact": 8
+      },
+      "marketTrends": {
+        "priceVolatility": "medium",
+        "demandPattern": "seasonal",
+        "seasonality": "교육기관 신학기",
+        "replacementCycle": "long"
+      },
+      "suppliers": [
+        {
+          "name": "엡손",
+          "marketShare": 42,
+          "reliability": 9.1,
+          "esgScore": 83
+        },
+        {
+          "name": "BenQ",
+          "marketShare": 31,
+          "reliability": 8.8,
+          "esgScore": 79
+        },
+        {
+          "name": "소니",
+          "marketShare": 18,
+          "reliability": 9.3,
+          "esgScore": 87
+        }
+      ]
+    },
+    {
+      "id": "electric-vehicle",
+      "name": "전기차",
+      "category": "차량",
+      "subcategory": "친환경차량",
+      "basePrice": 50000000,
+      "specifications": {
+        "range": "400km",
+        "batteryCapacity": "64kWh",
+        "chargingTime": "급속 30분",
+        "seatingCapacity": 5,
+        "safetyRating": "5성급"
+      },
+      "lifecycle": {
+        "expectedLifespan": 10,
+        "maintenanceCycle": 6,
+        "warrantyPeriod": 8
+      },
+      "pricing": {
+        "purchase": 50000000,
+        "lease": 800000,
+        "maintenance": 100000
+      },
+      "alternatives": [
+        "하이브리드 차량",
+        "카셰어링",
+        "대중교통 확대",
+        "재택근무 확대"
+      ],
+      "esgMetrics": {
+        "energyEfficiency": "A++",
+        "recyclability": 92,
+        "carbonFootprint": 0.1,
+        "socialImpact": 9
+      },
+      "marketTrends": {
+        "priceVolatility": "high",
+        "demandPattern": "increasing",
+        "seasonality": "정부정책 연동",
+        "replacementCycle": "very_long"
+      },
+      "suppliers": [
+        {
+          "name": "현대자동차",
+          "marketShare": 45,
+          "reliability": 8.9,
+          "esgScore": 91
+        },
+        {
+          "name": "기아",
+          "marketShare": 38,
+          "reliability": 8.7,
+          "esgScore": 89
+        },
+        {
+          "name": "테슬라",
+          "marketShare": 12,
+          "reliability": 8.5,
+          "esgScore": 85
+        }
+      ]
+    },
+    {
+      "id": "office-desk",
+      "name": "사무용 책상",
+      "category": "가구",
+      "subcategory": "사무용가구",
+      "basePrice": 600000,
+      "specifications": {
+        "material": "목재/스틸",
+        "dimensions": "1400x700x720mm",
+        "weight": "35kg",
+        "features": ["높이조절", "선정리", "서랍"],
+        "certification": ["친환경마크", "KS인증"]
+      },
+      "lifecycle": {
+        "expectedLifespan": 15,
+        "maintenanceCycle": 24,
+        "warrantyPeriod": 5
+      },
+      "pricing": {
+        "purchase": 600000,
+        "lease": 25000,
+        "maintenance": 5000
+      },
+      "alternatives": [
+        "중고 가구",
+        "재생 가구",
+        "모듈형 가구",
+        "스탠딩 데스크"
+      ],
+      "esgMetrics": {
+        "energyEfficiency": "N/A",
+        "recyclability": 95,
+        "carbonFootprint": 0.8,
+        "socialImpact": 8
+      },
+      "marketTrends": {
+        "priceVolatility": "low",
+        "demandPattern": "stable",
+        "seasonality": "none",
+        "replacementCycle": "very_long"
+      },
+      "suppliers": [
+        {
+          "name": "퍼시스",
+          "marketShare": 38,
+          "reliability": 9.0,
+          "esgScore": 86
+        },
+        {
+          "name": "시디즈",
+          "marketShare": 25,
+          "reliability": 8.8,
+          "esgScore": 84
+        },
+        {
+          "name": "한샘",
+          "marketShare": 20,
+          "reliability": 8.5,
+          "esgScore": 82
+        }
+      ]
+    }
+  ],
+  "categories": [
+    {
+      "id": "it-equipment",
+      "name": "IT장비",
+      "totalMarketSize": 45000000000000,
+      "annualGrowthRate": 5.2,
+      "priceVolatility": "medium",
+      "replacementCycle": 4
+    },
+    {
+      "id": "vehicles",
+      "name": "차량",
+      "totalMarketSize": 28000000000000,
+      "annualGrowthRate": 3.8,
+      "priceVolatility": "high",
+      "replacementCycle": 8
+    },
+    {
+      "id": "furniture",
+      "name": "가구",
+      "totalMarketSize": 12000000000000,
+      "annualGrowthRate": 2.1,
+      "priceVolatility": "low",
+      "replacementCycle": 12
+    },
+    {
+      "id": "office-supplies",
+      "name": "사무용품",
+      "totalMarketSize": 8500000000000,
+      "annualGrowthRate": 1.8,
+      "priceVolatility": "low",
+      "replacementCycle": 2
+    }
+  ],
+  "metadata": {
+    "totalProducts": 15000,
+    "lastUpdated": "2025-06-14T00:00:00Z",
+    "version": "1.0",
+    "currency": "KRW",
+    "priceUpdateFrequency": "monthly"
+  }
+}

@@ -8,7 +8,9 @@
     <title>AI 스마트 조달 어드바이저 | 2025 공공조달 AI 활용 아이디어</title>
     
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
+    <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+    <link rel="alternate icon" href="assets/images/favicon.svg">
+    <link rel="mask-icon" href="assets/images/favicon.svg" color="#2c5aa0">
     
     <!-- External Libraries -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
@@ -18,6 +20,342 @@
     <link rel="stylesheet" href="assets/css/main.css">
     <link rel="stylesheet" href="assets/css/components.css">
     <link rel="stylesheet" href="assets/css/animations.css">
+    
+    <!-- Module Grid Override for Compact Layout -->
+    <style>
+        /* 5대 AI 모듈 섹션을 가로 3열 컴팩트 레이아웃으로 수정 */
+        .modules-section .modules-grid {
+            display: grid !important;
+            grid-template-columns: repeat(3, 1fr) !important;
+            gap: 1.5rem !important;
+            margin-top: 2rem !important;
+            max-width: 1200px !important;
+            margin-left: auto !important;
+            margin-right: auto !important;
+        }
+        
+        .modules-section .module-card {
+            background: white !important;
+            border-radius: 12px !important;
+            padding: 1.5rem !important;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+            transition: all 0.3s ease !important;
+            border-left: 4px solid #2c5aa0 !important;
+            height: auto !important;
+            display: flex !important;
+            flex-direction: column !important;
+        }
+        
+        .modules-section .module-card:hover {
+            transform: translateY(-2px) !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important;
+        }
+        
+        .modules-section .module-header {
+            display: flex !important;
+            align-items: flex-start !important;
+            gap: 1rem !important;
+            margin-bottom: 1rem !important;
+        }
+        
+        .modules-section .module-icon {
+            width: 50px !important;
+            height: 50px !important;
+            background: linear-gradient(135deg, #2c5aa0 0%, #667eea 100%) !important;
+            border-radius: 8px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            color: white !important;
+            font-size: 1.5rem !important;
+            flex-shrink: 0 !important;
+        }
+        
+        .modules-section .module-info {
+            flex: 1 !important;
+        }
+        
+        .modules-section .module-title {
+            font-size: 1.1rem !important;
+            font-weight: 600 !important;
+            color: #2c5aa0 !important;
+            margin-bottom: 0.25rem !important;
+            line-height: 1.3 !important;
+        }
+        
+        .modules-section .module-budget {
+            background: #27ae60 !important;
+            color: white !important;
+            padding: 0.25rem 0.75rem !important;
+            border-radius: 20px !important;
+            font-size: 0.75rem !important;
+            font-weight: 500 !important;
+            display: inline-block !important;
+        }
+        
+        .modules-section .module-status {
+            display: flex !important;
+            align-items: center !important;
+            gap: 0.25rem !important;
+            font-size: 0.75rem !important;
+            color: #27ae60 !important;
+            font-weight: 500 !important;
+            margin-top: 0.5rem !important;
+        }
+        
+        .modules-section .status-dot {
+            width: 8px !important;
+            height: 8px !important;
+            background: #27ae60 !important;
+            border-radius: 50% !important;
+        }
+        
+        .modules-section .module-description {
+            margin-bottom: 1rem !important;
+            line-height: 1.4 !important;
+            flex: 1 !important;
+        }
+        
+        .modules-section .module-description p {
+            font-size: 0.85rem !important;
+            color: #666 !important;
+            margin-bottom: 0.5rem !important;
+        }
+        
+        .modules-section .module-description strong {
+            color: #333 !important;
+        }
+        
+        .modules-section .module-metrics {
+            display: flex !important;
+            justify-content: space-between !important;
+            margin-bottom: 1rem !important;
+            padding: 0.75rem !important;
+            background: #f8f9fa !important;
+            border-radius: 8px !important;
+        }
+        
+        .modules-section .metric-item {
+            text-align: center !important;
+            flex: 1 !important;
+        }
+        
+        .modules-section .metric-label {
+            font-size: 0.7rem !important;
+            color: #666 !important;
+            display: block !important;
+            margin-bottom: 0.25rem !important;
+        }
+        
+        .modules-section .metric-value {
+            font-size: 1.1rem !important;
+            font-weight: 700 !important;
+            color: #2c5aa0 !important;
+        }
+        
+        .modules-section .module-actions {
+            display: flex !important;
+            gap: 0.5rem !important;
+            margin-top: auto !important;
+        }
+        
+        .modules-section .btn-small {
+            padding: 0.5rem 1rem !important;
+            font-size: 0.875rem !important;
+            border-radius: 6px !important;
+            border: none !important;
+            cursor: pointer !important;
+            transition: all 0.3s ease !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 0.25rem !important;
+            flex: 1 !important;
+            justify-content: center !important;
+            text-decoration: none !important;
+        }
+        
+        .modules-section .btn-primary.btn-small {
+            background: linear-gradient(135deg, #2c5aa0 0%, #667eea 100%) !important;
+            color: white !important;
+        }
+        
+        .modules-section .btn-outline.btn-small {
+            background: white !important;
+            color: #2c5aa0 !important;
+            border: 1px solid #2c5aa0 !important;
+        }
+        
+        .modules-section .btn-small:hover {
+            transform: translateY(-1px) !important;
+        }
+        
+        /* Report Card 스타일 */
+        .modules-section .report-card {
+            border-left: 4px solid #f39c12 !important;
+        }
+        
+        .modules-section .report-card .module-icon {
+            background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%) !important;
+        }
+        
+        .modules-section .report-card .module-title {
+            color: #f39c12 !important;
+        }
+        
+        /* 반응형 디자인 */
+        @media (max-width: 1200px) {
+            .modules-section .modules-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .modules-section .modules-grid {
+                grid-template-columns: 1fr !important;
+            }
+            
+            .modules-section .module-header {
+                flex-direction: column !important;
+                align-items: flex-start !important;
+                gap: 0.5rem !important;
+            }
+        }
+        
+        /* Demo Section Styles */
+        .demo-section {
+            padding: 60px 0;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+        
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .demo-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .demo-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .demo-header {
+            padding: 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+        }
+        
+        .demo-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1rem;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+        
+        .demo-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .demo-savings {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #ffd700;
+        }
+        
+        .demo-description {
+            padding: 2rem;
+            line-height: 1.6;
+        }
+        
+        .demo-description p {
+            margin-bottom: 1rem;
+        }
+        
+        .demo-features {
+            padding: 0 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .feature-tag {
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        
+        .demo-actions {
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .demo-integration {
+            margin-top: 4rem;
+            text-align: center;
+            background: white;
+            border-radius: 16px;
+            padding: 3rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .integration-content h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #2c5aa0;
+        }
+        
+        .integration-content p {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .integration-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        @media (max-width: 768px) {
+            .demo-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .integration-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn-large {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Loading Overlay -->
@@ -33,7 +371,7 @@
         <nav class="navbar" aria-label="메인 네비게이션">
             <div class="nav-container">
                 <div class="nav-brand">
-                    <img src="assets/images/logo.png" alt="AI 스마트 조달 어드바이저" class="logo">
+                    <img src="assets/images/logos/main-logo.svg" alt="AI 스마트 조달 어드바이저" class="logo">
                     <h1 class="brand-text">AI 스마트 조달 어드바이저</h1>
                 </div>
                 
@@ -57,7 +395,7 @@
                 </div>
                 
                 <div class="nav-actions">
-                    <button class="btn btn-primary" id="startDemoBtn">
+                    <button class="btn btn-primary" onclick="window.location.href='#demo'">
                         <i class="fas fa-rocket"></i>
                         체험하기
                     </button>
@@ -113,11 +451,11 @@
                     </div>
                     
                     <div class="hero-actions">
-                        <button class="btn btn-primary btn-large" id="heroStartBtn">
+                        <button class="btn btn-primary btn-large" onclick="window.location.href='#demo'">
                             <i class="fas fa-play"></i>
                             지금 체험하기
                         </button>
-                        <button class="btn btn-outline btn-large" id="heroLearnBtn">
+                        <button class="btn btn-outline btn-large" onclick="window.location.href='#about'">
                             <i class="fas fa-book"></i>
                             더 알아보기
                         </button>
@@ -157,7 +495,7 @@
             <div class="section-container">
                 <div class="section-header">
                     <h2 class="section-title">5대 AI 모듈</h2>
-                    <p class="section-subtitle">업계 요구사항을 완벽하게 반영한 통합 AI 시스템</p>
+                    <p class="section-subtitle">시장 요구사항을 완벽하게 반영한 통합 AI 시스템</p>
                 </div>
                 
                 <div class="modules-grid">
@@ -194,11 +532,11 @@
                         </div>
                         
                         <div class="module-actions">
-                            <button class="btn btn-primary btn-small" data-action="demo" data-module="necessity">
+                            <button class="btn btn-primary btn-small" onclick="window.open('modules/necessity.html', '_blank')">
                                 <i class="fas fa-play"></i>
                                 체험하기
                             </button>
-                            <button class="btn btn-outline btn-small" data-action="learn" data-module="necessity">
+                            <button class="btn btn-outline btn-small" onclick="window.open('modules/necessity.html', '_blank')">
                                 <i class="fas fa-info"></i>
                                 상세보기
                             </button>
@@ -238,11 +576,11 @@
                         </div>
                         
                         <div class="module-actions">
-                            <button class="btn btn-primary btn-small" data-action="demo" data-module="sharing">
+                            <button class="btn btn-primary btn-small" onclick="window.open('modules/sharing.html', '_blank')">
                                 <i class="fas fa-play"></i>
                                 체험하기
                             </button>
-                            <button class="btn btn-outline btn-small" data-action="learn" data-module="sharing">
+                            <button class="btn btn-outline btn-small" onclick="window.open('modules/sharing.html', '_blank')">
                                 <i class="fas fa-info"></i>
                                 상세보기
                             </button>
@@ -282,11 +620,11 @@
                         </div>
                         
                         <div class="module-actions">
-                            <button class="btn btn-primary btn-small" data-action="demo" data-module="timing">
+                            <button class="btn btn-primary btn-small" onclick="window.open('modules/timing.html', '_blank')">
                                 <i class="fas fa-play"></i>
                                 체험하기
                             </button>
-                            <button class="btn btn-outline btn-small" data-action="learn" data-module="timing">
+                            <button class="btn btn-outline btn-small" onclick="window.open('modules/timing.html', '_blank')">
                                 <i class="fas fa-info"></i>
                                 상세보기
                             </button>
@@ -326,11 +664,11 @@
                         </div>
                         
                         <div class="module-actions">
-                            <button class="btn btn-primary btn-small" data-action="demo" data-module="esg">
+                            <button class="btn btn-primary btn-small" onclick="window.open('modules/esg.html', '_blank')">
                                 <i class="fas fa-play"></i>
                                 체험하기
                             </button>
-                            <button class="btn btn-outline btn-small" data-action="learn" data-module="esg">
+                            <button class="btn btn-outline btn-small" onclick="window.open('modules/esg.html', '_blank')">
                                 <i class="fas fa-info"></i>
                                 상세보기
                             </button>
@@ -370,11 +708,11 @@
                         </div>
                         
                         <div class="module-actions">
-                            <button class="btn btn-primary btn-small" data-action="demo" data-module="expert">
+                            <button class="btn btn-primary btn-small" onclick="window.open('modules/expert.html', '_blank')">
                                 <i class="fas fa-play"></i>
                                 체험하기
                             </button>
-                            <button class="btn btn-outline btn-small" data-action="learn" data-module="expert">
+                            <button class="btn btn-outline btn-small" onclick="window.open('modules/expert.html', '_blank')">
                                 <i class="fas fa-info"></i>
                                 상세보기
                             </button>
@@ -449,7 +787,9 @@
                             <span class="value" id="totalSavingsAmount">1.94</span>
                             <span class="unit">조원</span>
                         </div>
-                        <div class="stat-chart" id="savingsChart"></div>
+                        <div class="stat-chart">
+                            <canvas id="savingsChart" width="400" height="200"></canvas>
+                        </div>
                     </div>
                     
                     <div class="stat-card" data-aos="fade-up" data-aos-delay="200">
@@ -488,6 +828,161 @@
                         </div>
                         <div class="stat-detail">
                             <span class="detail-text">지난주 대비 +2.1%</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 추가 차트 섹션 -->
+                <div class="advanced-charts" data-aos="fade-up" data-aos-delay="500">
+                    <div class="charts-grid">
+                        <div class="chart-card">
+                            <div class="chart-header">
+                                <h4>모듈별 성과 분석</h4>
+                                <p>5개 AI 모듈의 절약 기여도</p>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="moduleChart" width="300" height="300"></canvas>
+                            </div>
+                        </div>
+                        
+                        <div class="chart-card">
+                            <div class="chart-header">
+                                <h4>월별 절약 트렌드</h4>
+                                <p>시간별 누적 절약 효과</p>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="trendChart" width="400" height="250"></canvas>
+                            </div>
+                        </div>
+                        
+                        <div class="chart-card">
+                            <div class="chart-header">
+                                <h4>ESG 성과 레이더</h4>
+                                <p>환경·사회·거버넌스 통합 지표</p>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="esgRadarChart" width="300" height="300"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Demo Scenarios Section -->
+        <section id="demo" class="demo-section" data-aos="fade-up">
+            <div class="section-container">
+                <div class="section-header">
+                    <h2 class="section-title">시나리오 기반 데모</h2>
+                    <p class="section-subtitle">실제 사례로 체험하는 AI 스마트 조달 어드바이저</p>
+                </div>
+                
+                <div class="demo-grid">
+                    <!-- Scenario 1: 복사기 구매 검토 -->
+                    <div class="demo-card" data-aos="zoom-in" data-aos-delay="100">
+                        <div class="demo-header">
+                            <div class="demo-icon">
+                                <i class="fas fa-print"></i>
+                            </div>
+                            <h3 class="demo-title">복사기 구매 검토</h3>
+                            <div class="demo-savings">4억원 절약</div>
+                        </div>
+                        
+                        <div class="demo-description">
+                            <p><strong>시나리오:</strong> A시청에서 신형 복사기 10대 구매 요청</p>
+                            <p><strong>AI 분석:</strong> 필요성 검증을 통해 기존 장비 활용 방안 제시</p>
+                            <p><strong>결과:</strong> 불필요한 구매 방지로 4억원 예산 절약</p>
+                        </div>
+                        
+                        <div class="demo-features">
+                            <span class="feature-tag">필요성 검증 AI</span>
+                            <span class="feature-tag">비용 절감</span>
+                            <span class="feature-tag">예산 최적화</span>
+                        </div>
+                        
+                        <div class="demo-actions">
+                            <button class="btn btn-primary" onclick="window.open('demo/scenario1.html', '_blank')">
+                                <i class="fas fa-play"></i>
+                                시나리오 체험하기
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Scenario 2: 회의실 장비 공유 -->
+                    <div class="demo-card" data-aos="zoom-in" data-aos-delay="200">
+                        <div class="demo-header">
+                            <div class="demo-icon">
+                                <i class="fas fa-video"></i>
+                            </div>
+                            <h3 class="demo-title">회의실 장비 공유</h3>
+                            <div class="demo-savings">99.9% 절감</div>
+                        </div>
+                        
+                        <div class="demo-description">
+                            <p><strong>시나리오:</strong> B구청에서 화상회의 시스템 구매 계획</p>
+                            <p><strong>AI 분석:</strong> 인근 기관의 유휴 장비 매칭으로 공유 방안 제시</p>
+                            <p><strong>결과:</strong> 장비 공유로 99.9% 비용 절감 효과</p>
+                        </div>
+                        
+                        <div class="demo-features">
+                            <span class="feature-tag">시스템 연결 AI</span>
+                            <span class="feature-tag">자원 공유</span>
+                            <span class="feature-tag">기관 협력</span>
+                        </div>
+                        
+                        <div class="demo-actions">
+                            <button class="btn btn-primary" onclick="window.open('demo/scenario2.html', '_blank')">
+                                <i class="fas fa-play"></i>
+                                시나리오 체험하기
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Scenario 3: 전기차 구매 타이밍 -->
+                    <div class="demo-card" data-aos="zoom-in" data-aos-delay="300">
+                        <div class="demo-header">
+                            <div class="demo-icon">
+                                <i class="fas fa-car"></i>
+                            </div>
+                            <h3 class="demo-title">전기차 구매 타이밍</h3>
+                            <div class="demo-savings">7,500만원 절약</div>
+                        </div>
+                        
+                        <div class="demo-description">
+                            <p><strong>시나리오:</strong> C도청에서 공용 전기차 50대 구매 예정</p>
+                            <p><strong>AI 분석:</strong> 시장 타이밍 분석으로 최적 구매 시점 제시</p>
+                            <p><strong>결과:</strong> 타이밍 최적화로 7,500만원 예산 절약</p>
+                        </div>
+                        
+                        <div class="demo-features">
+                            <span class="feature-tag">타이밍 AI</span>
+                            <span class="feature-tag">시장 분석</span>
+                            <span class="feature-tag">ESG 가치</span>
+                        </div>
+                        
+                        <div class="demo-actions">
+                            <button class="btn btn-primary" onclick="window.open('demo/scenario3.html', '_blank')">
+                                <i class="fas fa-play"></i>
+                                시나리오 체험하기
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Demo Integration -->
+                <div class="demo-integration" data-aos="fade-up" data-aos-delay="400">
+                    <div class="integration-content">
+                        <h3>통합 데모 체험</h3>
+                        <p>3개 시나리오를 연속으로 체험하여 AI 스마트 조달 어드바이저의 전체 기능을 확인해보세요.</p>
+                        <div class="integration-actions">
+                            <button class="btn btn-primary btn-large" onclick="startFullDemo()">
+                                <i class="fas fa-rocket"></i>
+                                전체 데모 시작
+                            </button>
+                            <button class="btn btn-outline btn-large" onclick="window.location.href='#modules'">
+                                <i class="fas fa-cogs"></i>
+                                모듈별 체험
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -643,6 +1138,7 @@
     <!-- Custom Scripts -->
     <script src="assets/js/utils/helpers.js"></script>
     <script src="assets/js/utils/animations.js"></script>
+    <script src="assets/js/utils/charts.js"></script>
     <script src="assets/js/data/mock-data.js"></script>
     <script src="assets/js/data/ai-logic.js"></script>
     <script src="assets/js/app.js"></script>
@@ -655,6 +1151,22 @@
             once: true,
             offset: 100
         });
+
+        // 전체 데모 시작 함수
+        function startFullDemo() {
+            // 사용자에게 확인 메시지 표시
+            if (confirm('3개의 시나리오를 순차적으로 체험하시겠습니까?\n각 시나리오는 새 탭에서 열립니다.')) {
+                // 각 시나리오를 순차적으로 열기
+                setTimeout(() => window.open('demo/scenario1.html', '_blank'), 100);
+                setTimeout(() => window.open('demo/scenario2.html', '_blank'), 200);
+                setTimeout(() => window.open('demo/scenario3.html', '_blank'), 300);
+                
+                // 사용자에게 안내 메시지
+                setTimeout(() => {
+                    alert('3개의 데모 시나리오가 새 탭에서 열렸습니다.\n각 탭을 순서대로 체험해보세요!');
+                }, 500);
+            }
+        }
 
         // Initialize Application
         document.addEventListener('DOMContentLoaded', function() {

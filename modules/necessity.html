@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>필요성 검증 AI - AI 스마트 조달 어드바이저</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/animations.css">
+    
+    <!-- 임시 CSS 스타일 -->
+    <style>
+        :root {
+            --primary-color: #2c5aa0;
+            --white: #ffffff;
+            --light-gray: #f8f9fa;
+            --gray-100: #e9ecef;
+            --gray-200: #dee2e6;
+            --gray-300: #ced4da;
+            --gray-600: #495057;
+            --gray-700: #343a40;
+            --gray-800: #212529;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --spacing-xs: 0.25rem;
+            --spacing-sm: 0.5rem;
+            --spacing-md: 1rem;
+            --spacing-lg: 1.5rem;
+            --spacing-xl: 2rem;
+            --spacing-2xl: 3rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+            --font-family-primary: 'Malgun Gothic', '맑은 고딕', sans-serif;
+            --font-size-base: 1rem;
+            --font-size-lg: 1.125rem;
+            --font-size-xl: 1.25rem;
+            --font-size-2xl: 1.5rem;
+            --font-size-3xl: 1.875rem;
+            --font-weight-medium: 500;
+            --font-weight-semibold: 600;
+            --font-weight-bold: 700;
+            --transition-fast: 0.15s ease-out;
+            --transition-base: 0.3s ease-out;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: var(--font-family-primary);
+            background-color: var(--light-gray);
+            color: var(--gray-800);
+            line-height: 1.6;
+        }
+        
+        .module-container {
+            min-height: 100vh;
+            padding: var(--spacing-xl);
+        }
+        
+        .module-header {
+            background: var(--white);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-2xl);
+            margin-bottom: var(--spacing-xl);
+            box-shadow: var(--shadow-sm);
+            border-left: 5px solid var(--primary-color);
+        }
+        
+        .breadcrumb {
+            font-size: 0.875rem;
+            color: var(--gray-600);
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .breadcrumb a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        .module-title {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            font-size: var(--font-size-3xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--primary-color);
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .module-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, #667eea 100%);
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: var(--font-size-2xl);
+        }
+        
+        .module-description {
+            font-size: var(--font-size-lg);
+            line-height: 1.6;
+            color: var(--gray-600);
+        }
+        
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-xl);
+        }
+        
+        @media (max-width: 1024px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .input-section,
+        .result-section {
+            background: var(--white);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-xl);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .input-section h2,
+        .result-section h3 {
+            font-size: var(--font-size-xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--primary-color);
+            margin-bottom: var(--spacing-lg);
+            padding-bottom: var(--spacing-md);
+            border-bottom: 2px solid var(--gray-100);
+        }
+        
+        .form-group {
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .form-group label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: var(--font-weight-semibold);
+            color: var(--gray-700);
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: var(--spacing-md);
+            font-size: var(--font-size-base);
+            border: 2px solid var(--gray-300);
+            border-radius: var(--radius-md);
+            transition: all var(--transition-fast);
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(44, 90, 160, 0.1);
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .form-hint {
+            font-size: 0.75rem;
+            color: var(--gray-600);
+            margin-top: var(--spacing-xs);
+            font-style: italic;
+        }
+        
+        .ai-analyze-btn {
+            width: 100%;
+            background: linear-gradient(135deg, var(--primary-color) 0%, #667eea 100%);
+            color: var(--white);
+            border: none;
+            padding: var(--spacing-lg) var(--spacing-xl);
+            border-radius: var(--radius-lg);
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-semibold);
+            cursor: pointer;
+            transition: all var(--transition-base);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-xl);
+        }
+        
+        .ai-analyze-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .btn-icon {
+            font-size: var(--font-size-xl);
+        }
+    </style>
+</head>
+<body>
+    <div class="module-container">
+        <!-- 헤더 -->
+        <header class="module-header">
+            <div class="breadcrumb">
+                <a href="../index.html">홈</a> > 
+                <span>필요성 검증 AI</span>
+            </div>
+            <h1 class="module-title">
+                <div class="module-icon">🔍</div>
+                필요성 검증 AI
+            </h1>
+            <p class="module-description">
+                조달 요청서를 분석하여 진짜 필요성과 관행적 구매를 구분하고, 
+                "구매하지 않아도 되는 경우"를 우선 탐지하는 네거티브 조달 시스템입니다.
+            </p>
+        </header>
+
+        <!-- 메인 컨텐츠 -->
+        <main class="module-content">
+            <div class="content-grid">
+                <!-- 입력 섹션 -->
+                <section class="input-section">
+                    <h2>조달 요청 정보 입력</h2>
+                    <form class="procurement-form" id="necessityForm">
+                        <div class="form-group">
+                            <label for="agency">요청 기관</label>
+                            <select id="agency" required>
+                                <option value="">기관을 선택하세요</option>
+                                <option value="seoul">서울시청</option>
+                                <option value="busan">부산시청</option>
+                                <option value="incheon">인천시청</option>
+                                <option value="gyeonggi">경기도청</option>
+                                <option value="ministry-edu">교육부</option>
+                                <option value="ministry-health">보건복지부</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="item">구매 품목</label>
+                            <input type="text" id="item" placeholder="예: 복사기 50대" required>
+                            <div class="form-hint">구체적인 품목명과 수량을 입력하세요</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="budget">예산 (억원)</label>
+                            <input type="number" id="budget" placeholder="5" min="0.1" step="0.1" required>
+                            <div class="form-hint">소수점 첫째 자리까지 입력 가능</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="reason">구매 사유</label>
+                            <textarea id="reason" placeholder="기존 장비 노후화로 인한 교체 필요" rows="4" required></textarea>
+                            <div class="form-hint">구매가 필요한 상세한 사유를 설명해주세요</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="urgency">긴급도</label>
+                            <select id="urgency" required>
+                                <option value="">긴급도를 선택하세요</option>
+                                <option value="urgent">긴급 (1개월 내)</option>
+                                <option value="normal">보통 (3개월 내)</option>
+                                <option value="low">여유 (6개월 내)</option>
+                            </select>
+                        </div>
+                        
+                        <button type="submit" class="ai-analyze-btn">
+                            <span class="btn-icon">🤖</span>
+                            AI 분석 시작
+                        </button>
+                    </form>
+                </section>
+
+                <!-- 결과 섹션 -->
+                <section class="result-section">
+                    <h3>분석 결과</h3>
+                    <div id="analysisResults">
+                        <p>왼쪽 폼을 채우고 "AI 분석 시작" 버튼을 클릭하면 필요성 검증이 시작됩니다.</p>
+                        <br>
+                        <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px; border-left: 4px solid #2c5aa0;">
+                            <h4 style="color: #2c5aa0; margin-bottom: 0.5rem;">🔍 AI 분석 기능</h4>
+                            <ul style="margin: 0; padding-left: 1.2rem;">
+                                <li>자연어 처리로 요청 사유 키워드 분석</li>
+                                <li>유사 기관의 과거 이용률 데이터 검토</li>
+                                <li>대안 솔루션 및 절약 방안 탐색</li>
+                                <li>네거티브 조달 권고안 제시</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- 스크립트 -->
+    <script>
+        // 페이지 초기화
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('필요성 검증 AI 모듈 로드됨');
+            
+            // 폼 제출 이벤트
+            document.getElementById('necessityForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // 임시 시뮬레이션
+                const resultsDiv = document.getElementById('analysisResults');
+                resultsDiv.innerHTML = `
+                    <div style="text-align: center; padding: 2rem;">
+                        <div style="font-size: 2rem; margin-bottom: 1rem;">🔄</div>
+                        <h4 style="color: #2c5aa0;">AI 분석 진행 중...</h4>
+                        <p>조달 요청의 필요성을 검증하고 있습니다.</p>
+                        <div style="margin-top: 1rem; padding: 1rem; background: #e3f2fd; border-radius: 8px;">
+                            <small style="color: #1976d2;">실제 프로젝트에서는 실시간 AI 분석 결과가 표시됩니다.</small>
+                        </div>
+                    </div>
+                `;
+                
+                // 3초 후 결과 표시 시뮬레이션
+                setTimeout(() => {
+                    const item = document.getElementById('item').value || '요청한 품목';
+                    const budget = document.getElementById('budget').value || '0';
+                    const reason = document.getElementById('reason').value || '입력된 사유';
+                    
+                    // 네거티브 결과 시뮬레이션
+                    const isNecessary = Math.random() > 0.6; // 40% 확률로 불필요 판정
+                    
+                    if (isNecessary) {
+                        resultsDiv.innerHTML = `
+                            <div style="border: 2px solid #27ae60; border-radius: 12px; padding: 1.5rem; background: #f1f8e9;">
+                                <h4 style="color: #27ae60; margin-bottom: 1rem;">✅ 조달 필요성 인정</h4>
+                                <div style="margin-bottom: 1rem;">
+                                    <strong>품목:</strong> ${item}<br>
+                                    <strong>예산:</strong> ${budget}억원
+                                </div>
+                                <div style="background: white; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+                                    <h5 style="color: #2c5aa0;">📊 분석 결과</h5>
+                                    <p><strong>필요성 점수:</strong> 85/100점</p>
+                                    <p><strong>권고사항:</strong> 조달 진행 권장</p>
+                                    <p><strong>절약 가능성:</strong> 타이밍 최적화로 ${(budget * 0.15).toFixed(1)}억원 절약 가능</p>
+                                </div>
+                                <div style="background: #d1ecf1; padding: 1rem; border-radius: 8px; border-left: 4px solid #17a2b8;">
+                                    <strong>💡 다음 단계:</strong><br>
+                                    시스템 연결 AI에서 공유 가능한 장비를 먼저 확인해보세요.
+                                </div>
+                            </div>
+                        `;
+                    } else {
+                        resultsDiv.innerHTML = `
+                            <div style="border: 2px solid #f39c12; border-radius: 12px; padding: 1.5rem; background: #fef5e7;">
+                                <h4 style="color: #f39c12; margin-bottom: 1rem;">⚠️ 조달 재검토 필요</h4>
+                                <div style="margin-bottom: 1rem;">
+                                    <strong>품목:</strong> ${item}<br>
+                                    <strong>예산:</strong> ${budget}억원
+                                </div>
+                                <div style="background: white; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+                                    <h5 style="color: #2c5aa0;">📊 분석 결과</h5>
+                                    <p><strong>필요성 점수:</strong> 45/100점</p>
+                                    <p><strong>권고사항:</strong> 조달 연기 또는 대안 검토</p>
+                                    <p><strong>절약 효과:</strong> ${budget}억원 전액 절약 가능</p>
+                                </div>
+                                <div style="background: #f8d7da; padding: 1rem; border-radius: 8px; border-left: 4px solid #dc3545;">
+                                    <strong>🚫 네거티브 조달 권고:</strong><br>
+                                    유사 기관에서 해당 품목의 실제 활용률이 30% 미만입니다. 기존 장비 활용 또는 공유 방안을 우선 검토하세요.
+                                </div>
+                            </div>
+                        `;
+                    }
+                }, 3000);
+            });
+        });
+    </script>
+</body>
+</html>

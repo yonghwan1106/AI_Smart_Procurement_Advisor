@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>시나리오 2: 회의실 장비 공유 매칭 - AI 스마트 조달 어드바이저</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/animations.css">
+    <style>
+        .scenario-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .scenario-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .scenario-title {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        .scenario-description {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .demo-flow {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        
+        .demo-step {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        
+        .step-number {
+            position: absolute;
+            top: -15px;
+            left: 25px;
+            background: #667eea;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .step-title {
+            font-size: 1.3rem;
+            color: #667eea;
+            margin-bottom: 15px;
+            margin-top: 10px;
+        }
+        
+        .step-content {
+            line-height: 1.6;
+        }
+        
+        .agency-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            background: #f8f9fa;
+        }
+        
+        .agency-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .agency-name {
+            font-weight: bold;
+            color: #2c5aa0;
+        }
+        
+        .match-score {
+            background: #27ae60;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+        }
+        
+        .agency-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .sharing-network {
+            background: #e3f2fd;
+            border: 1px solid #2196f3;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+            text-align: center;
+        }
+        
+        .cost-comparison {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .cost-item {
+            text-align: center;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .cost-item.purchase {
+            background: #ffebee;
+            border-color: #f44336;
+        }
+        
+        .cost-item.sharing {
+            background: #e8f5e8;
+            border-color: #4caf50;
+        }
+        
+        .cost-item.savings {
+            background: #fff3e0;
+            border-color: #ff9800;
+        }
+        
+        .cost-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        
+        .contract-preview {
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+        
+        .timeline {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px 0;
+            padding: 20px;
+            background: linear-gradient(to right, #667eea, #764ba2);
+            border-radius: 8px;
+            color: white;
+        }
+        
+        .timeline-item {
+            text-align: center;
+            flex: 1;
+        }
+        
+        .timeline-date {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .timeline-action {
+            font-size: 0.9rem;
+        }
+        
+        .demo-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            margin: 0 10px;
+            transition: background 0.3s ease;
+        }
+        
+        .demo-btn:hover {
+            background: #5a67d8;
+        }
+        
+        .demo-btn.secondary {
+            background: #6c757d;
+        }
+        
+        .demo-btn.secondary:hover {
+            background: #5a6268;
+        }
+        
+        .demo-actions {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 20px 0;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="scenario-container">
+        <!-- 시나리오 헤더 -->
+        <header class="scenario-header">
+            <h1 class="scenario-title">🤝 시나리오 2: 회의실 장비 공유 매칭</h1>
+            <p class="scenario-description">
+                인천시청에서 회의실 프로젝터 30대가 필요할 때, 
+                "정부판 카셰어링" AI가 어떻게 7만 기관을 연결하여 최적 공유 매칭을 제공하는지 살펴봅시다.
+            </p>
+        </header>
+
+        <!-- 데모 플로우 -->
+        <main class="demo-flow">
+            <!-- Step 1: 공유 요청 -->
+            <section class="demo-step">
+                <div class="step-number">1</div>
+                <h2 class="step-title">📋 장비 공유 요청</h2>
+                <div class="step-content">
+                    <p>인천시청 기획팀에서 대규모 회의를 위한 장비 공유를 요청했습니다:</p>
+                    
+                    <div class="agency-card">
+                        <strong>장비 공유 요청서</strong><br>
+                        • 요청 기관: 인천시청<br>
+                        • 필요 장비: 회의실 프로젝터 30대<br>
+                        • 사용 기간: 2025년 7월 15일 ~ 7월 17일 (3일간)<br>
+                        • 사용 목적: 전국 지자체 정책포럼<br>
+                        • 검색 반경: 50km 이내<br>
+                        • 예상 구매 비용: 3억원
+                    </div>
+                    
+                    <p>💡 <strong>기존 방식</strong>: 임대업체 문의 → 견적 비교 → 계약 → 배송/설치</p>
+                    <p>🚀 <strong>AI 방식</strong>: 기관 네트워크 스캔 → 실시간 매칭 → 자동 계약 → 효율적 공유</p>
+                </div>
+            </section>
+
+            <!-- Step 2: AI 네트워크 스캔 -->
+            <section class="demo-step">
+                <div class="step-number">2</div>
+                <h2 class="step-title">🌐 AI 기관 네트워크 스캔</h2>
+                <div class="step-content">
+                    <p>AI가 50km 반경 내 공공기관을 실시간으로 스캔합니다:</p>
+                    
+                    <div class="sharing-network">
+                        <h4>🔍 스캔 결과: 반경 50km 내 32개 기관 발견</h4>
+                        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 15px; text-align: left;">
+                            <div>• 경기도청</div>
+                            <div>• 부천시청</div>
+                            <div>• 김포시청</div>
+                            <div>• 서울시청</div>
+                            <div>• 강화군청</div>
+                            <div>• 온양시청</div>
+                            <div>• 시흥시청</div>
+                            <div>• 안산시청</div>
+                            <div>• 기타 24개 기관...</div>
+                        </div>
+                    </div>
+                    
+                    <h4>📦 유휴 장비 스캔 결과</h4>
+                    <p>각 기관의 프로젝터 보유 현황과 7월 15-17일 가용성을 분석:</p>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin: 15px 0;">
+                        <div class="agency-card">
+                            <strong>✅ 공유 가능 기관: 8개</strong>
+                            <ul>
+                                <li>경기도청: 프로젝터 15대 (이용률 30%)</li>
+                                <li>부천시청: 프로젝터 12대 (이용률 25%)</li>
+                                <li>김포시청: 프로젝터 8대 (이용률 40%)</li>
+                                <li>기타 5개 기관...</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="agency-card">
+                            <strong>❌ 공유 불가 기관: 24개</strong>
+                            <ul>
+                                <li>서울시청: 동일 기간 시의회 개최</li>
+                                <li>안산시청: 장비 점검 중</li>
+                                <li>시흥시청: 보유 수량 부족</li>
+                                <li>기타 21개 기관...</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Step 3: 스마트 매칭 -->
+            <section class="demo-step">
+                <div class="step-number">3</div>
+                <h2 class="step-title">🎯 AI 스마트 매칭 알고리즘</h2>
+                <div class="step-content">
+                    <p>AI가 거리, 가용성, 비용, 신뢰도를 종합 평가하여 최적 매칭을 제안합니다:</p>
+                    
+                    <h4>🏆 매칭 결과 (총 30대 확보)</h4>
+                    
+                    <div class="agency-card">
+                        <div class="agency-header">
+                            <span class="agency-name">1순위: 경기도청</span>
+                            <span class="match-score">매칭도 95%</span>
+                        </div>
+                        <div class="agency-details">
+                            <div><strong>제공 수량:</strong> 15대</div>
+                            <div><strong>거리:</strong> 28km (40분)</div>
+                            <div><strong>이용률:</strong> 30%</div>
+                            <div><strong>가용 기간:</strong> 7/14~7/18</div>
+                            <div><strong>운송비:</strong> 15만원</div>
+                            <div><strong>신뢰도:</strong> ⭐⭐⭐⭐⭐</div>
+                        </div>
+                    </div>
+                    
+                    <div class="agency-card">
+                        <div class="agency-header">
+                            <span class="agency-name">2순위: 부천시청</span>
+                            <span class="match-score">매칭도 88%</span>
+                        </div>
+                        <div class="agency-details">
+                            <div><strong>제공 수량:</strong> 12대</div>
+                            <div><strong>거리:</strong> 15km (25분)</div>
+                            <div><strong>이용률:</strong> 25%</div>
+                            <div><strong>가용 기간:</strong> 7/15~7/17</div>
+                            <div><strong>운송비:</strong> 8만원</div>
+                            <div><strong>신뢰도:</strong> ⭐⭐⭐⭐</div>
+                        </div>
+                    </div>
+                    
+                    <div class="agency-card">
+                        <div class="agency-header">
+                            <span class="agency-name">3순위: 김포시청</span>
+                            <span class="match-score">매칭도 82%</span>
+                        </div>
+                        <div class="agency-details">
+                            <div><strong>제공 수량:</strong> 8대</div>
+                            <div><strong>거리:</strong> 22km (35분)</div>
+                            <div><strong>이용률:</strong> 40%</div>
+                            <div><strong>가용 기간:</strong> 7/15~7/18</div>
+                            <div><strong>운송비:</strong> 5만원</div>
+                            <div><strong>신뢰도:</strong> ⭐⭐⭐⭐</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Step 4: 비용 분석 -->
+            <section class="demo-step">
+                <div class="step-number">4</div>
+                <h2 class="step-title">💰 비용 분석 및 절약 효과</h2>
+                <div class="step-content">
+                    <div class="cost-comparison">
+                        <div class="cost-item purchase">
+                            <h4>신규 구매</h4>
+                            <div class="cost-value">3억원</div>
+                            <p>프로젝터 30대 구매 + 설치비</p>
+                        </div>
+                        
+                        <div class="cost-item sharing">
+                            <h4>공유 총 비용</h4>
+                            <div class="cost-value">28만원</div>
+                            <p>운송비 + 보험비 + 관리비</p>
+                        </div>
+                        
+                        <div class="cost-item savings">
+                            <h4>절약 효과</h4>
+                            <div class="cost-value">2억 9,972만원</div>
+                            <p>99.9% 비용 절감!</p>
+                        </div>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        🎉 놀라운 절약 효과: 99.9% 비용 절감!<br>
+                        3일간 사용을 위해 3억원을 쓸 이유가 없습니다.
+                    </div>
+                    
+                    <h4>📊 세부 비용 분석</h4>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;">
+                        <div class="agency-card">
+                            <strong>공유 비용 상세</strong>
+                            <ul>
+                                <li>경기도청 운송비: 15만원</li>
+                                <li>부천시청 운송비: 8만원</li>
+                                <li>김포시청 운송비: 5만원</li>
+                                <li>총 운송비: 28만원</li>
+                                <li>보험비: 포함</li>
+                                <li>기술 지원: 무료</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="agency-card">
+                            <strong>추가 혜택</strong>
+                            <ul>
+                                <li>🚚 당일 배송/회수</li>
+                                <li>🔧 현장 기술지원</li>
+                                <li>📞 24시간 고객지원</li>
+                                <li>💼 보험 자동 적용</li>
+                                <li>🤝 기관간 협력 강화</li>
+                                <li>♻️ 자원 순환 경제 기여</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Step 5: 자동 계약 생성 -->
+            <section class="demo-step">
+                <div class="step-number">5</div>
+                <h2 class="step-title">📄 AI 자동 계약서 생성</h2>
+                <div class="step-content">
+                    <p>AI가 법무팀 검토를 거친 표준 양식으로 계약서를 자동 생성합니다:</p>
+                    
+                    <div class="contract-preview">
+                        <strong>공공기관간 장비 공유 계약서</strong>
+                        
+                        제1조 (목적) 본 계약은 인천시청(이하 "수요기관")과 경기도청, 부천시청, 김포시청 
+                        (이하 "공급기관")간의 프로젝터 장비 공유에 관한 사항을 정함을 목적으로 한다.
+                        
+                        제2조 (장비 및 기간)
+                        - 장비: 회의실용 프로젝터 총 30대 (경기도청 15대, 부천시청 12대, 김포시청 8대)
+                        - 기간: 2025년 7월 15일 10:00 ~ 2025년 7월 17일 18:00
+                        - 장소: 인천시청 대회의실 및 분과회의실
+                        
+                        제3조 (비용)
+                        - 운송비: 총 28만원 (수요기관 부담)
+                        - 보험료: 공급기관 부담
+                        - 기술지원: 무상 제공
+                        
+                        제4조 (책임) 장비 사용 중 발생하는 손해는 수요기관이 배상한다.
+                        
+                        제5조 (기타) 본 계약에 명시되지 않은 사항은 「공공기관간 협력에 관한 기본 약정」을 따른다.
+                        
+                        ※ 본 계약서는 AI가 자동 생성하였으며, 법무팀 검토 완료
+                    </div>
+                    
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-date">7월 14일</div>
+                            <div class="timeline-action">장비 수거 및 운송</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">7월 15일</div>
+                            <div class="timeline-action">설치 및 테스트</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">7월 15-17일</div>
+                            <div class="timeline-action">포럼 행사 진행</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">7월 18일</div>
+                            <div class="timeline-action">철수 및 반납</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Step 6: 네트워크 효과 -->
+            <section class="demo-step">
+                <div class="step-number">6</div>
+                <h2 class="step-title">🌐 공공 자원 공유 네트워크 효과</h2>
+                <div class="step-content">
+                    <h4>🔄 선순환 구조</h4>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
+                        <div class="agency-card">
+                            <h5>🎁 공급기관 혜택 (경기도청, 부천시청, 김포시청)</h5>
+                            <ul>
+                                <li>💰 유휴 자원 수익화 (28만원 분배)</li>
+                                <li>📊 장비 활용률 향상 (30% → 70%)</li>
+                                <li>🤝 기관간 협력 관계 강화</li>
+                                <li>🏆 자원 공유 실적 인정</li>
+                                <li>📈 ESG 경영 평가 상승</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="agency-card">
+                            <h5>🎯 수요기관 혜택 (인천시청)</h5>
+                            <ul>
+                                <li>💸 99.9% 비용 절감 (2억 9,972만원)</li>
+                                <li>⚡ 신속한 문제 해결 (1일 내)</li>
+                                <li>🔧 전문 기술지원 제공</li>
+                                <li>📋 복잡한 조달 절차 생략</li>
+                                <li>🌱 친환경 자원 순환 기여</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        🌟 네트워크 효과: 참여 기관이 많을수록 모든 기관이 더 많은 혜택!<br>
+                        현재 시범 지역: 수도권 32개 기관 → 목표: 전국 7만 기관
+                    </div>
+                    
+                    <h4>📈 확장 가능성</h4>
+                    <p>이 시나리오가 전국 7만 기관으로 확산될 경우:</p>
+                    <ul>
+                        <li><strong>기관간 중복 구매 90% 방지</strong> → 연간 1조원 절약</li>
+                        <li><strong>기존 자원 활용률 200% 향상</strong> → 추가 구매 필요성 감소</li>
+                        <li><strong>탄소 배출량 50% 감소</strong> → 녹색 조달 선도</li>
+                        <li><strong>지역간 협력 활성화</strong> → 균형 발전 기여</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Step 7: 결과 요약 -->
+            <section class="demo-step">
+                <div class="step-number">7</div>
+                <h2 class="step-title">🎯 시나리오 결과 요약</h2>
+                <div class="step-content">
+                    <h4>🏆 달성 성과</h4>
+                    <div class="agency-card" style="background: #e8f5e8;">
+                        <ul>
+                            <li><strong>비용 절약:</strong> 2억 9,972만원 (99.9% 절감)</li>
+                            <li><strong>처리 시간:</strong> 2주 → 1일 (93% 단축)</li>
+                            <li><strong>자원 효율:</strong> 3개 기관 유휴 장비 활용</li>
+                            <li><strong>협력 강화:</strong> 4개 기관 간 신뢰 관계 구축</li>
+                            <li><strong>환경 효과:</strong> 불필요한 제조 및 운송 방지</li>
+                        </ul>
+                    </div>
+                    
+                    <h4>🔍 핵심 인사이트</h4>
+                    <p>이 시나리오는 "통합 시스템 연결 AI"의 혁신성을 보여줍니다:</p>
+                    <ul>
+                        <li><strong>"새로 사지 말고 공유하자"</strong>는 네거티브 철학</li>
+                        <li>실시간 네트워크 스캔으로 숨겨진 자원 발굴</li>
+                        <li>AI 매칭 알고리즘으로 최적 조합 도출</li>
+                        <li>자동 계약 시스템으로 업무 효율성 극대화</li>
+                        <li>Win-Win 구조로 모든 참여자에게 혜택</li>
+                    </ul>
+                    
+                    <div class="highlight-box">
+                        💡 정부판 카셰어링의 위력!<br>
+                        "필요할 때만, 필요한 만큼, 가장 가까운 곳에서"
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- 데모 액션 -->
+        <div class="demo-actions">
+            <a href="scenario1.html" class="demo-btn secondary">이전 시나리오</a>
+            <a href="scenario3.html" class="demo-btn">다음 시나리오</a>
+            <a href="../modules/sharing.html" class="demo-btn">직접 체험하기</a>
+        </div>
+    </div>
+</body>
+</html>
