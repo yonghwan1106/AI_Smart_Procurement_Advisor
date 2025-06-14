@@ -227,6 +227,303 @@
             background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
         }
         
+        /* 풀스크린 히어로 슬라이더 스타일 */
+        .hero-section {
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .hero-slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+        }
+        
+        .slide.active {
+            opacity: 1;
+        }
+        
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                135deg, 
+                rgba(44, 90, 160, 0.3) 0%, 
+                rgba(102, 126, 234, 0.2) 50%,
+                rgba(116, 75, 162, 0.3) 100%
+            );
+            z-index: 1;
+        }
+        
+        .slide-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            z-index: 2;
+            width: 90%;
+            max-width: 1200px;
+        }
+        
+        .slide-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(0, 123, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 50px;
+            padding: 0.75rem 1.5rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 1px 10px rgba(0, 0, 0, 0.5);
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+        
+        .slide-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+           color: yellow; /* 또는 color: #fff; */
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.7), 0 0 30px rgba(0, 0, 0, 0.5);
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+        
+        .slide-subtitle {
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            font-weight: 300;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+           color: white; /* 또는 color: #fff; */
+            text-shadow: 0 1px 15px rgba(0, 0, 0, 0.7);
+            animation: fadeInUp 1s ease-out 0.9s both;
+        }
+        
+        .slide-description {
+            font-size: clamp(1rem, 1.5vw, 1.2rem);
+            line-height: 1.6;
+            margin-bottom: 2.5rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+           color: white; /* 또는 color: #fff; */
+            opacity: 0.95;
+            text-shadow: 0 1px 15px rgba(0, 0, 0, 0.7);
+            animation: fadeInUp 1s ease-out 1.2s both;
+        }
+        
+        .slide-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease-out 1.5s both;
+        }
+        
+        .hero-controls {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0.75rem;
+            z-index: 3;
+        }
+        
+        .control-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .control-dot.active {
+            background: white;
+            transform: scale(1.2);
+        }
+        
+        .hero-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 3;
+        }
+        
+        .hero-nav:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-50%) scale(1.1);
+        }
+        
+        .hero-nav.prev {
+            left: 2rem;
+        }
+        
+        .hero-nav.next {
+            right: 2rem;
+        }
+        
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.1);
+            z-index: 2;
+        }
+        
+        /* 절약 효과 카운터 */
+        .savings-counter {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem auto;
+            max-width: 600px;
+            animation: fadeInUp 1s ease-out 1.8s both;
+        }
+        
+        .counter-container {
+            text-align: center;
+        }
+        
+        .counter-label {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+            text-shadow: 0 1px 10px rgba(0, 0, 0, 0.6);
+        }
+        
+        .counter-value {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 15px rgba(0, 0, 0, 0.7);
+        }
+        
+        .currency {
+            font-size: 2rem;
+            margin-left: 0.5rem;
+        }
+        
+        .counter-details {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+        
+        .detail-item {
+            text-align: center;
+        }
+        
+        .detail-label {
+            display: block;
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 1px 8px rgba(0, 0, 0, 0.6);
+        }
+        
+        .detail-value {
+            display: block;
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-shadow: 0 1px 10px rgba(0, 0, 0, 0.6);
+        }
+        
+        /* 애니메이션 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* 반응형 디자인 */
+        @media (max-width: 768px) {
+            .hero-nav {
+                display: none;
+            }
+            
+            .slide-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn-large {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .counter-details {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .savings-counter {
+                margin: 1.5rem;
+                padding: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero-controls {
+                bottom: 1rem;
+            }
+            
+            .slide-content {
+                width: 95%;
+            }
+        }
+        
         .demo-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -406,87 +703,178 @@
 
     <!-- Main Content -->
     <main class="main-content">
-        <!-- Hero Section -->
-        <section id="home" class="hero-section" data-aos="fade-up">
-            <div class="hero-container">
-                <div class="hero-content">
-                    <div class="hero-badge">
-                        <span class="badge-icon">🏆</span>
-                        <span class="badge-text">2025 공공조달 AI 활용 아이디어 공모전</span>
-                    </div>
-                    
-                    <h1 class="hero-title">
-                        <span class="title-main">AI 스마트 조달 어드바이저</span>
-                        <span class="title-sub">네거티브 조달로 여는 공공부문 혁신</span>
-                    </h1>
-                    
-                    <p class="hero-description">
-                        조달청의 검증된 네거티브 방식을 전체 조달 과정으로 확장하여<br>
-                        <strong>불필요한 조달 30% 방지</strong>, <strong>연간 2조원 절약</strong> 효과 창출
-                    </p>
-                    
-                    <!-- 실시간 절약 효과 카운터 -->
-                    <div class="savings-counter" data-aos="zoom-in" data-aos-delay="300">
-                        <div class="counter-container">
-                            <div class="counter-label">실시간 예상 절약 효과</div>
-                            <div class="counter-value">
-                                <span id="savingsAmount" class="amount">0</span>
-                                <span class="currency">조원</span>
-                            </div>
-                            <div class="counter-details">
-                                <div class="detail-item">
-                                    <span class="detail-label">절약률</span>
-                                    <span class="detail-value" id="savingsRate">0%</span>
-                                </div>
-                                <div class="detail-item">
-                                    <span class="detail-label">처리된 요청</span>
-                                    <span class="detail-value" id="processedRequests">0건</span>
-                                </div>
-                                <div class="detail-item">
-                                    <span class="detail-label">참여 기관</span>
-                                    <span class="detail-value" id="participatingAgencies">0개</span>
-                                </div>
-                            </div>
+        <!-- Hero Section - Fullscreen Slider -->
+        <section id="home" class="hero-section">
+            <!-- Slider Container -->
+            <div class="hero-slider">
+                <!-- Slide 1: 필요성 검증 AI -->
+                <div class="slide active" style="background-image: url('assets/images/pexels-asphotograpy-95916.jpg');">
+                    <div class="slide-content">
+                        <div class="slide-badge">
+                            <span>🔍</span>
+                            <span>필요성 검증 AI</span>
                         </div>
-                    </div>
-                    
-                    <div class="hero-actions">
-                        <button class="btn btn-primary btn-large" onclick="window.location.href='#demo'">
-                            <i class="fas fa-play"></i>
-                            지금 체험하기
-                        </button>
-                        <button class="btn btn-outline btn-large" onclick="window.location.href='#about'">
-                            <i class="fas fa-book"></i>
-                            더 알아보기
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="hero-visual">
-                    <div class="visual-container">
-                        <!-- AI 네트워크 시각화 -->
-                        <div class="ai-network" id="aiNetwork">
-                            <div class="network-node central" data-tooltip="중앙 AI 허브">
-                                <i class="fas fa-brain"></i>
-                            </div>
-                            <div class="network-node module" data-module="necessity" data-tooltip="필요성 검증 AI">
+                        
+                        <h1 class="slide-title">
+                            똑똑한 조달 시작
+                        </h1>
+                        <p class="slide-subtitle">
+                            "정말 사야 할까?"를 먼저 묻는 AI
+                        </p>
+                        <p class="slide-description">
+                            조달 요청서를 분석하여 진짜 필요성과 관행적 구매를 구분하고,<br>
+                            <strong>불필요한 조달 30% 방지</strong>로 스마트한 예산 절약을 실현합니다.
+                        </p>
+                        
+                        <div class="slide-actions">
+                            <button class="btn btn-primary btn-large" onclick="window.open('modules/necessity.html', '_blank')">
                                 <i class="fas fa-search"></i>
-                            </div>
-                            <div class="network-node module" data-module="sharing" data-tooltip="시스템 연결 AI">
-                                <i class="fas fa-share-alt"></i>
-                            </div>
-                            <div class="network-node module" data-module="timing" data-tooltip="타이밍 최적화 AI">
-                                <i class="fas fa-clock"></i>
-                            </div>
-                            <div class="network-node module" data-module="esg" data-tooltip="ESG 평가 AI">
-                                <i class="fas fa-leaf"></i>
-                            </div>
-                            <div class="network-node module" data-module="expert" data-tooltip="전문가 역량 AI">
-                                <i class="fas fa-graduation-cap"></i>
-                            </div>
+                                필요성 검증 체험
+                            </button>
+                            <button class="btn btn-outline btn-large" onclick="window.open('demo/scenario1.html', '_blank')">
+                                <i class="fas fa-play"></i>
+                                시나리오 보기
+                            </button>
                         </div>
                     </div>
                 </div>
+
+                <!-- Slide 2: 통합 시스템 연결 AI -->
+                <div class="slide" style="background-image: url('assets/images/pexels-cookiecutter-1148820.jpg');">
+                    <div class="slide-content">
+                        <div class="slide-badge">
+                            <span>🔗</span>
+                            <span>통합 시스템 연결 AI</span>
+                        </div>
+                        
+                        <h1 class="slide-title">
+                            정부판 카셰어링
+                        </h1>
+                        <p class="slide-subtitle">
+                            7만 기관을 연결하는 스마트 공유 네트워크
+                        </p>
+                        <p class="slide-description">
+                            전국 공공기관의 유휴 자원을 실시간으로 매칭하여<br>
+                            <strong>"새로 사지 않고 공유하는"</strong> 혁신적인 조달 생태계를 구현합니다.
+                        </p>
+                        
+                        <div class="slide-actions">
+                            <button class="btn btn-primary btn-large" onclick="window.open('modules/sharing.html', '_blank')">
+                                <i class="fas fa-share-alt"></i>
+                                공유 매칭 체험
+                            </button>
+                            <button class="btn btn-outline btn-large" onclick="window.open('demo/scenario2.html', '_blank')">
+                                <i class="fas fa-play"></i>
+                                시나리오 보기
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 3: 스마트 타이밍 AI -->
+                <div class="slide" style="background-image: url('assets/images/pexels-fernando-narvaez-2150621466-32529341.jpg');">
+                    <div class="slide-content">
+                        <div class="slide-badge">
+                            <span>⏰</span>
+                            <span>스마트 타이밍 AI</span>
+                        </div>
+                        
+                        <h1 class="slide-title">
+                            조달계의 블랙프라이데이
+                        </h1>
+                        <p class="slide-subtitle">
+                            209조원 시장의 최적 구매 시점 예측
+                        </p>
+                        <p class="slide-description">
+                            시장 동향과 트렌드를 분석하여 최적의 구매 타이밍을 제시하고<br>
+                            <strong>"지금 사면 안 되는 시점"</strong>을 사전에 경고합니다.
+                        </p>
+                        
+                        <div class="slide-actions">
+                            <button class="btn btn-primary btn-large" onclick="window.open('modules/timing.html', '_blank')">
+                                <i class="fas fa-clock"></i>
+                                타이밍 분석 체험
+                            </button>
+                            <button class="btn btn-outline btn-large" onclick="window.open('demo/scenario3.html', '_blank')">
+                                <i class="fas fa-play"></i>
+                                시나리오 보기
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 4: ESG 스마트 평가 AI -->
+                <div class="slide" style="background-image: url('assets/images/pexels-cup-of-couple-6963622.jpg');">
+                    <div class="slide-content">
+                        <div class="slide-badge">
+                            <span>🌱</span>
+                            <span>ESG 스마트 평가 AI</span>
+                        </div>
+                        
+                        <h1 class="slide-title">
+                            착한 조달 AI 계산기
+                        </h1>
+                        <p class="slide-subtitle">
+                            환경·사회적 가치를 자동으로 평가
+                        </p>
+                        <p class="slide-description">
+                            ESG 기준으로 조달 옵션을 평가하여 환경과 사회에 미치는 영향을 계산하고<br>
+                            <strong>"착한 조달"</strong>의 길잡이가 되어드립니다.
+                        </p>
+                        
+                        <div class="slide-actions">
+                            <button class="btn btn-primary btn-large" onclick="window.open('modules/esg.html', '_blank')">
+                                <i class="fas fa-leaf"></i>
+                                ESG 평가 체험
+                            </button>
+                            <button class="btn btn-outline btn-large" onclick="window.location.href='#modules'">
+                                <i class="fas fa-info"></i>
+                                전체 모듈 보기
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 실시간 절약 효과 카운터 -->
+            <div class="savings-counter" data-aos="zoom-in" data-aos-delay="300">
+                <div class="counter-container">
+                    <div class="counter-label">AI 네거티브 조달 실시간 절약 효과</div>
+                    <div class="counter-value">
+                        <span id="savingsAmount" class="amount">2.1</span>
+                        <span class="currency">조원</span>
+                    </div>
+                    <div class="counter-details">
+                        <div class="detail-item">
+                            <span class="detail-label">절약률</span>
+                            <span class="detail-value" id="savingsRate">31%</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">처리된 요청</span>
+                            <span class="detail-value" id="processedRequests">15,847건</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">참여 기관</span>
+                            <span class="detail-value" id="participatingAgencies">2,156개</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Controls -->
+            <div class="hero-nav prev" id="prevSlide">
+                <i class="fas fa-chevron-left"></i>
+            </div>
+            <div class="hero-nav next" id="nextSlide">
+                <i class="fas fa-chevron-right"></i>
+            </div>
+
+            <!-- Slide Indicators -->
+            <div class="hero-controls">
+                <div class="control-dot active" data-slide="0"></div>
+                <div class="control-dot" data-slide="1"></div>
+                <div class="control-dot" data-slide="2"></div>
+                <div class="control-dot" data-slide="3"></div>
             </div>
         </section>
 
@@ -1152,6 +1540,121 @@
             offset: 100
         });
 
+        // Hero Slider Functionality
+        class HeroSlider {
+            constructor() {
+                this.slides = document.querySelectorAll('.slide');
+                this.dots = document.querySelectorAll('.control-dot');
+                this.prevBtn = document.getElementById('prevSlide');
+                this.nextBtn = document.getElementById('nextSlide');
+                this.currentSlide = 0;
+                this.slideInterval = null;
+                this.autoSlideDelay = 5000; // 5초마다 자동 전환
+                
+                this.init();
+            }
+            
+            init() {
+                // 이벤트 리스너 추가
+                this.prevBtn.addEventListener('click', () => this.prevSlide());
+                this.nextBtn.addEventListener('click', () => this.nextSlide());
+                
+                this.dots.forEach((dot, index) => {
+                    dot.addEventListener('click', () => this.goToSlide(index));
+                });
+                
+                // 키보드 네비게이션
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowLeft') this.prevSlide();
+                    if (e.key === 'ArrowRight') this.nextSlide();
+                });
+                
+                // 마우스 호버 시 자동 슬라이드 정지
+                const heroSection = document.querySelector('.hero-section');
+                heroSection.addEventListener('mouseenter', () => this.stopAutoSlide());
+                heroSection.addEventListener('mouseleave', () => this.startAutoSlide());
+                
+                // 자동 슬라이드 시작
+                this.startAutoSlide();
+            }
+            
+            goToSlide(index) {
+                // 현재 슬라이드 비활성화
+                this.slides[this.currentSlide].classList.remove('active');
+                this.dots[this.currentSlide].classList.remove('active');
+                
+                // 새 슬라이드 활성화
+                this.currentSlide = index;
+                this.slides[this.currentSlide].classList.add('active');
+                this.dots[this.currentSlide].classList.add('active');
+                
+                // 자동 슬라이드 재시작
+                this.restartAutoSlide();
+            }
+            
+            nextSlide() {
+                const nextIndex = (this.currentSlide + 1) % this.slides.length;
+                this.goToSlide(nextIndex);
+            }
+            
+            prevSlide() {
+                const prevIndex = (this.currentSlide - 1 + this.slides.length) % this.slides.length;
+                this.goToSlide(prevIndex);
+            }
+            
+            startAutoSlide() {
+                this.slideInterval = setInterval(() => {
+                    this.nextSlide();
+                }, this.autoSlideDelay);
+            }
+            
+            stopAutoSlide() {
+                if (this.slideInterval) {
+                    clearInterval(this.slideInterval);
+                    this.slideInterval = null;
+                }
+            }
+            
+            restartAutoSlide() {
+                this.stopAutoSlide();
+                this.startAutoSlide();
+            }
+        }
+
+        // 실시간 카운터 애니메이션
+        function animateCounters() {
+            const counters = [
+                { element: document.getElementById('savingsAmount'), target: 2.1, decimal: 1, suffix: '' },
+                { element: document.getElementById('savingsRate'), target: 31, decimal: 0, suffix: '%' },
+                { element: document.getElementById('processedRequests'), target: 15847, decimal: 0, suffix: '건' },
+                { element: document.getElementById('participatingAgencies'), target: 2156, decimal: 0, suffix: '개' }
+            ];
+            
+            counters.forEach(counter => {
+                if (!counter.element) return;
+                
+                const duration = 3000; // 3초 동안 애니메이션
+                const steps = 60;
+                const stepValue = counter.target / steps;
+                const stepTime = duration / steps;
+                let current = 0;
+                
+                const timer = setInterval(() => {
+                    current += stepValue;
+                    if (current >= counter.target) {
+                        current = counter.target;
+                        clearInterval(timer);
+                    }
+                    
+                    if (counter.decimal > 0) {
+                        counter.element.textContent = current.toFixed(counter.decimal);
+                    } else {
+                        counter.element.textContent = Math.floor(current).toLocaleString();
+                    }
+                }, stepTime);
+            });
+        }
+
         // 전체 데모 시작 함수
         function startFullDemo() {
             // 사용자에게 확인 메시지 표시
@@ -1174,6 +1677,16 @@
             setTimeout(() => {
                 document.getElementById('loadingOverlay').style.display = 'none';
             }, 1500);
+
+            // Initialize hero slider
+            setTimeout(() => {
+                new HeroSlider();
+            }, 2000);
+            
+            // Start counter animation after slider is ready
+            setTimeout(() => {
+                animateCounters();
+            }, 3000);
 
             // Initialize app
             if (typeof AISmartProcurement !== 'undefined') {
