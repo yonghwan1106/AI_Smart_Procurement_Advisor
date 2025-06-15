@@ -1211,10 +1211,17 @@
             <div class="nav-container">
                 <div class="nav-brand">
                     <img src="assets/images/logos/main-logo.svg" alt="AI 스마트 조달 어드바이저" class="logo">
-                    <h1 class="brand-text">AI 스마트 조달 어드바이저</h1>
+                    <!--h1 class="brand-text">AI 스마트 조달 어드바이저</h1-->
                 </div>
                 
-                <div class="nav-menu">
+                <!-- 모바일 햄버거 메뉴 버튼 -->
+                <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="메뉴 열기">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+                
+                <div class="nav-menu" id="navMenu">
                     <a href="#home" class="nav-link active" data-section="home">
                         <i class="fas fa-home"></i>
                         <span>홈</span>
@@ -1235,9 +1242,17 @@
                         <i class="fas fa-info-circle"></i>
                         <span>소개</span>
                     </a>
+                    
+                    <!-- 모바일에서만 표시되는 체험하기 버튼 -->
+                    <!--div class="mobile-cta">
+                        <button class="btn btn-primary btn-mobile-cta" onclick="window.location.href='#demo'">
+                            <i class="fas fa-rocket"></i>
+                            체험하기
+                        </button>
+                    </div-->
                 </div>
                 
-                <div class="nav-actions">
+                <div class="nav-actions desktop-only">
                     <button class="btn btn-primary" onclick="window.location.href='#demo'">
                         <i class="fas fa-rocket"></i>
                         체험하기
@@ -2500,6 +2515,25 @@
                 window.app = new AISmartProcurement();
                 window.app.init();
             }
+        });
+
+        // 햄버거 메뉴 토글 (모바일)
+        document.addEventListener('DOMContentLoaded', function() {
+          const menuToggle = document.getElementById('mobileMenuToggle');
+          const navMenu = document.getElementById('navMenu');
+          if (menuToggle && navMenu) {
+            menuToggle.addEventListener('click', function() {
+              menuToggle.classList.toggle('active');
+              navMenu.classList.toggle('active');
+            });
+            // 메뉴 클릭 시 자동 닫힘 (모바일 UX)
+            navMenu.querySelectorAll('.nav-link').forEach(link => {
+              link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                navMenu.classList.remove('active');
+              });
+            });
+          }
         });
     </script>
 </body>
